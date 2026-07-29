@@ -298,6 +298,8 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: /delete$/i }))
     expect(screen.getByRole('dialog', { name: /delete vehicle/i })).toBeTruthy()
+    expect(screen.getByText(/selected vehicle/i)).toBeTruthy()
+    expect(screen.getAllByText(/Honda Civic/i).length).toBeGreaterThan(0)
     expect(screen.getByText(/cannot be undone/i)).toBeTruthy()
     await user.click(screen.getByRole('button', { name: /cancel/i }))
   })

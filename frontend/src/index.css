@@ -465,3 +465,24 @@ html, body { overflow-x: hidden; }
   .delete-warning { margin-inline: 1rem; }
   .delete-actions { margin-inline: 1rem; }
 }
+
+/* Make destructive confirmations scannable: identify the record first, then explain the risk. */
+.delete-dialog-header { display: flex; align-items: flex-start; gap: 0.85rem; border-bottom: 1px solid #d5e3f1; padding: 1.35rem 1.5rem 1.1rem; }
+.delete-dialog-icon { display: grid; flex: 0 0 2.75rem; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid #f0b9b2; border-radius: 0.75rem; background: #fff1ef; color: #b42318; }
+.delete-dialog-icon svg { width: 1.35rem; height: 1.35rem; }
+.delete-dialog-copy { min-width: 0; flex: 1; }
+.delete-dialog-copy h2 { margin: 0; color: #153b66; font-size: 1.3rem; }
+.delete-dialog-copy p:last-child { margin: 0.35rem 0 0; color: #66819c; font-size: 0.82rem; }
+.delete-vehicle-summary { display: flex; flex-direction: column; gap: 0.25rem; margin: 1.15rem 1.5rem 0; border: 1px solid #c5dced; border-radius: 0.7rem; background: #f4f8fd; padding: 0.9rem 1rem; }
+.delete-vehicle-label { color: #587492; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.delete-vehicle-summary strong { color: #153b66; font-size: 1rem; }
+.delete-vehicle-summary span:last-child { color: #66819c; font-size: 0.78rem; }
+.delete-warning { display: flex; align-items: flex-start; gap: 0.65rem; margin: 1rem 1.5rem 0; border: 1px solid #f0b9b2; border-radius: 0.7rem; background: #fff4f2; padding: 0.85rem; color: #8f251a; font-size: 0.8rem; line-height: 1.5; }
+.warning-icon { display: inline-flex; flex: 0 0 auto; color: #b42318; }
+.warning-icon svg { width: 1.1rem; height: 1.1rem; margin-top: 0.1rem; }
+.delete-actions { margin: 1.2rem 1.5rem 1.5rem; }
+.danger-action { min-width: 8.5rem; }
+@media (max-width: 600px) {
+  .delete-dialog-header { padding-inline: 1rem; }
+  .delete-vehicle-summary { margin-inline: 1rem; }
+}

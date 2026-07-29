@@ -455,11 +455,13 @@ function App() {
           {deleteVehicleTarget && (
             <div className="modal-backdrop" role="presentation">
               <section className="vehicle-modal inventory-modal danger-modal" role="dialog" aria-modal="true" aria-labelledby="delete-vehicle-title">
-                <div className="vehicle-modal-header">
-                  <div><p className="modal-eyebrow">Destructive action</p><h2 id="delete-vehicle-title">Delete vehicle?</h2><p>This will permanently remove {deleteVehicleTarget.make} {deleteVehicleTarget.model} from the inventory.</p></div>
+                <div className="delete-dialog-header">
+                  <span className="delete-dialog-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9"><path d="M6 7h12M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M8 10v7m4-7v7m4-7v7M5.5 7l1 13h11l1-13" /></svg></span>
+                  <div className="delete-dialog-copy"><p className="modal-eyebrow">Destructive action</p><h2 id="delete-vehicle-title">Delete vehicle?</h2><p>This will remove this vehicle from your inventory.</p></div>
                   <button className="modal-close" onClick={() => setDeleteVehicleTarget(null)} type="button" aria-label="Close delete confirmation">×</button>
                 </div>
-                <div className="delete-warning">This action cannot be undone. Choose Delete vehicle to continue.</div>
+                <div className="delete-vehicle-summary"><span className="delete-vehicle-label">Selected vehicle</span><strong>{deleteVehicleTarget.make} {deleteVehicleTarget.model}</strong><span>{deleteVehicleTarget.category} · ${deleteVehicleTarget.price.toLocaleString()} · {deleteVehicleTarget.quantity} in stock</span></div>
+                <div className="delete-warning"><span className="warning-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9"><path d="m12 4 9 16H3L12 4Z" /><path d="M12 9v5m0 3h.01" /></svg></span><span><strong>This action cannot be undone.</strong><br />The vehicle record and its stock details will be permanently removed.</span></div>
                 <div className="vehicle-form-actions delete-actions"><button className="modal-cancel" onClick={() => setDeleteVehicleTarget(null)} type="button">Cancel</button><button className="danger-action" disabled={isDeletingVehicle} onClick={() => void confirmDeleteVehicle()} type="button">{isDeletingVehicle ? 'Deleting...' : 'Delete vehicle'}</button></div>
               </section>
             </div>
