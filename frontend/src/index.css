@@ -254,3 +254,51 @@ button { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* Blue-white visual theme: calm, technical, and consistent across auth and inventory. */
+:root { color: #eff6ff; background: #07111f; }
+body { background: #07111f; }
+.auth-page, .dashboard-shell {
+  background:
+    radial-gradient(circle at 12% 10%, rgb(59 130 246 / 18%), transparent 28rem),
+    radial-gradient(circle at 86% 86%, rgb(147 197 253 / 12%), transparent 32rem),
+    #07111f;
+}
+.auth-eyebrow, .brand-eyebrow { color: #93c5fd; }
+.auth-intro p, .auth-subtitle, .dashboard-brand h2, .dashboard-header p { color: #a9bdd6; }
+.auth-proof span, .status-pill { border-color: #315276; color: #dbeafe; background: rgb(20 39 64 / 72%); }
+.auth-form { border-color: #294665; background: rgb(15 31 51 / 90%); box-shadow: 0 24px 80px rgb(2 12 27 / 42%); }
+.auth-form:hover { border-color: #4f78a3; }
+.cool-label { background: #0f2035; color: #bfdbfe; }
+.cool-input { border-color: #3d5d7f; background: #0a192c; color: #f8fbff; }
+.cool-input:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgb(96 165 250 / 18%); }
+.auth-button, .search-button, .purchase-button, .admin-card-action { background: #2563eb; }
+.auth-button:hover:not(:disabled), .search-button:hover, .purchase-button:hover:not(:disabled), .admin-card-action:hover { background: #3b82f6; }
+.auth-switch { color: #93c5fd; }
+.auth-switch:hover { color: #eff6ff; background: #183353; }
+.dashboard-topbar { border-color: #1d3652; }
+.dashboard-brand h1, .metric-value, .search-panel-header h2, .vehicle-card h2, .vehicle-modal-header h2 { color: #eff6ff; }
+.dashboard-logout:hover, .outline-action:hover { border-color: #60a5fa; color: #fff; background: #183353; }
+.status-pill.admin { border-color: #5b8cc4; color: #bfdbfe; }
+.metric-card, .search-panel, .vehicle-card { border-color: #294665; background: linear-gradient(135deg, #142b46, #102238); }
+.metric-icon { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+.metric-label { color: #a8c1df; }
+.metric-card small, .vehicle-name > p:last-child, .admin-card-description { color: #a9bdd6; }
+.search-panel-header p, .dashboard-field label { color: #a9bdd6; }
+.dashboard-field input { border-color: #365b81; background: #0a192c; color: #f8fbff; }
+.dashboard-field input:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgb(96 165 250 / 16%); }
+.vehicle-card:hover { border-color: #5a83ac; }
+.vehicle-art { color: #c7ddf5; }
+.vehicle-category { background: #25476d; color: #dbeafe; }
+.vehicle-card-footer { border-color: #36516f; }
+.admin-card { border-color: #365878; background: linear-gradient(105deg, rgb(20 43 70 / 92%), rgb(18 38 62 / 92%)); }
+.admin-card-icon { border-color: #4d7cac; background: rgb(37 99 235 / 20%); color: #bfdbfe; }
+.admin-card-title { color: #eff6ff; }
+.admin-card-action { border-color: #60a5fa; box-shadow: 0 8px 18px rgb(37 99 235 / 24%); }
+.admin-card-action:hover { box-shadow: 0 10px 24px rgb(59 130 246 / 30%); }
+.modal-backdrop { background: rgb(3 12 26 / 78%); }
+.vehicle-modal { border-color: #365878; background: #102238; box-shadow: 0 24px 80px rgb(2 12 27 / 52%); }
+.vehicle-modal-header { border-color: #294665; }
+.modal-eyebrow { color: #93c5fd; }
+.modal-close, .modal-cancel { border-color: #466987; color: #dbeafe; }
+.modal-close:hover, .modal-close:focus-visible, .modal-cancel:hover, .modal-cancel:focus-visible { border-color: #60a5fa; color: #fff; }

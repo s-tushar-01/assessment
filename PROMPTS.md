@@ -81,6 +81,7 @@ records retain every prompt and result from the development history.
 | 23 | 79-80 | UI Pro Max system and supplied reference dashboard implementation |
 | 24 | 81 | Admin add-vehicle action polish |
 | 25 | 82 | Replace add-vehicle browser prompts with an accessible form |
+| 26 | 83 | Apply cohesive blue-white UI color theme |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1666,6 +1667,31 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 83 - Cohesive blue-white color theme
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to change the whole webapp toward a cohesive
+bluish-white visual style. Update the authentication page, dashboard, cards,
+metrics, forms, modal, admin controls, borders, focus states, and primary
+actions so they share a blue-white palette. Preserve readable contrast,
+semantic error feedback, responsive behavior, and existing functionality.
+Update the design-system master file and prompt history, run frontend tests,
+build, and lint, then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Applied a cohesive blue-white palette across authentication and inventory
+screens, including blue ambient backgrounds, slate-blue panels, blue CTA
+buttons, pale-blue typography, and consistent focus/hover states. Updated the
+design-system master palette. The 13 frontend tests, production build, and
+lint pass.
+
 
 ## Entry 82 - Add vehicle form modal
 

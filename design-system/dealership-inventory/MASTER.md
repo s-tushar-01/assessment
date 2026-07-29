@@ -19,18 +19,18 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#1E293B` | `--color-primary` |
+| Primary | `#1D4ED8` | `--color-primary` |
 | On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#334155` | `--color-secondary` |
-| Accent/CTA | `#DC2626` | `--color-accent` |
-| Background | `#F8FAFC` | `--color-background` |
-| Foreground | `#0F172A` | `--color-foreground` |
-| Muted | `#E9EDF1` | `--color-muted` |
-| Border | `#E2E8F0` | `--color-border` |
-| Destructive | `#DC2626` | `--color-destructive` |
-| Ring | `#1E293B` | `--color-ring` |
+| Secondary | `#27476D` | `--color-secondary` |
+| Accent/CTA | `#2563EB` | `--color-accent` |
+| Background | `#07111F` | `--color-background` |
+| Foreground | `#EFF6FF` | `--color-foreground` |
+| Muted | `#A9BDD6` | `--color-muted` |
+| Border | `#294665` | `--color-border` |
+| Destructive | `#B91C1C` | `--color-destructive` |
+| Ring | `#60A5FA` | `--color-ring` |
 
-**Color Notes:** Premium dark + action red
+**Color Notes:** Blue-white technical interface with blue action emphasis
 
 ### Typography
 
