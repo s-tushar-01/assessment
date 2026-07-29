@@ -256,6 +256,23 @@ The update-vehicle test was initially failing because updateVehicle had not yet
 been implemented. The service was then added with price and quantity
 validation, and the complete backend suite passed.
 
+## Entry 29 - Vehicle update route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue vehicle updates using TDD. Write only a failing Supertest test for
+authenticated PUT /api/vehicles/:id with partial update fields. Run the test,
+then commit and push the Red-stage test. Do not implement the route yet.
+```
+
+**Status:**
+
+The update route test is intentionally failing because the vehicle router does
+not yet expose PUT /api/vehicles/:id.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
