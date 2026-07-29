@@ -352,6 +352,7 @@ describe('App', () => {
 
     render(<App />)
 
+    expect(screen.getByRole('contentinfo')).toBeTruthy()
     await userEvent.setup().click(screen.getByRole('button', { name: /filters/i }))
     expect(screen.getByLabelText(/model/i)).toBeTruthy()
     expect(screen.getByLabelText(/category/i)).toBeTruthy()

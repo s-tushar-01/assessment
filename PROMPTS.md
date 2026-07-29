@@ -94,6 +94,7 @@ records retain every prompt and result from the development history.
 | 36 | 93 | Replace delete browser confirmation with an in-app confirmation box |
 | 37 | 94 | Upgrade the delete confirmation dialog with clearer visual hierarchy |
 | 38 | 95 | Add Amazon-style global inventory search and progressive filters |
+| 39 | 96 | Add a clean navigation-free footer |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1753,6 +1754,30 @@ minimum and range searches; a responsive filter drawer beside Search; result
 counts, clear-all actions, keyboard form submission, and no-results guidance.
 The backend has 37 passing tests/build, and the frontend has 16 passing tests,
 build, and lint.
+
+
+## Entry 96 - Clean application footer
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to add a clean footer to the dealership inventory
+application. Do not add navigation or extra controls. Use a subtle blue-white
+style with the product name, a short supporting message, and copyright text;
+keep it responsive, accessible, and visually secondary on both the dashboard
+and authentication screens. Add focused coverage, run frontend tests, build,
+and lint, update PROMPTS.md, then commit and push with the AI co-author
+trailer.
+```
+
+**Status:**
+
+Added a centered, responsive footer with only the dealership name, supporting
+message, and copyright text. It is visually secondary, navigation-free, and
+present on both authenticated and authentication screens. Frontend tests,
+build, and lint pass.
 
 
 ## Entry 92 - Preserve zero-stock inventory records

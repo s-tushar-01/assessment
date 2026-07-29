@@ -529,3 +529,15 @@ html, body { overflow-x: hidden; }
   .filter-grid { grid-template-columns: 1fr; }
   .empty-inventory { margin-inline: 1rem; }
 }
+
+/* Quiet page ending: the footer supports the product identity without adding navigation noise. */
+.app-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.35rem 1rem; width: min(calc(100% - 4rem), 1480px); margin: 3.5rem auto 0; border-top: 1px solid #c5dced; padding: 1.25rem 1rem 1.5rem; color: #66819c; font-size: 0.76rem; text-align: center; }
+.app-footer strong { color: #1d5b9f; font-size: 0.78rem; }
+.app-footer span::before { content: "•"; margin-right: 1rem; color: #9abbd8; }
+.app-footer small { color: #7993ad; }
+.auth-page .app-footer { position: absolute; right: 0; bottom: 0; left: 0; width: 100%; margin: 0; border-top-color: #d5e3f1; background: rgb(244 248 253 / 88%); }
+@media (max-width: 600px) {
+  .app-footer { width: calc(100% - 2rem); margin-top: 2.5rem; padding-inline: 0.5rem; }
+  .app-footer span::before { display: none; }
+  .auth-page .app-footer { position: static; width: calc(100% - 2rem); margin-top: 2rem; background: transparent; }
+}

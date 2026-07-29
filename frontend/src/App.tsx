@@ -75,6 +75,16 @@ function VehicleGlyph() {
   )
 }
 
+function AppFooter() {
+  return (
+    <footer className="app-footer">
+      <strong>Dealership Inventory</strong>
+      <span>Manage your vehicle inventory with confidence.</span>
+      <small>© 2026 Dealership Inventory</small>
+    </footer>
+  )
+}
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => Boolean(localStorage.getItem('dealership_token')),
@@ -539,6 +549,7 @@ function App() {
             ))}
           </div>
         </section>
+        <AppFooter />
       </main>
     )
   }
@@ -626,6 +637,7 @@ function App() {
         </form>
         </section>
       </div>
+      <AppFooter />
     </main>
   )
 }
