@@ -125,3 +125,21 @@ The duplicate-email test passes with the existing implementation. The
 short-password test fails as expected because password-length validation is not
 implemented yet. The missing password-length validation was then implemented,
 and all three focused registration tests pass.
+
+## Entry 7 - Registration route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the registration TDD cycle by writing only a failing Supertest test
+for POST /api/auth/register. Test a valid request and expected 201 response.
+Run the focused tests, then commit and push the Red-stage route test. Do not
+implement the route yet.
+```
+
+**Status:**
+
+The route test is intentionally failing because the auth router does not exist
+yet.
