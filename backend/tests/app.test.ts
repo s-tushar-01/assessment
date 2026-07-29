@@ -63,4 +63,16 @@ describe('application wiring', () => {
     expect(response.status).toBe(201)
     expect(response.body.id).toBe('vehicle-1')
   })
+
+  it('allows the frontend origin to call the API', async () => {
+    const response = await request(
+      createApp({ registerUser: vi.fn() }),
+    )
+      .options('/api/auth/login')
+      .set('Origin', 'http://localhost:5173')
+      .set('Access-Control-Request-Method', 'POST')
+
+    expect(response.status).toBe(204)
+    expect(response.headers['access-control-allow-origin']).toBe('http://localhost:5173')
+  })
 })

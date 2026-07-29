@@ -68,7 +68,7 @@ records retain every prompt and result from the development history.
 | 12 | 38-41 | Restock service, admin route, and persistent database increment |
 
 This index is the serial implementation order. No later feature was implemented
-before the preceding featureÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢s recorded tests and verification.
+before the preceding featureÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢s recorded tests and verification.
 
 ## Commit and prompt conventions
 
@@ -1106,5 +1106,43 @@ Implemented role persistence, ADMIN-only Restock and Delete controls, protected
 endpoint calls, and local inventory updates. Frontend build and lint pass.
 
 
+## Entry 54 - Frontend test isolation and verification
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Run the frontend test suite with a single worker and fix the discovered test
+isolation issues. Add cleanup and mock restoration between React tests, make
+the search request explicitly use GET, configure Vitest for reliable local
+execution, then run the full frontend tests, build, and lint.
+```
+
+**Status:**
+
+Added React cleanup and mock restoration, configured Vitest to use one thread,
+and made the search method explicit. All 6 frontend tests, the production build,
+and lint now pass.
+
+
+
 ## Record maintenance
 
+## Entry 55 - API CORS Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing backend application test proving the API supports the Vite
+frontend origin at http://localhost:5173. An OPTIONS request must return 204 and
+the Access-Control-Allow-Origin header. Run the focused test, then commit and
+push the Red-stage test without implementing CORS.
+```
+
+**Status:**
+
+The CORS test is added as the next Red-stage contract. The Express app does not
+yet respond to browser preflight requests.
