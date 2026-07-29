@@ -86,3 +86,21 @@ configuration were created. No business feature has been implemented.
 
 For each AI interaction, record the exact prompt, relevant response, decision,
 files changed, tests run, and related commit.
+
+## Entry 5 - Registration TDD Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue with the process. Start the first TDD feature by writing only a
+failing backend test for user registration. Run it, show the failure, commit
+the Red-stage test with AI co-authorship, and push it to GitHub. Do not write
+the registration implementation yet.
+```
+
+**Status:**
+
+The first failing registration service test was added and run before
+implementation.
