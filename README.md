@@ -85,7 +85,7 @@ npm test
 
 See [TEST_REPORT.md](TEST_REPORT.md) for the latest automated verification.
 
-The final verification currently passes 35 backend tests and 8 frontend tests,
+The final verification currently passes 36 backend tests and 10 frontend tests,
 along with both production builds and frontend lint.
 
 ## My AI Usage
