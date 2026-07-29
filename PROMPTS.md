@@ -423,3 +423,20 @@ wire requireAuth into the vehicle router yet.
 The protected vehicle route test is intentionally failing because the vehicle
 router does not yet apply requireAuth. The router and production app were then
 updated to apply requireAuth to vehicle creation, and the focused tests passed.
+
+## Entry 23 - List vehicles Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue with GET /api/vehicles using TDD. Write only a failing service test
+for returning all available vehicles from the repository. Run the test, then
+commit and push the Red-stage test. Do not implement listVehicles yet.
+```
+
+**Status:**
+
+The list-vehicles test is intentionally failing because listVehicles has not
+yet been implemented.
