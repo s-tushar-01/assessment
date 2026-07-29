@@ -28,3 +28,9 @@ export async function createVehicle(
 
   return dependencies.repository.create(input)
 }
+
+export async function listVehicles(dependencies: {
+  repository: { findMany: () => Promise<VehicleRecord[]> }
+}) {
+  return dependencies.repository.findMany()
+}

@@ -439,4 +439,5 @@ commit and push the Red-stage test. Do not implement listVehicles yet.
 **Status:**
 
 The list-vehicles test is intentionally failing because listVehicles has not
-yet been implemented.
+yet been implemented. The listVehicles service was then added and the focused
+test passed.
