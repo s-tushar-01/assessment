@@ -160,4 +160,5 @@ Do not implement error handling yet.
 **Status:**
 
 The duplicate-email route test is failing because the router does not yet map
-the service error to an HTTP 409 response.
+the service error to an HTTP 409 response. The error mapping was then added and
+both route tests passed.

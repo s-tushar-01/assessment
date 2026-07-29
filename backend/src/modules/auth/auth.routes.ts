@@ -11,6 +11,12 @@ export function createAuthRouter(registerUser: RegisterHandler) {
       const user = await registerUser(request.body as RegistrationInput)
       return response.status(201).json(user)
     } catch (error) {
+      if (error instanceof Error && error.message === 'EMAIL_ALREADY_EXISTS') {
+        return response.status(409).json({
+          message: 'Email is already registered',
+        })
+      }
+
       return next(error)
     }
   })
