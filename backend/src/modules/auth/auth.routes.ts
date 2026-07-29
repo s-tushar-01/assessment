@@ -1,9 +1,13 @@
 import { Router } from 'express'
-import type { RegistrationInput } from './auth.service.js'
+import type { LoginInput, RegistrationInput } from './auth.service.js'
 
 export type RegisterHandler = (input: RegistrationInput) => Promise<unknown>
+export type LoginHandler = (input: LoginInput) => Promise<unknown>
 
-export function createAuthRouter(registerUser: RegisterHandler) {
+export function createAuthRouter(
+  registerUser: RegisterHandler,
+  loginUser?: LoginHandler,
+) {
   const router = Router()
 
   router.post('/register', async (request, response, next) => {
@@ -20,6 +24,21 @@ export function createAuthRouter(registerUser: RegisterHandler) {
       return next(error)
     }
   })
+
+  if (loginUser) {
+    router.post('/login', async (request, response, next) => {
+      try {
+        const result = await loginUser(request.body as LoginInput)
+        return response.status(200).json(result)
+      } catch (error) {
+        if (error instanceof Error && error.message === 'INVALID_CREDENTIALS') {
+          return response.status(401).json({ message: 'Invalid credentials' })
+        }
+
+        return next(error)
+      }
+    })
+  }
 
   return router
 }

@@ -254,4 +254,5 @@ implement the login route yet.
 **Status:**
 
 The login route test is intentionally failing because the auth router does not
-yet expose POST /api/auth/login.
+yet expose POST /api/auth/login. The login route was then added and the focused
+route tests passed.
