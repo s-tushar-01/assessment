@@ -181,3 +181,21 @@ and push it. Do not implement createApp yet.
 The application wiring test is intentionally failing because createApp has not
 yet been added. The createApp factory was then added and the application wiring
 test passed.
+
+## Entry 10 - Registration handler composition Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing unit test for a createRegisterHandler composition function. It
+should connect the tested registration service to a repository and password
+hashing dependency. Run all auth tests, then commit and push the Red-stage test.
+Do not implement the handler yet.
+```
+
+**Status:**
+
+The handler composition test is intentionally failing because the handler file
+does not exist yet.
