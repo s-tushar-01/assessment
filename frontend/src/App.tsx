@@ -1,7 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000'
+
+type Vehicle = {
+  id: string
+  make: string
+  model: string
+  category: string
+  price: number
+  quantity: number
+}
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -11,6 +20,31 @@ function App() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [vehicles, setVehicles] = useState<Vehicle[]>([])
+  const [isLoadingVehicles, setIsLoadingVehicles] = useState(false)
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    async function loadVehicles() {
+      setIsLoadingVehicles(true)
+      try {
+        const response = await fetch(`${API_URL}/api/vehicles`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+          },
+        })
+        if (!response.ok) throw new Error('Unable to load vehicles')
+        setVehicles(await response.json())
+      } catch (vehicleError) {
+        setError(vehicleError instanceof Error ? vehicleError.message : 'Unable to load vehicles')
+      } finally {
+        setIsLoadingVehicles(false)
+      }
+    }
+
+    void loadVehicles()
+  }, [isAuthenticated])
 
   async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -47,6 +81,25 @@ function App() {
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight">Inventory dashboard</h1>
           <p className="mt-3 text-slate-400">Manage and purchase available vehicles.</p>
+          {error && <p className="mt-6 text-sm text-rose-300" role="alert">{error}</p>}
+          {isLoadingVehicles && <p className="mt-8 text-slate-400">Loading vehicles…</p>}
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {vehicles.map((vehicle) => (
+              <article className="rounded-2xl border border-slate-800 bg-slate-900 p-5" key={vehicle.id}>
+                <p className="text-sm text-cyan-300">{vehicle.category}</p>
+                <h2 className="mt-2 text-xl font-semibold">{vehicle.make} {vehicle.model}</h2>
+                <p className="mt-4 text-lg font-medium">${vehicle.price.toLocaleString()}</p>
+                <p className="mt-1 text-sm text-slate-400">{vehicle.quantity} in stock</p>
+                <button
+                  className="mt-5 w-full rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+                  disabled={vehicle.quantity === 0}
+                  type="button"
+                >
+                  Purchase
+                </button>
+              </article>
+            ))}
+          </div>
         </section>
       </main>
     )

@@ -68,7 +68,7 @@ records retain every prompt and result from the development history.
 | 12 | 38-41 | Restock service, admin route, and persistent database increment |
 
 This index is the serial implementation order. No later feature was implemented
-before the preceding featureâ€™s recorded tests and verification.
+before the preceding featureÃ¢â‚¬â„¢s recorded tests and verification.
 
 ## Commit and prompt conventions
 
@@ -163,115 +163,6 @@ configuration were created. No business feature has been implemented.
 - Frontend lint passed.
 - PostgreSQL Docker Compose configuration was validated.
 
-## Record maintenance
-
-The prompt history is updated after each meaningful AI-assisted TDD cycle. New
-entries should preserve the same format: exact prompt, purpose, implementation
-result, verification, and commit/push outcome. Do not remove earlier prompts,
-including prompts whose Red-stage tests have already been made Green.
-
-## Entry 46 - Frontend inventory loading Red stage
-
-**AI tool:** OpenAI Codex
-
-**Prompt:**
-
-```text
-Continue the frontend TDD cycle. Add a failing React Testing Library test for
-an authenticated user loading GET /api/vehicles and seeing the vehicle make,
-model, and Purchase button. Run the focused test, then commit and push the
-Red-stage test without implementing inventory loading.
-```
-
-**Status:**
-
-The inventory test is added as the next Red-stage contract. The dashboard does
-not yet load or display vehicles.
-
-## Entry 42 - Frontend login Red stage
-
-**AI tool:** OpenAI Codex
-
-**Prompt:**
-
-```text
-Start the frontend implementation using TDD. Add only a failing React Testing
-Library test proving the application displays a sign-in heading, email field,
-password field, and sign-in button. Run the focused test, then commit and push
-the Red-stage test. Do not implement the login screen yet.
-```
-
-**Status:**
-
-The frontend login test is intentionally failing because the application still
-shows only the starter placeholder screen.
-
-The sign-in screen was implemented with accessible email and password fields
-and a styled submit button. The frontend build and lint pass; Vitest currently
-stops after startup without emitting a result and will be investigated during
-frontend test setup.
-
-## Entry 43 - Frontend login Green stage
-
-**AI tool:** OpenAI Codex
-
-**Prompt:**
-
-```text
-Implement the minimum accessible React login screen needed to make the
-Red-stage test pass. Use the selected Tailwind styling, run the frontend build
-and lint, update PROMPTS.md, then commit and push the Green-stage implementation
-with the AI co-author trailer.
-```
-
-**Status:**
-
-Implemented the styled sign-in screen with labelled email and password inputs
-and a submit button. Frontend build and lint pass. Vitest runner diagnostics
-remain to be resolved before final frontend verification.
-
-The login interaction contract was then added as Entry 44. The form now sends
-credentials to the backend, stores the returned token, shows errors, and opens
-the dashboard state after a successful response.
-
-## Entry 45 - Frontend login interaction Green stage
-
-**AI tool:** OpenAI Codex
-
-**Prompt:**
-
-```text
-Implement the minimum login behavior needed to make the interaction test pass:
-submit credentials to POST /api/auth/login, persist the returned token, handle
-errors, and show the inventory dashboard after success. Run the frontend build
-and lint, update PROMPTS.md, then commit and push the Green-stage implementation
-with the AI co-author trailer.
-```
-
-**Status:**
-
-Implemented login submission, token persistence, error state, loading state, and
-dashboard transition. Frontend build and lint pass. Vitest still requires runner
-diagnostics before its final result can be confirmed.
-
-## Entry 44 - Frontend login interaction Red stage
-
-**AI tool:** OpenAI Codex
-
-**Prompt:**
-
-```text
-Continue the frontend TDD cycle. Add a failing React Testing Library interaction
-test proving that submitting valid login credentials calls POST /api/auth/login,
-saves the returned token, and opens an inventory dashboard heading. Run the
-focused test, then commit and push the Red-stage test without implementing the
-login behavior.
-```
-
-**Status:**
-
-The interaction test is added as the next Red-stage contract. The current App
-does not yet submit credentials or transition to an inventory dashboard.
 ## Entry 5 - Registration TDD Red stage
 
 **AI tool:** OpenAI Codex
@@ -971,9 +862,130 @@ Added the ADMIN-protected restock endpoint, application wiring, and persistent
 Prisma increment. All 34 backend tests and the TypeScript build pass.
 
 
-## Record maintenance
+## Entry 42 - Frontend login Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Start the frontend implementation using TDD. Add only a failing React Testing
+Library test proving the application displays a sign-in heading, email field,
+password field, and sign-in button. Run the focused test, then commit and push
+the Red-stage test. Do not implement the login screen yet.
+```
+
+**Status:**
+
+The frontend login test is intentionally failing because the application still
+shows only the starter placeholder screen.
+
+The sign-in screen was implemented with accessible email and password fields
+and a styled submit button. The frontend build and lint pass; Vitest currently
+stops after startup without emitting a result and will be investigated during
+frontend test setup.
+
+## Entry 43 - Frontend login Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum accessible React login screen needed to make the
+Red-stage test pass. Use the selected Tailwind styling, run the frontend build
+and lint, update PROMPTS.md, then commit and push the Green-stage implementation
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented the styled sign-in screen with labelled email and password inputs
+and a submit button. Frontend build and lint pass. Vitest runner diagnostics
+remain to be resolved before final frontend verification.
+
+The login interaction contract was then added as Entry 44. The form now sends
+credentials to the backend, stores the returned token, shows errors, and opens
+the dashboard state after a successful response.
+
+## Entry 44 - Frontend login interaction Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library interaction
+test proving that submitting valid login credentials calls POST /api/auth/login,
+saves the returned token, and opens an inventory dashboard heading. Run the
+focused test, then commit and push the Red-stage test without implementing the
+login behavior.
+```
+
+**Status:**
+
+The interaction test is added as the next Red-stage contract. The current App
+does not yet submit credentials or transition to an inventory dashboard.
+## Entry 45 - Frontend login interaction Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum login behavior needed to make the interaction test pass:
+submit credentials to POST /api/auth/login, persist the returned token, handle
+errors, and show the inventory dashboard after success. Run the frontend build
+and lint, update PROMPTS.md, then commit and push the Green-stage implementation
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented login submission, token persistence, error state, loading state, and
+dashboard transition. Frontend build and lint pass. Vitest still requires runner
+diagnostics before its final result can be confirmed.
+
+## Entry 46 - Frontend inventory loading Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library test for
+an authenticated user loading GET /api/vehicles and seeing the vehicle make,
+model, and Purchase button. Run the focused test, then commit and push the
+Red-stage test without implementing inventory loading.
+```
+
+**Status:**
+
+The inventory test is added as the next Red-stage contract. The dashboard does
+not yet load or display vehicles.
+
+## Entry 47 - Frontend inventory loading Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum authenticated inventory loading needed to make the
+Red-stage test pass. Fetch GET /api/vehicles with the saved bearer token, render
+vehicle cards with make, model, price, and stock, and disable Purchase when
+quantity is zero. Run the frontend build and lint, update PROMPTS.md, then
+commit and push the Green-stage implementation with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented authenticated vehicle loading, inventory cards, loading/error
+states, and zero-stock purchase disabling. Frontend build and lint pass.
 
 The prompt history is updated after each meaningful AI-assisted TDD cycle. New
 entries should preserve the same format: exact prompt, purpose, implementation
 result, verification, and commit/push outcome. Do not remove earlier prompts,
 including prompts whose Red-stage tests have already been made Green.
+
+## Record maintenance
