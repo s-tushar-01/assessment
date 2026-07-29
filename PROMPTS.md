@@ -170,6 +170,24 @@ entries should preserve the same format: exact prompt, purpose, implementation
 result, verification, and commit/push outcome. Do not remove earlier prompts,
 including prompts whose Red-stage tests have already been made Green.
 
+## Entry 46 - Frontend inventory loading Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library test for
+an authenticated user loading GET /api/vehicles and seeing the vehicle make,
+model, and Purchase button. Run the focused test, then commit and push the
+Red-stage test without implementing inventory loading.
+```
+
+**Status:**
+
+The inventory test is added as the next Red-stage contract. The dashboard does
+not yet load or display vehicles.
+
 ## Entry 42 - Frontend login Red stage
 
 **AI tool:** OpenAI Codex

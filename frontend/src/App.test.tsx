@@ -39,4 +39,30 @@ describe('App', () => {
     )
     vi.restoreAllMocks()
   })
+
+  it('loads and displays available vehicles for an authenticated user', async () => {
+    localStorage.setItem('dealership_token', 'token-1')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify([
+          {
+            id: 'vehicle-1',
+            make: 'Honda',
+            model: 'Civic',
+            category: 'Sedan',
+            price: 28900,
+            quantity: 3,
+          },
+        ]),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+
+    render(<App />)
+
+    await waitFor(() => expect(screen.getByText('Honda Civic')).toBeTruthy())
+    expect(screen.getByRole('button', { name: /purchase/i })).toBeTruthy()
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
 })
