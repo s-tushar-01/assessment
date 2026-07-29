@@ -91,6 +91,7 @@ function App() {
     (total, vehicle) => total + vehicle.price * vehicle.quantity,
     0,
   )
+  const hasFilters = Boolean(makeFilter || modelFilter || categoryFilter || minPriceFilter || maxPriceFilter)
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -400,7 +401,10 @@ function App() {
           {error && <p className="error-message" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400" aria-live="polite">Loading vehicles...</p>}
           <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6" onSubmit={handleSearch}>
-            <div className="search-panel-header col-span-full"><h2>Search inventory</h2></div>
+            <div className="search-panel-header col-span-full">
+              <div><p className="search-panel-eyebrow">Inventory filters</p><h2>Search inventory</h2><p className="search-panel-helper">Refine the available stock by vehicle details and price.</p></div>
+              {hasFilters && <button className="clear-filters" onClick={() => { setMakeFilter(''); setModelFilter(''); setCategoryFilter(''); setMinPriceFilter(''); setMaxPriceFilter('') }} type="button">Clear filters</button>}
+            </div>
             <div className="dashboard-field">
               <label htmlFor="make-filter">Make</label>
               <input

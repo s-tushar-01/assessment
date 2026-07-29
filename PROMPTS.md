@@ -86,6 +86,7 @@ records retain every prompt and result from the development history.
 | 28 | 85 | Adapt authentication hero text to its blue-white background |
 | 29 | 86 | Restore the slanted authentication hero panel |
 | 30 | 87 | Make the white-blue interface responsive |
+| 31 | 88 | Polish the Search inventory filter toolbar |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1671,6 +1672,29 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 88 - Search inventory filter toolbar
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to improve the Search inventory component. Create
+a clearer filter-toolbar hierarchy with an eyebrow, title, helper text,
+aligned labeled fields, a visible Clear filters action when filters are
+active, consistent 44px-plus controls, accessible focus states, and responsive
+desktop/tablet/mobile layouts. Preserve the current search behavior, then run
+frontend tests, build, and lint, update the prompt history, and commit and push
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Polished the Search inventory panel into a structured filter toolbar with
+clearer hierarchy, aligned controls, responsive grid behavior, and a conditional
+Clear filters action. The 13 frontend tests, production build, and lint pass.
+
 
 ## Entry 87 - Responsive white-and-blue interface
 
