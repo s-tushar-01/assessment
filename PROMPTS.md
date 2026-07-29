@@ -162,3 +162,21 @@ Do not implement error handling yet.
 The duplicate-email route test is failing because the router does not yet map
 the service error to an HTTP 409 response. The error mapping was then added and
 both route tests passed.
+
+## Entry 9 - Application wiring Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing application-level Supertest test proving that the application
+mounts POST /api/auth/register. Use dependency injection for the registration
+handler so the test does not require a live database. Run the test, then commit
+and push it. Do not implement createApp yet.
+```
+
+**Status:**
+
+The application wiring test is intentionally failing because createApp has not
+yet been added.
