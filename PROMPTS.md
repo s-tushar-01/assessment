@@ -446,6 +446,26 @@ implementation.
 The restock tests are intentionally failing because restockVehicle has not yet
 been implemented.
 
+The minimum restockVehicle service was added with positive-integer validation
+and repository delegation. The focused tests and TypeScript build pass.
+
+## Entry 39 - Vehicle restock Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum restockVehicle service to make the Red-stage tests pass.
+Run the focused test and TypeScript build, update PROMPTS.md, then commit and
+push the Green-stage implementation with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented positive-integer restock validation and repository delegation. The
+focused tests and TypeScript build pass.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex

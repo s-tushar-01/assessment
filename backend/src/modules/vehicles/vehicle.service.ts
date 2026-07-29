@@ -102,3 +102,19 @@ export async function purchaseVehicle(
 
   return vehicle
 }
+
+export async function restockVehicle(
+  id: string,
+  quantity: number,
+  dependencies: {
+    repository: {
+      restock: (id: string, quantity: number) => Promise<VehicleRecord>
+    }
+  },
+) {
+  if (!Number.isInteger(quantity) || quantity <= 0) {
+    throw new Error('QUANTITY_INVALID')
+  }
+
+  return dependencies.repository.restock(id, quantity)
+}
