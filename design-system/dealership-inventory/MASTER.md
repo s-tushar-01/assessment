@@ -19,18 +19,18 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#1D4ED8` | `--color-primary` |
+| Primary | `#145FB5` | `--color-primary` |
 | On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#27476D` | `--color-secondary` |
-| Accent/CTA | `#2563EB` | `--color-accent` |
-| Background | `#07111F` | `--color-background` |
-| Foreground | `#EFF6FF` | `--color-foreground` |
-| Muted | `#A9BDD6` | `--color-muted` |
-| Border | `#294665` | `--color-border` |
+| Secondary | `#E6F1FC` | `--color-secondary` |
+| Accent/CTA | `#145FB5` | `--color-accent` |
+| Background | `#F4F8FD` | `--color-background` |
+| Foreground | `#153B66` | `--color-foreground` |
+| Muted | `#66819C` | `--color-muted` |
+| Border | `#D3E1EF` | `--color-border` |
 | Destructive | `#B91C1C` | `--color-destructive` |
-| Ring | `#60A5FA` | `--color-ring` |
+| Ring | `#1D6BC1` | `--color-ring` |
 
-**Color Notes:** Blue-white technical interface with blue action emphasis
+**Color Notes:** White-and-blue technical interface with blue structure and action emphasis
 
 ### Typography
 

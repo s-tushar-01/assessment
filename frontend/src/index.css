@@ -302,3 +302,63 @@ body { background: #07111f; }
 .modal-eyebrow { color: #93c5fd; }
 .modal-close, .modal-cancel { border-color: #466987; color: #dbeafe; }
 .modal-close:hover, .modal-close:focus-visible, .modal-cancel:hover, .modal-cancel:focus-visible { border-color: #60a5fa; color: #fff; }
+
+/* White-and-blue composition: white content surfaces with blue structure and actions. */
+:root { color: #163a62; background: #f4f8fd; }
+body { background: #f4f8fd; color: #163a62; }
+.auth-page {
+  background: linear-gradient(112deg, #0e5aa7 0%, #0e5aa7 42%, #f4f8fd 42%, #f4f8fd 100%);
+}
+.auth-intro { color: #fff; }
+.auth-eyebrow, .brand-eyebrow { color: #bfdbfe; }
+.auth-form .brand-eyebrow { color: #145fb5; }
+.auth-intro p { color: #dbeafe; }
+.auth-proof span { border-color: rgb(219 234 254 / 40%); background: rgb(255 255 255 / 12%); color: #eff6ff; }
+.auth-form { border-color: #d5e3f1; background: #fff; box-shadow: 0 22px 55px rgb(18 59 102 / 16%); }
+.auth-form:hover { border-color: #8db5dc; }
+.auth-heading { color: #153b66; }
+.auth-subtitle { color: #5b7591; }
+.cool-label { background: #fff; color: #17599e; }
+.cool-input { border-color: #a8bfd8; background: #fff; color: #163a62; }
+.cool-input:focus { border-color: #1d6bc1; box-shadow: 0 0 0 3px rgb(29 107 193 / 16%); }
+.auth-button, .search-button, .purchase-button, .admin-card-action { background: #145fb5; }
+.auth-button:hover:not(:disabled), .search-button:hover, .purchase-button:hover:not(:disabled), .admin-card-action:hover { background: #0d4e97; }
+.auth-switch { color: #145fb5; }
+.auth-switch:hover { color: #0d4e97; background: #e6f0fb; }
+.dashboard-shell { background: #f4f8fd; }
+.dashboard-topbar { border-color: #0b4c8e; background: #105da9; }
+.dashboard-brand h1 { color: #fff; }
+.dashboard-brand h2 { border-color: rgb(219 234 254 / 45%); color: #dbeafe; }
+.dashboard-email { color: #eff6ff; }
+.dashboard-logout { border-color: rgb(219 234 254 / 55%); color: #fff; }
+.dashboard-logout:hover, .outline-action:hover { border-color: #fff; background: #0b4d91; color: #fff; }
+.status-pill { border-color: rgb(219 234 254 / 45%); background: rgb(255 255 255 / 12%); color: #eff6ff; }
+.status-pill.admin { border-color: #bfdbfe; color: #eff6ff; }
+.metric-card, .vehicle-card { border-color: #d3e1ef; background: #fff; box-shadow: 0 10px 25px rgb(23 70 117 / 8%); }
+.metric-icon { background: linear-gradient(135deg, #1d70c7, #0d4e97); }
+.metric-label { color: #587492; }
+.metric-value, .vehicle-card h2 { color: #153b66; }
+.metric-card small, .vehicle-name > p:last-child { color: #66819c; }
+.search-panel { border-color: #c5dced; background: #e6f1fc; box-shadow: 0 10px 25px rgb(23 70 117 / 6%); }
+.search-panel-header h2 { color: #153b66; }
+.search-panel-header p, .dashboard-field label { color: #4d6c8b; }
+.dashboard-field input { border-color: #a9c1d9; background: #fff; color: #163a62; }
+.dashboard-field input:focus { border-color: #1d6bc1; box-shadow: 0 0 0 3px rgb(29 107 193 / 14%); }
+.vehicle-card:hover { border-color: #79a9d5; box-shadow: 0 14px 30px rgb(23 70 117 / 13%); }
+.vehicle-art { color: #3275b9; }
+.vehicle-category { background: #e1eefb; color: #1d5b9f; }
+.vehicle-card-footer { border-color: #d5e3f1; }
+.admin-card { border-color: #a9cae7; background: #dcecfb; box-shadow: 0 10px 25px rgb(23 70 117 / 8%); }
+.admin-card-icon { border-color: #82add4; background: #c4def5; color: #145fb5; }
+.admin-card-title { color: #153b66; }
+.admin-card-description { color: #577595; }
+.admin-card-action { border-color: #0d4e97; box-shadow: 0 8px 18px rgb(20 95 181 / 20%); }
+.admin-card-action:hover { box-shadow: 0 10px 24px rgb(20 95 181 / 26%); }
+.modal-backdrop { background: rgb(15 48 84 / 48%); }
+.vehicle-modal { border-color: #c5dced; background: #fff; box-shadow: 0 24px 70px rgb(23 70 117 / 24%); }
+.vehicle-modal-header { border-color: #d5e3f1; }
+.modal-eyebrow { color: #1d64aa; }
+.vehicle-modal-header h2 { color: #153b66; }
+.vehicle-modal-header p:last-child { color: #66819c; }
+.modal-close, .modal-cancel { border-color: #9cb8d2; color: #315a80; }
+.modal-close:hover, .modal-close:focus-visible, .modal-cancel:hover, .modal-cancel:focus-visible { border-color: #1d6bc1; color: #153b66; }
