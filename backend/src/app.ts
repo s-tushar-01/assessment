@@ -10,6 +10,7 @@ import {
   type ListVehiclesHandler,
   type SearchVehiclesHandler,
   type UpdateVehicleHandler,
+  type DeleteVehicleHandler,
 } from './modules/vehicles/vehicle.routes.js'
 import type { RequestHandler } from 'express'
 
@@ -21,6 +22,8 @@ export function createApp(dependencies: {
   listVehicles?: ListVehiclesHandler
   searchVehicles?: SearchVehiclesHandler
   updateVehicle?: UpdateVehicleHandler
+  deleteVehicle?: DeleteVehicleHandler
+  adminAuth?: RequestHandler
 }) {
   const app = express()
 
@@ -39,6 +42,8 @@ export function createApp(dependencies: {
         dependencies.listVehicles,
         dependencies.searchVehicles,
         dependencies.updateVehicle,
+        dependencies.deleteVehicle,
+        dependencies.adminAuth,
       ),
     )
   }

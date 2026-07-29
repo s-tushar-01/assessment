@@ -325,8 +325,9 @@ Red-stage test. Do not implement the delete route yet.
 
 **Status:**
 
-The admin deletion route test is intentionally failing because the vehicle
-router does not yet expose the admin-only DELETE endpoint.
+The admin deletion route test was initially failing because the vehicle router
+did not expose the admin-only DELETE endpoint. The route was then added with
+the auth and admin guards and connected to Prisma; all 28 backend tests passed.
 
 ## Entry 24 - List vehicles route Red stage
 

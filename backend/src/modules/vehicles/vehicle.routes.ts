@@ -17,6 +17,7 @@ export type UpdateVehicleHandler = (
   id: string,
   input: VehicleUpdateInput,
 ) => Promise<VehicleRecord>
+export type DeleteVehicleHandler = (id: string) => Promise<void>
 
 export function createVehicleRouter(
   createVehicle: CreateVehicleHandler,
@@ -24,10 +25,16 @@ export function createVehicleRouter(
   listVehicles?: ListVehiclesHandler,
   searchVehicles?: SearchVehiclesHandler,
   updateVehicle?: UpdateVehicleHandler,
+  deleteVehicle?: DeleteVehicleHandler,
+  adminMiddleware?: RequestHandler,
 ) {
   const router = Router()
 
   const handlers = authMiddleware ? [authMiddleware] : []
+  const adminHandlers =
+    authMiddleware && adminMiddleware
+      ? [authMiddleware, adminMiddleware]
+      : handlers
 
   if (searchVehicles) {
     router.get('/search', ...handlers, async (request, response, next) => {
@@ -74,6 +81,17 @@ export function createVehicleRouter(
           request.body as VehicleUpdateInput,
         )
         return response.status(200).json(vehicle)
+      } catch (error) {
+        return next(error)
+      }
+    })
+  }
+
+  if (deleteVehicle) {
+    router.delete('/:id', ...adminHandlers, async (request, response, next) => {
+      try {
+        await deleteVehicle(request.params.id as string)
+        return response.status(204).send()
       } catch (error) {
         return next(error)
       }

@@ -7,8 +7,9 @@ import {
   listVehicles,
   searchVehicles,
   updateVehicle,
+  deleteVehicle,
 } from './modules/vehicles/vehicle.service.js'
-import { requireAuth } from './middleware/auth.middleware.js'
+import { requireAdmin, requireAuth } from './middleware/auth.middleware.js'
 import { Prisma, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -138,6 +139,15 @@ const editVehicle = (
     },
   })
 
+const removeVehicle = (id: string) =>
+  deleteVehicle(id, {
+    repository: {
+      delete: async (vehicleId) => {
+        await prisma.vehicle.delete({ where: { id: vehicleId } })
+      },
+    },
+  })
+
 const app = createApp({
   registerUser,
   loginUser: login,
@@ -146,6 +156,8 @@ const app = createApp({
   listVehicles: getVehicles,
   searchVehicles: findVehicles,
   updateVehicle: editVehicle,
+  deleteVehicle: removeVehicle,
+  adminAuth: requireAdmin,
 })
 
 const port = Number(process.env.PORT ?? 3000)
