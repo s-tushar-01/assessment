@@ -363,4 +363,5 @@ yet.
 **Status:**
 
 The vehicle route test is intentionally failing because the vehicle router does
-not exist yet.
+not exist yet. The minimal vehicle router was then added and the focused route
+test passed.
