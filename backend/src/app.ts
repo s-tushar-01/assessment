@@ -30,11 +30,19 @@ export function createApp(dependencies: {
   restockVehicle?: RestockVehicleHandler
 }) {
   const app = express()
+  const allowedOrigins = new Set([
+    'http://localhost:5173',
+    ...(process.env.FRONTEND_URL ?? '')
+      .split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean),
+  ])
 
   app.use((request, response, next) => {
     const origin = request.headers.origin
-    if (origin === 'http://localhost:5173') {
+    if (origin && allowedOrigins.has(origin)) {
       response.setHeader('Access-Control-Allow-Origin', origin)
+      response.setHeader('Vary', 'Origin')
       response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
       response.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
     }
