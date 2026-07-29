@@ -21,6 +21,12 @@ export function createAuthRouter(
         })
       }
 
+      if (error instanceof Error && error.message === 'PASSWORD_TOO_SHORT') {
+        return response.status(400).json({
+          message: 'Password must be at least 8 characters',
+        })
+      }
+
       return next(error)
     }
   })

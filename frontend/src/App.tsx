@@ -12,6 +12,15 @@ type Vehicle = {
   quantity: number
 }
 
+async function readResponseBody(response: Response): Promise<Record<string, unknown>> {
+  try {
+    const body: unknown = await response.json()
+    return body && typeof body === 'object' ? body as Record<string, unknown> : {}
+  } catch {
+    return {}
+  }
+}
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => Boolean(localStorage.getItem('dealership_token')),
@@ -107,6 +116,10 @@ function App() {
       setError('Passwords do not match')
       return
     }
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters')
+      return
+    }
     setIsSubmitting(true)
     try {
       const response = await fetch(`${API_URL}/api/auth/register`, {
@@ -114,8 +127,12 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
-      const result = await response.json()
-      if (!response.ok) throw new Error(result.error ?? 'Unable to register')
+      const result = await readResponseBody(response)
+      if (!response.ok) {
+        throw new Error(
+          typeof result.message === 'string' ? result.message : 'Unable to register',
+        )
+      }
       setIsRegistering(false)
       setPassword('')
       setConfirmPassword('')

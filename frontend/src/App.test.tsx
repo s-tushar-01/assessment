@@ -32,6 +32,23 @@ describe('App', () => {
     expect(screen.getByRole('button', { name: /register/i })).toBeTruthy()
   })
 
+  it('shows a clear message when the registration password is too short', async () => {
+    const user = userEvent.setup()
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /create account/i }))
+    await user.type(screen.getByLabelText(/email/i), 'new-user@example.com')
+    await user.type(screen.getByLabelText(/^password$/i), 'short')
+    await user.type(screen.getByLabelText(/confirm password/i), 'short')
+    await user.click(screen.getByRole('button', { name: /register/i }))
+
+    expect(screen.getByRole('alert').textContent).toContain(
+      'Password must be at least 8 characters',
+    )
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
   it('logs in and opens the inventory dashboard', async () => {
     const user = userEvent.setup()
     vi.spyOn(globalThis, 'fetch')

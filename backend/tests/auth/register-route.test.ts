@@ -47,6 +47,23 @@ describe('POST /api/auth/register', () => {
     expect(response.status).toBe(409)
     expect(response.body).toEqual({ message: 'Email is already registered' })
   })
+
+  it('returns a clear validation message when the password is too short', async () => {
+    const registerUser = vi.fn().mockRejectedValue(new Error('PASSWORD_TOO_SHORT'))
+    const app = express()
+
+    app.use(express.json())
+    app.use('/api/auth', createAuthRouter(registerUser))
+
+    const response = await request(app)
+      .post('/api/auth/register')
+      .send({ email: 'driver@example.com', password: 'short' })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual({
+      message: 'Password must be at least 8 characters',
+    })
+  })
 })
 
 describe('POST /api/auth/login', () => {

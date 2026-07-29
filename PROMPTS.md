@@ -29,8 +29,8 @@ continuous record of the AI-assisted development process.
 - TDD evidence: failing tests are committed before their implementations.
 - AI evidence: every AI-assisted implementation commit includes the Codex
   co-author trailer.
-- Current backend verification: 36 tests passing and TypeScript build passing.
-- Current frontend verification: 11 tests passing, production build passing,
+- Current backend verification: 37 tests passing and TypeScript build passing.
+- Current frontend verification: 12 tests passing, production build passing,
   and lint passing.
 
 ## Chronological development index
@@ -76,6 +76,7 @@ records retain every prompt and result from the development history.
 | 18 | 65-69 | Deployed CORS, dashboard UX, and verification documentation |
 | 19 | 70-73 | Admin-login experiment and post-login identity UX |
 | 20 | 74-76 | Login simplification, admin provisioning, and handoff documentation |
+| 21 | 77 | Registration validation messages and response handling |
 
 This index is the serial implementation order. No later feature was implemented
 before the preceding feature was complete. Each later entry records the
@@ -1593,6 +1594,27 @@ assessment implementation and update the verification documentation.
 The README now documents external production-database admin provisioning,
 backend role enforcement, deployment environment variables, and Prisma
 migrations without exposing credentials.
+
+
+## Entry 77 - Registration validation messages and response handling
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add clear registration validation messages for short passwords and password
+mismatches. Return password validation failures as JSON from the backend and
+make the frontend handle non-JSON error responses without showing raw parser
+errors. Add focused backend and frontend tests, run the complete verification,
+update the documentation, then commit and push the fix.
+```
+
+**Status:**
+
+Registration now shows a clear password-length message, returns a JSON backend
+validation response, and safely falls back when a deployed server returns a
+non-JSON error page. All 37 backend and 12 frontend tests pass.
 
 
 ## Record maintenance
