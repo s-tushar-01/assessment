@@ -182,6 +182,24 @@ The application wiring test is intentionally failing because createApp has not
 yet been added. The createApp factory was then added and the application wiring
 test passed.
 
+## Entry 25 - Vehicle local smoke test
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Run the backend locally against PostgreSQL, log in with a regular user, create
+a vehicle through POST /api/vehicles, and verify it appears in GET
+/api/vehicles.
+```
+
+**Verification:**
+
+- Authenticated vehicle creation succeeded.
+- The vehicle was persisted in PostgreSQL.
+- Authenticated listing returned the created vehicle.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
