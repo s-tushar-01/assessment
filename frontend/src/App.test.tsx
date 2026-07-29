@@ -18,18 +18,7 @@ describe('App', () => {
     expect(screen.getByLabelText(/password/i)).toBeTruthy()
     expect(screen.getByRole('button', { name: /sign in/i })).toBeTruthy()
     expect(screen.getByRole('button', { name: /create account/i })).toBeTruthy()
-    expect(screen.getByRole('button', { name: /admin login/i })).toBeTruthy()
-  })
-
-  it('switches to the separate admin login panel', async () => {
-    const user = userEvent.setup()
-    render(<App />)
-
-    await user.click(screen.getByRole('button', { name: /admin login/i }))
-
-    expect(screen.getByRole('heading', { name: /admin sign in/i })).toBeTruthy()
-    expect(screen.getByText(/admin access/i)).toBeTruthy()
-    expect(screen.getByRole('button', { name: /user login/i })).toBeTruthy()
+    expect(screen.queryByRole('button', { name: /admin login/i })).toBeNull()
   })
 
   it('switches to the registration form', async () => {

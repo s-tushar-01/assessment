@@ -1508,5 +1508,44 @@ and lint pass.
 
 
 
-## Record maintenance
+## Entry 74 - Remove separate admin login Red stage
 
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Remove the separate Admin login page and keep only the standard Sign in and
+Create account options. Add a failing frontend test that confirms Admin login
+is not shown. Keep admin authorization based on the role returned by the
+backend. Run the focused test, then commit and push the Red-stage change.
+```
+
+**Status:**
+
+The frontend test now specifies that the login panel must not show a separate
+Admin login option.
+
+
+## Entry 75 - Remove separate admin login Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the login-panel change by removing the separate Admin login state,
+heading, message, and toggle. Keep regular Sign in and Create account flows,
+while retaining backend role-based admin authorization after sign-in. Run all
+frontend tests, the TypeScript build, and lint; update PROMPTS.md and commit
+and push the Green-stage implementation.
+```
+
+**Status:**
+
+Removed the separate Admin login UI. Users now use the standard Sign in form;
+ADMIN users still receive admin permissions from the backend role. All 11
+frontend tests, the TypeScript build, and lint pass.
+
+
+## Record maintenance
