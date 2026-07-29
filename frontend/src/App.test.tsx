@@ -199,7 +199,12 @@ describe('App', () => {
     localStorage.setItem('dealership_token', 'admin-token')
     localStorage.setItem('dealership_role', 'ADMIN')
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(JSON.stringify([]), { status: 200 }),
+      new Response(
+        JSON.stringify([
+          { id: 'vehicle-1', make: 'Honda', model: 'Civic', category: 'Sedan', price: 28900, quantity: 3 },
+        ]),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
     )
 
     render(<App />)

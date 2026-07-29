@@ -160,6 +160,45 @@ function App() {
     }
   }
 
+  async function handleAddVehicle() {
+    const make = window.prompt('Make')
+    const model = window.prompt('Model')
+    const category = window.prompt('Category')
+    const price = Number(window.prompt('Price'))
+    const quantity = Number(window.prompt('Quantity'))
+    if (!make || !model || !category || !Number.isFinite(price) || !Number.isInteger(quantity)) return
+    const response = await fetch(`${API_URL}/api/vehicles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+      },
+      body: JSON.stringify({ make, model, category, price, quantity }),
+    })
+    if (response.ok) {
+      const addedVehicle = await response.json()
+      setVehicles((current) => [addedVehicle, ...current])
+    }
+  }
+
+  async function handleEditVehicle(vehicle: Vehicle) {
+    const price = Number(window.prompt('Price', String(vehicle.price)))
+    const quantity = Number(window.prompt('Quantity', String(vehicle.quantity)))
+    if (!Number.isFinite(price) || !Number.isInteger(quantity)) return
+    const response = await fetch(`${API_URL}/api/vehicles/${vehicle.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+      },
+      body: JSON.stringify({ price, quantity }),
+    })
+    if (response.ok) {
+      const updatedVehicle = await response.json()
+      setVehicles((current) => current.map((item) => item.id === updatedVehicle.id ? updatedVehicle : item))
+    }
+  }
+
   async function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsLoadingVehicles(true)
@@ -193,6 +232,11 @@ function App() {
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight">Inventory dashboard</h1>
           <p className="mt-3 text-slate-400">Manage and purchase available vehicles.</p>
+          {isAdmin && (
+            <button className="mt-6 rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-slate-950" onClick={() => void handleAddVehicle()} type="button">
+              Add vehicle
+            </button>
+          )}
           {error && <p className="mt-6 text-sm text-rose-300" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400">Loading vehicles…</p>}
           <form className="mt-8 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-end" onSubmit={handleSearch}>
@@ -235,6 +279,9 @@ function App() {
                 </button>
                 {isAdmin && (
                   <div className="mt-3 flex gap-2">
+                    <button className="flex-1 rounded-xl border border-white px-3 py-2 text-sm text-white" onClick={() => void handleEditVehicle(vehicle)} type="button">
+                      Edit inventory
+                    </button>
                     <button className="flex-1 rounded-xl border border-cyan-400 px-3 py-2 text-sm text-cyan-300" onClick={() => void handleRestock(vehicle.id)} type="button">
                       Restock
                     </button>
