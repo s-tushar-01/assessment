@@ -85,3 +85,20 @@ export async function deleteVehicle(
 ) {
   await dependencies.repository.delete(id)
 }
+
+export async function purchaseVehicle(
+  id: string,
+  dependencies: {
+    repository: {
+      purchase: (id: string) => Promise<VehicleRecord | null>
+    }
+  },
+) {
+  const vehicle = await dependencies.repository.purchase(id)
+
+  if (!vehicle) {
+    throw new Error('OUT_OF_STOCK')
+  }
+
+  return vehicle
+}

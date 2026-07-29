@@ -347,6 +347,27 @@ Red-stage tests. Do not implement purchaseVehicle yet.
 The purchase tests are intentionally failing because purchaseVehicle has not
 yet been implemented.
 
+The minimum service implementation was added after the Red commit. It delegates
+the purchase to the repository and raises OUT_OF_STOCK when no vehicle is
+returned. All 30 backend tests and the TypeScript build now pass.
+
+## Entry 34 - Vehicle purchase Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum purchaseVehicle service to make the purchase tests pass.
+Run the full backend test suite and TypeScript build, then commit and push the
+Green-stage implementation with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented purchaseVehicle with stock-result validation. All 30 backend tests
+and the TypeScript build pass.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
