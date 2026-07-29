@@ -329,6 +329,24 @@ The admin deletion route test was initially failing because the vehicle router
 did not expose the admin-only DELETE endpoint. The route was then added with
 the auth and admin guards and connected to Prisma; all 28 backend tests passed.
 
+## Entry 33 - Vehicle purchase Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue inventory operations using TDD. Add failing service tests for
+purchaseVehicle: stock must decrease by one when available, and a purchase must
+be rejected when stock is zero. Run the tests, then commit and push the
+Red-stage tests. Do not implement purchaseVehicle yet.
+```
+
+**Status:**
+
+The purchase tests are intentionally failing because purchaseVehicle has not
+yet been implemented.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
