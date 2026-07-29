@@ -142,4 +142,4 @@ implement the route yet.
 **Status:**
 
 The route test is intentionally failing because the auth router does not exist
-yet.
+yet. The minimal router was then added and the focused route test passed.
