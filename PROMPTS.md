@@ -1,9 +1,3 @@
-﻿Warning: truncated output (original token count: 342295)
-... 320604 bytes omitted ...
-
-Warning: truncated output (original token count: 316743)
-... 218394 bytes omitted ...
-
 # AI Usage Prompt History
 
 This file is the assessment evidence log for AI co-authorship. It records the
