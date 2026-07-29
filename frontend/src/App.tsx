@@ -19,6 +19,9 @@ function App() {
   const [role, setRole] = useState(
     () => localStorage.getItem('dealership_role') ?? 'USER',
   )
+  const [userEmail, setUserEmail] = useState(
+    () => localStorage.getItem('dealership_email') ?? '',
+  )
   const isAdmin = role === 'ADMIN'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -77,7 +80,9 @@ function App() {
 
       localStorage.setItem('dealership_token', result.token)
       localStorage.setItem('dealership_role', result.user.role)
+      localStorage.setItem('dealership_email', result.user.email)
       setRole(result.user.role)
+      setUserEmail(result.user.email)
       setIsAuthenticated(true)
     } catch (loginError) {
       setError(loginError instanceof Error ? loginError.message : 'Unable to sign in')
@@ -89,9 +94,11 @@ function App() {
   function handleLogout() {
     localStorage.removeItem('dealership_token')
     localStorage.removeItem('dealership_role')
+    localStorage.removeItem('dealership_email')
     setIsAuthenticated(false)
     setVehicles([])
     setRole('USER')
+    setUserEmail('')
   }
 
   async function handleRegister(event: FormEvent<HTMLFormElement>) {
@@ -251,6 +258,8 @@ function App() {
           <p className="mt-3 text-slate-400">Manage and purchase available vehicles.</p>
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <span className="rounded-full border border-cyan-400/50 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200">Role: {role}</span>
+            {isAdmin && <span className="rounded-full border border-violet-400/50 bg-violet-400/10 px-3 py-1 text-sm text-violet-200">Admin dashboard</span>}
+            {userEmail && <span className="text-sm text-slate-400">{userEmail}</span>}
             <button className="rounded-xl border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-cyan-400" onClick={handleLogout} type="button">
               Log out
             </button>
@@ -346,7 +355,7 @@ function App() {
           {isRegistering ? 'Create account' : isAdminLogin ? 'Admin sign in' : 'Sign in'}
         </h1>
         <p className="mt-2 text-sm text-slate-400">
-          {isAdminLogin ? 'Admin access for inventory management.' : 'Access the vehicle inventory dashboard.'}
+          {isAdminLogin ? 'Admin access is restricted to authorized dealership staff.' : 'Access the vehicle inventory dashboard.'}
         </p>
         <form className="mt-8 space-y-5" onSubmit={isRegistering ? handleRegister : handleLogin}>
           <div>

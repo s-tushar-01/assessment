@@ -45,7 +45,8 @@ describe('App', () => {
 
   it('logs in and opens the inventory dashboard', async () => {
     const user = userEvent.setup()
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(
       new Response(
         JSON.stringify({
           token: 'token-1',
@@ -53,7 +54,8 @@ describe('App', () => {
         }),
         { status: 200, headers: { 'Content-Type': 'application/json' } },
       ),
-    )
+      )
+      .mockResolvedValueOnce(new Response(JSON.stringify([]), { status: 200 }))
 
     render(<App />)
     await user.type(screen.getByLabelText(/email/i), 'buyer@example.com')
@@ -63,6 +65,7 @@ describe('App', () => {
     await waitFor(() =>
       expect(screen.getByRole('heading', { name: /inventory dashboard/i })).toBeTruthy(),
     )
+    expect(screen.getByText('buyer@example.com')).toBeTruthy()
     expect(globalThis.fetch).toHaveBeenCalledWith(
       expect.stringContaining('/api/auth/login'),
       expect.objectContaining({ method: 'POST' }),
@@ -258,5 +261,19 @@ describe('App', () => {
     expect(screen.getByLabelText(/category/i)).toBeTruthy()
     expect(screen.getByLabelText(/maximum price/i)).toBeTruthy()
     await waitFor(() => expect(screen.getByText(/no vehicles found/i)).toBeTruthy())
+  })
+
+  it('shows admin dashboard context after an admin session is restored', async () => {
+    localStorage.setItem('dealership_token', 'admin-token')
+    localStorage.setItem('dealership_role', 'ADMIN')
+    localStorage.setItem('dealership_email', 'admin@example.com')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([]), { status: 200 }),
+    )
+
+    render(<App />)
+
+    await waitFor(() => expect(screen.getByText(/admin dashboard/i)).toBeTruthy())
+    expect(screen.getByText('admin@example.com')).toBeTruthy()
   })
 })
