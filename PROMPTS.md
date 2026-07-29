@@ -219,6 +219,24 @@ The vehicle search test was initially failing because searchVehicles had not
 yet been implemented. The repository-delegating service was then added and the
 complete backend suite passed.
 
+## Entry 27 - Vehicle search route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue vehicle search using TDD. Write only a failing Supertest test for
+authenticated GET /api/vehicles/search. Verify query strings are converted to
+the correct filters and passed to the handler. Run the test, then commit and
+push the Red-stage test. Do not implement the route yet.
+```
+
+**Status:**
+
+The search route test is intentionally failing because the vehicle router does
+not yet expose GET /api/vehicles/search.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
