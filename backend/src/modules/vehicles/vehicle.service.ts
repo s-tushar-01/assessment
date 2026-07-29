@@ -78,3 +78,10 @@ export async function updateVehicle(
 
   return dependencies.repository.update(id, input)
 }
+
+export async function deleteVehicle(
+  id: string,
+  dependencies: { repository: { delete: (id: string) => Promise<void> } },
+) {
+  await dependencies.repository.delete(id)
+}

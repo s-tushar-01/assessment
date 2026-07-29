@@ -288,8 +288,9 @@ push the Red-stage test. Do not implement deleteVehicle yet.
 
 **Status:**
 
-The delete-vehicle test is intentionally failing because deleteVehicle has not
-yet been implemented.
+The delete-vehicle test was initially failing because deleteVehicle had not yet
+been implemented. The repository-delegating service was then added; all 25
+backend tests and the build passed.
 
 ## Entry 24 - List vehicles route Red stage
 
