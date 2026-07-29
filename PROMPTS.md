@@ -220,3 +220,20 @@ push it. Do not implement login yet.
 
 The login service test is intentionally failing because loginUser has not yet
 been implemented.
+## Entry 12 - Local PostgreSQL setup
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Set up the project locally now. Start the Docker PostgreSQL database, resolve
+any connection issue, apply the Prisma migration, and verify the current test
+suite before continuing.
+```
+
+**How it was used:**
+
+The machine already had PostgreSQL using host port 5432, so the Docker database
+was mapped to host port 5433 and the environment examples were updated. Prisma
+then created and applied the initial migration successfully.

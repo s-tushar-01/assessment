@@ -40,7 +40,8 @@ Prerequisites:
 - npm
 - Docker Desktop, for PostgreSQL
 
-Start PostgreSQL from the repository root:
+Start PostgreSQL from the repository root. This project uses host port `5433`
+to avoid conflicts with an existing local PostgreSQL installation:
 
 ```bash
 docker compose up -d postgres
