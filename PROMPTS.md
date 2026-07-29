@@ -1030,3 +1030,20 @@ handling. Frontend build and lint pass.
 
 ## Record maintenance
 
+## Entry 50 - Frontend inventory search Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library test for
+make and minimum-price filters. It must call GET /api/vehicles/search with the
+encoded query parameters and display the returned vehicle. Run the focused test,
+then commit and push the Red-stage test without implementing search controls.
+```
+
+**Status:**
+
+The search test is added as the next Red-stage contract. The inventory dashboard
+does not yet provide search controls.

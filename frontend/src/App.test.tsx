@@ -111,4 +111,41 @@ describe('App', () => {
     vi.restoreAllMocks()
     localStorage.clear()
   })
+
+  it('searches inventory using make and price filters', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('dealership_token', 'token-1')
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify([]), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify([
+            {
+              id: 'vehicle-2',
+              make: 'Toyota',
+              model: 'Corolla',
+              category: 'Sedan',
+              price: 24000,
+              quantity: 2,
+            },
+          ]),
+          { status: 200, headers: { 'Content-Type': 'application/json' } },
+        ),
+      )
+
+    render(<App />)
+    await user.type(screen.getByLabelText(/make/i), 'Toyota')
+    await user.type(screen.getByLabelText(/minimum price/i), '20000')
+    await user.click(screen.getByRole('button', { name: /search/i }))
+
+    await waitFor(() => expect(screen.getByText('Toyota Corolla')).toBeTruthy())
+    expect(fetchMock).toHaveBeenLastCalledWith(
+      expect.stringContaining('/api/vehicles/search?'),
+      expect.objectContaining({ method: 'GET' }),
+    )
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
 })
