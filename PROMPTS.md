@@ -1312,6 +1312,25 @@ builds and frontend lint passing.
 
 ## Record maintenance
 
+## Entry 65 - Deployed CORS regression Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Fix the deployed frontend CORS failure. Add a failing backend application test
+proving FRONTEND_URL can configure the Vercel origin
+https://assessment-wheat-five.vercel.app for OPTIONS requests. Run the focused
+test, then commit and push the Red-stage regression test without implementing
+the configurable CORS fix.
+```
+
+**Status:**
+
+The regression test is expected to fail because the API currently allows only
+the hardcoded local Vite origin.
+
 ## Entry 64 - Optional broader Playwright flows
 
 **AI tool:** OpenAI Codex
