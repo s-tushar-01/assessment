@@ -200,6 +200,24 @@ a vehicle through POST /api/vehicles, and verify it appears in GET
 - The vehicle was persisted in PostgreSQL.
 - Authenticated listing returned the created vehicle.
 
+## Entry 26 - Vehicle search Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the assessment search feature using TDD. Write only a failing service
+test for searching vehicles by make, category, minimum price, and maximum
+price. Run the test, then commit and push the Red-stage test. Do not implement
+searchVehicles yet.
+```
+
+**Status:**
+
+The vehicle search test is intentionally failing because searchVehicles has not
+yet been implemented.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
