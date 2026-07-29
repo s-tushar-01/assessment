@@ -8,6 +8,7 @@ import {
   searchVehicles,
   updateVehicle,
   deleteVehicle,
+  purchaseVehicle,
 } from './modules/vehicles/vehicle.service.js'
 import { requireAdmin, requireAuth } from './middleware/auth.middleware.js'
 import { Prisma, PrismaClient } from '@prisma/client'
@@ -148,6 +149,28 @@ const removeVehicle = (id: string) =>
     },
   })
 
+const buyVehicle = (id: string) =>
+  purchaseVehicle(id, {
+    repository: {
+      purchase: async (vehicleId) => {
+        const result = await prisma.vehicle.updateMany({
+          where: { id: vehicleId, quantity: { gt: 0 } },
+          data: { quantity: { decrement: 1 } },
+        })
+
+        if (result.count === 0) return null
+
+        const updated = await prisma.vehicle.findUnique({
+          where: { id: vehicleId },
+        })
+
+        return updated
+          ? { ...updated, price: updated.price.toNumber() }
+          : null
+      },
+    },
+  })
+
 const app = createApp({
   registerUser,
   loginUser: login,
@@ -158,6 +181,7 @@ const app = createApp({
   updateVehicle: editVehicle,
   deleteVehicle: removeVehicle,
   adminAuth: requireAdmin,
+  purchaseVehicle: buyVehicle,
 })
 
 const port = Number(process.env.PORT ?? 3000)

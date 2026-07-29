@@ -407,6 +407,26 @@ commit and push the Green-stage implementation with the AI co-author trailer.
 Added the authenticated purchase route and dependency wiring. The focused route
 test and TypeScript build pass.
 
+## Entry 37 - Persist vehicle purchase
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Wire vehicle purchasing to PostgreSQL through Prisma. Use an atomic conditional
+quantity decrement so a purchase succeeds only when quantity is greater than
+zero, then return the updated vehicle. Connect it to createApp, run the full
+backend tests and build, update PROMPTS.md, and commit/push with the AI
+co-author trailer.
+```
+
+**Status:**
+
+Connected the purchase service to Prisma using a conditional atomic decrement,
+returned the updated vehicle, and wired it into the production app. All 31
+backend tests and the TypeScript build pass.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
