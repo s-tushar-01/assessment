@@ -252,8 +252,9 @@ push the Red-stage test. Do not implement updateVehicle yet.
 
 **Status:**
 
-The update-vehicle test is intentionally failing because updateVehicle has not
-yet been implemented.
+The update-vehicle test was initially failing because updateVehicle had not yet
+been implemented. The service was then added with price and quantity
+validation, and the complete backend suite passed.
 
 ## Entry 24 - List vehicles route Red stage
 

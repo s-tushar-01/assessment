@@ -53,3 +53,28 @@ export async function searchVehicles(
 ) {
   return dependencies.repository.search(filters)
 }
+
+export type VehicleUpdateInput = Partial<VehicleInput>
+
+export async function updateVehicle(
+  id: string,
+  input: VehicleUpdateInput,
+  dependencies: {
+    repository: {
+      update: (id: string, input: VehicleUpdateInput) => Promise<VehicleRecord>
+    }
+  },
+) {
+  if (input.price !== undefined && (!Number.isFinite(input.price) || input.price <= 0)) {
+    throw new Error('PRICE_INVALID')
+  }
+
+  if (
+    input.quantity !== undefined &&
+    (!Number.isInteger(input.quantity) || input.quantity < 0)
+  ) {
+    throw new Error('QUANTITY_INVALID')
+  }
+
+  return dependencies.repository.update(id, input)
+}
