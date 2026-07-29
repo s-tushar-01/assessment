@@ -385,3 +385,21 @@ yet.
 The vehicle route test is intentionally failing because the vehicle router does
 not exist yet. The minimal vehicle router was then added and the focused route
 test passed.
+
+## Entry 21 - JWT protection Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the assessment security work using TDD. Add failing tests for a
+requireAuth middleware that rejects missing bearer tokens and attaches the user
+from a valid JWT. Run the tests, then commit and push the Red-stage tests. Do
+not implement the middleware yet.
+```
+
+**Status:**
+
+The JWT middleware tests are intentionally failing because the middleware does
+not exist yet.
