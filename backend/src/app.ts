@@ -31,6 +31,16 @@ export function createApp(dependencies: {
 }) {
   const app = express()
 
+  app.use((request, response, next) => {
+    const origin = request.headers.origin
+    if (origin === 'http://localhost:5173') {
+      response.setHeader('Access-Control-Allow-Origin', origin)
+      response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+      response.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+    }
+    if (request.method === 'OPTIONS') return response.status(204).send()
+    return next()
+  })
   app.use(express.json())
   app.use(
     '/api/auth',
