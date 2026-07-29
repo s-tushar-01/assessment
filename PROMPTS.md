@@ -274,6 +274,23 @@ The update route test was initially failing because the vehicle router did not
 expose PUT /api/vehicles/:id. The protected route was then added and connected
 to Prisma; all 24 backend tests and the build passed.
 
+## Entry 30 - Vehicle deletion Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the admin vehicle management requirements using TDD. Write only a
+failing service test for deleting a vehicle by ID. Run the test, then commit and
+push the Red-stage test. Do not implement deleteVehicle yet.
+```
+
+**Status:**
+
+The delete-vehicle test is intentionally failing because deleteVehicle has not
+yet been implemented.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
