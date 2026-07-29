@@ -89,6 +89,7 @@ records retain every prompt and result from the development history.
 | 31 | 88 | Polish the Search inventory filter toolbar |
 | 32 | 89 | Align vehicle price color with the white-blue theme |
 | 33 | 90 | Replace edit and restock browser prompts with compact forms |
+| 34 | 91 | Improve dashboard navigation bar |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1674,6 +1675,30 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 91 - Dashboard navigation bar
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to make the dashboard navigation bar appropriate
+for this single-page dealership inventory app. Add meaningful in-page
+navigation for Inventory and admin-only Admin tools, show a clear active state,
+keep account/role/logout controls separate, use accessible links and focus
+states, and make the bar responsive. Preserve existing behavior, add a focused
+navigation test, run frontend tests, build, and lint, update the prompt history,
+then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Added a semantic primary navigation bar with active Inventory and conditional
+Admin tools anchors, separate account controls, responsive stacking, and
+keyboard-visible focus states. The 14 frontend tests, production build, and
+lint pass.
+
 
 ## Entry 90 - Edit and restock forms
 

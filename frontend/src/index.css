@@ -266,13 +266,23 @@ button { cursor: pointer; }
 .search-panel .dashboard-field input { min-height: 48px; }
 .search-button { align-self: end; min-height: 48px; padding-inline: 1.25rem; white-space: nowrap; }
 .vehicle-price { color: #145fb5; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; }
+.dashboard-nav { display: flex; align-items: center; gap: 0.3rem; margin-inline: auto; }
+.dashboard-nav-link { min-height: 40px; display: inline-flex; align-items: center; border-radius: 0.55rem; padding: 0.55rem 0.85rem; color: #dbeafe; font-size: 0.82rem; font-weight: 700; text-decoration: none; transition: 200ms ease; }
+.dashboard-nav-link:hover, .dashboard-nav-link:focus-visible { background: rgb(255 255 255 / 14%); color: #fff; }
+.dashboard-nav-link.active { background: #fff; color: #145fb5; box-shadow: 0 4px 12px rgb(8 44 82 / 16%); }
+.dashboard-nav-link:focus-visible { outline: 3px solid rgb(219 234 254 / 70%); outline-offset: 2px; }
+.dashboard-topbar { scroll-margin-top: 1rem; }
 @media (max-width: 900px) {
   .search-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dashboard-nav { order: 1; width: 100%; margin: 0; }
+  .dashboard-actions { order: 2; }
 }
 @media (max-width: 600px) {
   .search-panel { grid-template-columns: 1fr; padding: 1rem; }
   .search-panel-header { align-items: stretch; flex-direction: column; }
   .clear-filters, .search-button { width: 100%; }
+  .dashboard-nav { gap: 0.25rem; overflow-x: auto; padding-bottom: 0.15rem; }
+  .dashboard-nav-link { flex: 0 0 auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }

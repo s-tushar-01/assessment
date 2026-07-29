@@ -293,6 +293,8 @@ describe('App', () => {
     render(<App />)
 
     expect(screen.getByText(/role: user/i)).toBeTruthy()
+    expect(screen.getByRole('navigation', { name: /primary navigation/i })).toBeTruthy()
+    expect(screen.getByRole('link', { name: /inventory/i }).getAttribute('href')).toBe('#inventory')
     await user.click(screen.getByRole('button', { name: /log out/i }))
 
     expect(screen.getByRole('heading', { name: /sign in/i })).toBeTruthy()

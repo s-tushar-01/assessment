@@ -354,6 +354,10 @@ function App() {
               <h1>Dealership Inventory</h1>
               <h2>Inventory dashboard</h2>
             </div>
+            <nav className="dashboard-nav" aria-label="Primary navigation">
+              <a className="dashboard-nav-link active" href="#inventory">Inventory</a>
+              {isAdmin && <a className="dashboard-nav-link" href="#admin-tools">Admin tools</a>}
+            </nav>
             <div className="dashboard-actions">
               {userEmail && <span className="dashboard-email">{userEmail}</span>}
               <span className="status-pill">Role: {role}</span>
@@ -369,7 +373,7 @@ function App() {
             <div className="metric-card"><MetricIcon type="value" /><div><span className="metric-label">Total inventory value</span><strong className="metric-value">${totalInventoryValue.toLocaleString()}</strong><small>Retail value</small></div></div>
           </div>
           {isAdmin && (
-            <div className="admin-card mt-6">
+            <div className="admin-card mt-6" id="admin-tools">
               <div className="admin-card-copy">
                 <span className="admin-card-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -435,7 +439,7 @@ function App() {
           )}
           {error && <p className="error-message" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400" aria-live="polite">Loading vehicles...</p>}
-          <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6" onSubmit={handleSearch}>
+          <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6" id="inventory" onSubmit={handleSearch}>
             <div className="search-panel-header col-span-full">
               <div><p className="search-panel-eyebrow">Inventory filters</p><h2>Search inventory</h2><p className="search-panel-helper">Refine the available stock by vehicle details and price.</p></div>
               {hasFilters && <button className="clear-filters" onClick={() => { setMakeFilter(''); setModelFilter(''); setCategoryFilter(''); setMinPriceFilter(''); setMaxPriceFilter('') }} type="button">Clear filters</button>}
