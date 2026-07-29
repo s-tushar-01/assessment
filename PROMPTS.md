@@ -169,6 +169,24 @@ The prompt history is updated after each meaningful AI-assisted TDD cycle. New
 entries should preserve the same format: exact prompt, purpose, implementation
 result, verification, and commit/push outcome. Do not remove earlier prompts,
 including prompts whose Red-stage tests have already been made Green.
+
+## Entry 42 - Frontend login Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Start the frontend implementation using TDD. Add only a failing React Testing
+Library test proving the application displays a sign-in heading, email field,
+password field, and sign-in button. Run the focused test, then commit and push
+the Red-stage test. Do not implement the login screen yet.
+```
+
+**Status:**
+
+The frontend login test is intentionally failing because the application still
+shows only the starter placeholder screen.
 ## Entry 5 - Registration TDD Red stage
 
 **AI tool:** OpenAI Codex
