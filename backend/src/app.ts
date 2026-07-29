@@ -8,6 +8,7 @@ import {
   createVehicleRouter,
   type CreateVehicleHandler,
   type ListVehiclesHandler,
+  type SearchVehiclesHandler,
 } from './modules/vehicles/vehicle.routes.js'
 import type { RequestHandler } from 'express'
 
@@ -17,6 +18,7 @@ export function createApp(dependencies: {
   createVehicle?: CreateVehicleHandler
   vehicleAuth?: RequestHandler
   listVehicles?: ListVehiclesHandler
+  searchVehicles?: SearchVehiclesHandler
 }) {
   const app = express()
 
@@ -33,6 +35,7 @@ export function createApp(dependencies: {
         dependencies.createVehicle,
         dependencies.vehicleAuth,
         dependencies.listVehicles,
+        dependencies.searchVehicles,
       ),
     )
   }

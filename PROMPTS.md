@@ -234,8 +234,9 @@ push the Red-stage test. Do not implement the route yet.
 
 **Status:**
 
-The search route test is intentionally failing because the vehicle router does
-not yet expose GET /api/vehicles/search.
+The search route test was initially failing because the vehicle router did not
+expose GET /api/vehicles/search. The route was then added with query parsing,
+Prisma filtering, and authentication; the complete backend suite passed.
 
 ## Entry 24 - List vehicles route Red stage
 

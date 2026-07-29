@@ -5,6 +5,7 @@ import { loginUser } from './modules/auth/auth.service.js'
 import {
   createVehicle,
   listVehicles,
+  searchVehicles,
 } from './modules/vehicles/vehicle.service.js'
 import { requireAuth } from './middleware/auth.middleware.js'
 import { Prisma, PrismaClient } from '@prisma/client'
@@ -68,12 +69,55 @@ const getVehicles = () =>
     },
   })
 
+const findVehicles = (
+  filters: Parameters<typeof searchVehicles>[0],
+) =>
+  searchVehicles(filters, {
+    repository: {
+      search: async (searchFilters) => {
+        const where: Prisma.VehicleWhereInput = { quantity: { gt: 0 } }
+
+        if (searchFilters.make) {
+          where.make = { contains: searchFilters.make, mode: 'insensitive' }
+        }
+        if (searchFilters.model) {
+          where.model = { contains: searchFilters.model, mode: 'insensitive' }
+        }
+        if (searchFilters.category) {
+          where.category = {
+            contains: searchFilters.category,
+            mode: 'insensitive',
+          }
+        }
+        if (searchFilters.minPrice !== undefined || searchFilters.maxPrice !== undefined) {
+          where.price = {
+            gte:
+              searchFilters.minPrice === undefined
+                ? undefined
+                : new Prisma.Decimal(searchFilters.minPrice),
+            lte:
+              searchFilters.maxPrice === undefined
+                ? undefined
+                : new Prisma.Decimal(searchFilters.maxPrice),
+          }
+        }
+
+        const vehicles = await prisma.vehicle.findMany({ where })
+        return vehicles.map((vehicle) => ({
+          ...vehicle,
+          price: vehicle.price.toNumber(),
+        }))
+      },
+    },
+  })
+
 const app = createApp({
   registerUser,
   loginUser: login,
   createVehicle: addVehicle,
   vehicleAuth: requireAuth,
   listVehicles: getVehicles,
+  searchVehicles: findVehicles,
 })
 
 const port = Number(process.env.PORT ?? 3000)
