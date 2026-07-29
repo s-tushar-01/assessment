@@ -9,9 +9,14 @@ export type NewUser = {
   role: 'USER'
 }
 
+export type CreatedUser = Omit<NewUser, 'role'> & {
+  id: string
+  role: 'USER' | 'ADMIN'
+}
+
 export type UserRepository = {
   findByEmail: (email: string) => Promise<unknown>
-  create: (user: NewUser) => Promise<unknown>
+  create: (user: NewUser) => Promise<CreatedUser>
 }
 
 export type RegisterDependencies = {
@@ -55,11 +60,14 @@ export async function registerUser(
 
   const passwordHash = await dependencies.hashPassword(input.password)
 
-  return dependencies.repository.create({
+  const createdUser = await dependencies.repository.create({
     email: input.email,
     passwordHash,
     role: 'USER',
   })
+
+  const { passwordHash: _passwordHash, ...publicUser } = createdUser
+  return publicUser
 }
 
 export async function loginUser(

@@ -236,7 +236,8 @@ then commit and push the failing security test. Do not implement the fix yet.
 
 **Status:**
 
-The test now protects against returning password hashes from registration.
+The test now protects against returning password hashes from registration. The
+service was then updated to remove passwordHash from the returned user.
 ## Entry 12 - Local PostgreSQL setup
 
 **AI tool:** OpenAI Codex
