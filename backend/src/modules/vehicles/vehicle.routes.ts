@@ -7,10 +7,12 @@ import type {
 export type CreateVehicleHandler = (
   input: VehicleInput,
 ) => Promise<VehicleRecord>
+export type ListVehiclesHandler = () => Promise<VehicleRecord[]>
 
 export function createVehicleRouter(
   createVehicle: CreateVehicleHandler,
   authMiddleware?: RequestHandler,
+  listVehicles?: ListVehiclesHandler,
 ) {
   const router = Router()
 
@@ -24,6 +26,17 @@ export function createVehicleRouter(
       return next(error)
     }
   })
+
+  if (listVehicles) {
+    router.get('/', ...handlers, async (_request, response, next) => {
+      try {
+        const vehicles = await listVehicles()
+        return response.status(200).json(vehicles)
+      } catch (error) {
+        return next(error)
+      }
+    })
+  }
 
   return router
 }

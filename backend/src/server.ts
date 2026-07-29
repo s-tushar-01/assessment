@@ -2,7 +2,10 @@ import 'dotenv/config'
 import { createApp } from './app.js'
 import { createRegisterHandler } from './modules/auth/auth.handler.js'
 import { loginUser } from './modules/auth/auth.service.js'
-import { createVehicle } from './modules/vehicles/vehicle.service.js'
+import {
+  createVehicle,
+  listVehicles,
+} from './modules/vehicles/vehicle.service.js'
 import { requireAuth } from './middleware/auth.middleware.js'
 import { Prisma, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
@@ -48,11 +51,29 @@ const addVehicle = (input: Parameters<typeof createVehicle>[0]) =>
     },
   })
 
+const getVehicles = () =>
+  listVehicles({
+    repository: {
+      findMany: async () => {
+        const vehicles = await prisma.vehicle.findMany({
+          where: { quantity: { gt: 0 } },
+          orderBy: { createdAt: 'desc' },
+        })
+
+        return vehicles.map((vehicle) => ({
+          ...vehicle,
+          price: vehicle.price.toNumber(),
+        }))
+      },
+    },
+  })
+
 const app = createApp({
   registerUser,
   loginUser: login,
   createVehicle: addVehicle,
   vehicleAuth: requireAuth,
+  listVehicles: getVehicles,
 })
 
 const port = Number(process.env.PORT ?? 3000)

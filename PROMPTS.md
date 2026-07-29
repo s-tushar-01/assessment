@@ -197,7 +197,8 @@ test, then commit and push the Red-stage test. Do not implement the route yet.
 **Status:**
 
 The list-vehicles route test is intentionally failing because the vehicle
-router does not yet expose GET /api/vehicles.
+router does not yet expose GET /api/vehicles. The route was then added with
+authentication and the complete backend suite passed.
 
 ## Entry 20 - Vehicle application wiring Red stage
 
