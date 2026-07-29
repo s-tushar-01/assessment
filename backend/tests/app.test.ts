@@ -36,4 +36,31 @@ describe('application wiring', () => {
     expect(response.status).toBe(200)
     expect(response.body.token).toBe('jwt-token')
   })
+
+  it('mounts the vehicle creation route under /api/vehicles', async () => {
+    const registerUser = vi.fn()
+    const createVehicle = vi.fn().mockResolvedValue({
+      id: 'vehicle-1',
+      make: 'Toyota',
+      model: 'Corolla',
+      category: 'Sedan',
+      price: 24500,
+      quantity: 4,
+    })
+
+    const response = await request(
+      createApp({ registerUser, createVehicle }),
+    )
+      .post('/api/vehicles')
+      .send({
+        make: 'Toyota',
+        model: 'Corolla',
+        category: 'Sedan',
+        price: 24500,
+        quantity: 4,
+      })
+
+    expect(response.status).toBe(201)
+    expect(response.body.id).toBe('vehicle-1')
+  })
 })

@@ -182,6 +182,24 @@ The application wiring test is intentionally failing because createApp has not
 yet been added. The createApp factory was then added and the application wiring
 test passed.
 
+## Entry 20 - Vehicle application wiring Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing application-level Supertest test proving createApp mounts
+POST /api/vehicles. Use an injected createVehicle handler. Run the backend
+tests, then commit and push the Red-stage test. Do not wire the vehicle route
+into createApp yet.
+```
+
+**Status:**
+
+The vehicle application wiring test is intentionally failing because createApp
+currently mounts only the authentication routes.
+
 ## Entry 10 - Registration handler composition Red stage
 
 **AI tool:** OpenAI Codex
