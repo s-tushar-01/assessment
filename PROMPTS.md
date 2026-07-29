@@ -292,3 +292,20 @@ Red-stage test. Do not wire login into createApp yet.
 The application login wiring test is intentionally failing because createApp
 currently mounts only registration. Login was then wired into createApp and the
 server's Prisma, bcrypt, and JWT dependencies; the application tests passed.
+
+## Entry 16 - Local authentication smoke test
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Run the backend locally against Docker PostgreSQL and perform registration and
+login requests to verify the complete authentication flow.
+```
+
+**Verification:**
+
+- Registration persisted a user in PostgreSQL.
+- The registration response excluded passwordHash.
+- Login returned a JWT and safe user details.
