@@ -262,6 +262,7 @@ button { cursor: pointer; }
 .clear-filters:hover, .clear-filters:focus-visible { border-color: #1d6bc1; background: #eef6ff; color: #124d87; }
 .search-panel .dashboard-field input { min-height: 48px; }
 .search-button { align-self: end; min-height: 48px; padding-inline: 1.25rem; white-space: nowrap; }
+.vehicle-price { color: #145fb5; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; }
 @media (max-width: 900px) {
   .search-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

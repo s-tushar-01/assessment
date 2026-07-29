@@ -87,6 +87,7 @@ records retain every prompt and result from the development history.
 | 29 | 86 | Restore the slanted authentication hero panel |
 | 30 | 87 | Make the white-blue interface responsive |
 | 31 | 88 | Polish the Search inventory filter toolbar |
+| 32 | 89 | Align vehicle price color with the white-blue theme |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1672,6 +1673,27 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 89 - Vehicle price color alignment
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to correct the vehicle price color so it matches
+the white-and-blue interface. Use the established primary blue for prices,
+keep stock availability colors semantic, preserve readable contrast and
+responsive behavior, then run frontend tests, build, and lint, update the
+prompt history, and commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Aligned vehicle-card prices with the primary blue action color and strengthened
+their visual weight while preserving green in-stock and red out-of-stock
+states. The 13 frontend tests, production build, and lint pass.
+
 
 ## Entry 88 - Search inventory filter toolbar
 
