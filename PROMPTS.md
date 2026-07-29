@@ -1,7 +1,68 @@
 # AI Usage Prompt History
 
-This file records the AI-assisted development history for the assessment.
-Prompts and relevant responses will be added throughout the project.
+This file is the assessment evidence log for AI co-authorship. It records the
+prompts used with OpenAI Codex, how the response was applied, the verification
+performed, and the related Git commit history.
+
+## How to read this file
+
+Each entry contains:
+
+1. The exact development prompt used.
+2. The purpose of the prompt and the files or feature affected.
+3. The TDD result and verification status.
+4. The related commit where applicable.
+
+For feature work, the normal sequence is:
+
+`Red test -> commit/push -> minimum implementation -> Green verification -> commit/push`
+
+Some earlier entries describe both halves of the cycle in one status paragraph.
+Later entries separate Red and Green stages more explicitly. This is still one
+continuous record of the AI-assisted development process.
+
+## Technology and assessment summary
+
+- Backend: TypeScript, Express, Prisma, PostgreSQL, JWT, and bcrypt.
+- Frontend: React, Vite, Tailwind CSS, and TypeScript.
+- Testing: Vitest, Supertest, React Testing Library, and planned Playwright E2E.
+- TDD evidence: failing tests are committed before their implementations.
+- AI evidence: every AI-assisted implementation commit includes the Codex
+  co-author trailer.
+- Current backend verification: 34 tests passing and TypeScript build passing.
+
+## Chronological development index
+
+The entries below are listed by the order in which the work was carried out.
+Some sections appear later in this file because they were recorded after the
+initial development session; use this index as the authoritative sequence.
+
+1. Assessment analysis and requirements.
+2. Technology-stack decision.
+3. Repository implementation authorization.
+4. Initial project skeleton and documentation.
+5-9. Registration service, validation, routes, errors, and app wiring.
+10. Registration handler composition.
+11-16. Login, local PostgreSQL, authentication smoke testing, and response security.
+17-25. Vehicle creation, validation, routes, authentication, listing, and local smoke testing.
+26-29. Vehicle search and update features.
+30-32. Vehicle deletion and admin authorization.
+33-37. Vehicle purchase service, authenticated route, and persistent atomic stock decrement.
+38-41. Admin restock service, protected route, and persistent stock increment.
+
+## Commit and prompt conventions
+
+Red-stage commits contain tests that demonstrate the missing behavior. Green-stage
+commits contain the smallest implementation that makes those tests pass. The
+working branch is `main`, and completed changes are pushed to the assessment
+repository at https://github.com/s-tushar-01/assessment.
+
+AI-assisted commits use:
+
+`Co-authored-by: OpenAI Codex <AI@users.noreply.github.com>`
+
+The two local teaching examples, `PROMPTS_EXAMPLE.md` and `TDD_EXAMPLE.md`, are
+not part of the assessment history and are intentionally not included here.
 
 ## Entry 1 - Assessment analysis
 
@@ -82,10 +143,12 @@ configuration were created. No business feature has been implemented.
 - Frontend lint passed.
 - PostgreSQL Docker Compose configuration was validated.
 
-## Future entries
+## Record maintenance
 
-For each AI interaction, record the exact prompt, relevant response, decision,
-files changed, tests run, and related commit.
+The prompt history is updated after each meaningful AI-assisted TDD cycle. New
+entries should preserve the same format: exact prompt, purpose, implementation
+result, verification, and commit/push outcome. Do not remove earlier prompts,
+including prompts whose Red-stage tests have already been made Green.
 
 ## Entry 5 - Registration TDD Red stage
 
