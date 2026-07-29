@@ -21,6 +21,8 @@ function App() {
   )
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [isRegistering, setIsRegistering] = useState(false)
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
@@ -73,6 +75,32 @@ function App() {
       setIsAuthenticated(true)
     } catch (loginError) {
       setError(loginError instanceof Error ? loginError.message : 'Unable to sign in')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  async function handleRegister(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setError('')
+    if (password !== confirmPassword) {
+      setError('Passwords do not match')
+      return
+    }
+    setIsSubmitting(true)
+    try {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error ?? 'Unable to register')
+      setIsRegistering(false)
+      setPassword('')
+      setConfirmPassword('')
+    } catch (registrationError) {
+      setError(registrationError instanceof Error ? registrationError.message : 'Unable to register')
     } finally {
       setIsSubmitting(false)
     }
@@ -229,11 +257,13 @@ function App() {
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
           Dealership inventory
         </p>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight">Sign in</h1>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight">
+          {isRegistering ? 'Create account' : 'Sign in'}
+        </h1>
         <p className="mt-2 text-sm text-slate-400">
           Access the vehicle inventory dashboard.
         </p>
-        <form className="mt-8 space-y-5" onSubmit={handleLogin}>
+        <form className="mt-8 space-y-5" onSubmit={isRegistering ? handleRegister : handleLogin}>
           <div>
             <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="email">
               Email
@@ -264,13 +294,35 @@ function App() {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
+          {isRegistering && (
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="confirm-password">
+                Confirm password
+              </label>
+              <input
+                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-cyan-400"
+                id="confirm-password"
+                type="password"
+                required
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
+            </div>
+          )}
           {error && <p className="text-sm text-rose-300" role="alert">{error}</p>}
           <button
             className="w-full rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Signing in…' : 'Sign in'}
+            {isSubmitting ? 'Working…' : isRegistering ? 'Register' : 'Sign in'}
+          </button>
+          <button
+            className="w-full text-sm text-cyan-300 hover:text-cyan-200"
+            onClick={() => setIsRegistering((current) => !current)}
+            type="button"
+          >
+            {isRegistering ? 'Back to sign in' : 'Create account'}
           </button>
         </form>
       </section>
