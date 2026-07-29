@@ -988,4 +988,23 @@ entries should preserve the same format: exact prompt, purpose, implementation
 result, verification, and commit/push outcome. Do not remove earlier prompts,
 including prompts whose Red-stage tests have already been made Green.
 
+## Entry 48 - Frontend purchase interaction Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library test that
+clicks Purchase on an available vehicle, calls POST /api/vehicles/:id/purchase
+with the bearer token, and updates the displayed stock using the response. Run
+the focused test, then commit and push the Red-stage test without implementing
+the purchase interaction.
+```
+
+**Status:**
+
+The purchase interaction test is added as the next Red-stage contract. Vehicle
+cards currently display a Purchase button without behavior.
+
 ## Record maintenance

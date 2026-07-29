@@ -65,4 +65,50 @@ describe('App', () => {
     vi.restoreAllMocks()
     localStorage.clear()
   })
+
+  it('purchases a vehicle and refreshes its stock', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('dealership_token', 'token-1')
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify([
+            {
+              id: 'vehicle-1',
+              make: 'Honda',
+              model: 'Civic',
+              category: 'Sedan',
+              price: 28900,
+              quantity: 3,
+            },
+          ]),
+          { status: 200, headers: { 'Content-Type': 'application/json' } },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            id: 'vehicle-1',
+            make: 'Honda',
+            model: 'Civic',
+            category: 'Sedan',
+            price: 28900,
+            quantity: 2,
+          }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } },
+        ),
+      )
+
+    render(<App />)
+    await waitFor(() => expect(screen.getByText('3 in stock')).toBeTruthy())
+    await user.click(screen.getByRole('button', { name: /purchase/i }))
+
+    await waitFor(() => expect(screen.getByText('2 in stock')).toBeTruthy())
+    expect(fetchMock).toHaveBeenLastCalledWith(
+      expect.stringContaining('/api/vehicles/vehicle-1/purchase'),
+      expect.objectContaining({ method: 'POST' }),
+    )
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
 })
