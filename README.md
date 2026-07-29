@@ -85,7 +85,7 @@ npm test
 
 See [TEST_REPORT.md](TEST_REPORT.md) for the latest automated verification.
 
-The final verification currently passes 37 backend tests and 15 frontend tests,
+The final verification currently passes 37 backend tests and 16 frontend tests,
 along with both production builds and frontend lint.
 
 ## Admin account setup

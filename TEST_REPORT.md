@@ -6,7 +6,7 @@
 |---|---|
 | Backend Vitest | 37 tests passed across 20 test files |
 | Backend TypeScript build | Passed |
-| Frontend Vitest | 15 tests passed |
+| Frontend Vitest | 16 tests passed |
 | Frontend production build | Passed |
 | Frontend lint | Passed |
 | Playwright browser smoke test | Previously passed; latest local rerun blocked by unavailable PostgreSQL |

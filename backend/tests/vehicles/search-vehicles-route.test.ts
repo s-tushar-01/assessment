@@ -30,6 +30,7 @@ describe('GET /api/vehicles/search', () => {
     const response = await request(app)
       .get('/api/vehicles/search')
       .query({
+        query: 'Civic',
         make: 'Honda',
         category: 'Sedan',
         minPrice: '20000',
@@ -39,6 +40,7 @@ describe('GET /api/vehicles/search', () => {
 
     expect(response.status).toBe(200)
     expect(searchVehicles).toHaveBeenCalledWith({
+      query: 'Civic',
       make: 'Honda',
       category: 'Sedan',
       minPrice: 20000,

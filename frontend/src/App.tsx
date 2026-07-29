@@ -17,6 +17,17 @@ type InventoryAction = {
   vehicle: Vehicle
 } | null
 
+function parseSearchInput(input: string) {
+  const value = input.trim().replace(/[$,]/g, '')
+  const minimumOnly = value.match(/^(\d+(?:\.\d+)?)\+$/)
+  if (minimumOnly) return { query: '', minPrice: minimumOnly[1], maxPrice: '' }
+
+  const range = value.match(/^(\d+(?:\.\d+)?)-(\d+(?:\.\d+)?)$/)
+  if (range) return { query: '', minPrice: range[1], maxPrice: range[2] }
+
+  return { query: input.trim(), minPrice: '', maxPrice: '' }
+}
+
 async function readResponseBody(response: Response): Promise<Record<string, unknown>> {
   try {
     const body: unknown = await response.json()
@@ -97,12 +108,14 @@ function App() {
   const [categoryFilter, setCategoryFilter] = useState('')
   const [minPriceFilter, setMinPriceFilter] = useState('')
   const [maxPriceFilter, setMaxPriceFilter] = useState('')
+  const [globalSearch, setGlobalSearch] = useState('')
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
   const totalStock = vehicles.reduce((total, vehicle) => total + vehicle.quantity, 0)
   const totalInventoryValue = vehicles.reduce(
     (total, vehicle) => total + vehicle.price * vehicle.quantity,
     0,
   )
-  const hasFilters = Boolean(makeFilter || modelFilter || categoryFilter || minPriceFilter || maxPriceFilter)
+  const hasFilters = Boolean(globalSearch || makeFilter || modelFilter || categoryFilter || minPriceFilter || maxPriceFilter)
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -338,11 +351,13 @@ function App() {
     setIsLoadingVehicles(true)
     setError('')
     const params = new URLSearchParams()
+    const parsedSearch = parseSearchInput(globalSearch)
+    if (parsedSearch.query) params.set('query', parsedSearch.query)
     if (makeFilter) params.set('make', makeFilter)
     if (modelFilter) params.set('model', modelFilter)
     if (categoryFilter) params.set('category', categoryFilter)
-    if (minPriceFilter) params.set('minPrice', minPriceFilter)
-    if (maxPriceFilter) params.set('maxPrice', maxPriceFilter)
+    if (parsedSearch.minPrice || minPriceFilter) params.set('minPrice', minPriceFilter || parsedSearch.minPrice)
+    if (parsedSearch.maxPrice || maxPriceFilter) params.set('maxPrice', maxPriceFilter || parsedSearch.maxPrice)
 
     try {
       const response = await fetch(`${API_URL}/api/vehicles/search?${params}`, {
@@ -468,43 +483,31 @@ function App() {
           )}
           {error && <p className="error-message" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400" aria-live="polite">Loading vehicles...</p>}
-          <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6" id="inventory" onSubmit={handleSearch}>
-            <div className="search-panel-header col-span-full">
-              <div><p className="search-panel-eyebrow">Inventory filters</p><h2>Search inventory</h2><p className="search-panel-helper">Refine the available stock by vehicle details and price.</p></div>
-              {hasFilters && <button className="clear-filters" onClick={() => { setMakeFilter(''); setModelFilter(''); setCategoryFilter(''); setMinPriceFilter(''); setMaxPriceFilter('') }} type="button">Clear filters</button>}
+          <form className="search-panel mt-8" id="inventory" onSubmit={handleSearch}>
+            <div className="search-panel-header">
+              <div><p className="search-panel-eyebrow">Inventory search</p><h2>Find your next vehicle</h2><p className="search-panel-helper">Search by make, model, category, or try a price such as 45000+.</p></div>
+              <div className="search-panel-meta"><span aria-live="polite">{isLoadingVehicles ? 'Searching...' : `${vehicles.length} ${vehicles.length === 1 ? 'vehicle' : 'vehicles'} found`}</span>{hasFilters && <button className="clear-filters" onClick={() => { setGlobalSearch(''); setMakeFilter(''); setModelFilter(''); setCategoryFilter(''); setMinPriceFilter(''); setMaxPriceFilter(''); setIsFiltersOpen(false) }} type="button">Clear all</button>}</div>
             </div>
-            <div className="dashboard-field">
-              <label htmlFor="make-filter">Make</label>
-              <input
-                id="make-filter"
-                value={makeFilter}
-                onChange={(event) => setMakeFilter(event.target.value)}
-              />
+            <div className="search-main-row">
+              <div className="global-search-field">
+                <label htmlFor="inventory-search">Search inventory</label>
+                <div className="global-search-input"><span className="search-input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></svg></span><input id="inventory-search" placeholder="Make, model, category, or price" value={globalSearch} onChange={(event) => setGlobalSearch(event.target.value)} /><button aria-label="Clear search" className="search-clear" hidden={!globalSearch} onClick={() => setGlobalSearch('')} type="button">×</button></div>
+              </div>
+              <button className="search-button" type="submit"><span className="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></svg></span> Search</button>
+              <button aria-controls="inventory-filters" aria-expanded={isFiltersOpen} className="filter-toggle" onClick={() => setIsFiltersOpen((current) => !current)} type="button"><span className="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 6h16M7 12h10m-7 6h4" /></svg></span> Filters {hasFilters && <span className="filter-count">{[makeFilter, modelFilter, categoryFilter, minPriceFilter, maxPriceFilter].filter(Boolean).length}</span>}</button>
             </div>
-            <div className="dashboard-field">
-              <label htmlFor="model-filter">Model</label>
-              <input id="model-filter" value={modelFilter} onChange={(event) => setModelFilter(event.target.value)} />
-            </div>
-            <div className="dashboard-field">
-              <label htmlFor="category-filter">Category</label>
-              <input id="category-filter" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} />
-            </div>
-            <div className="dashboard-field">
-              <label htmlFor="min-price-filter">Minimum price</label>
-              <input
-                id="min-price-filter"
-                min="0"
-                type="number"
-                value={minPriceFilter}
-                onChange={(event) => setMinPriceFilter(event.target.value)}
-              />
-            </div>
-            <div className="dashboard-field">
-              <label htmlFor="max-price-filter">Maximum price</label>
-              <input id="max-price-filter" min="0" type="number" value={maxPriceFilter} onChange={(event) => setMaxPriceFilter(event.target.value)} />
-            </div>
-            <button className="search-button" type="submit"><span className="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></svg></span> Search</button>
+            {isFiltersOpen && <div className="filter-drawer" id="inventory-filters">
+              <div className="filter-drawer-heading"><div><p className="search-panel-eyebrow">Refine results</p><h3>Filters</h3></div><p>Combine filters with your search term.</p></div>
+              <div className="filter-grid">
+                <div className="dashboard-field"><label htmlFor="make-filter">Make</label><input id="make-filter" placeholder="e.g. Toyota" value={makeFilter} onChange={(event) => setMakeFilter(event.target.value)} /></div>
+                <div className="dashboard-field"><label htmlFor="model-filter">Model</label><input id="model-filter" placeholder="e.g. Camry" value={modelFilter} onChange={(event) => setModelFilter(event.target.value)} /></div>
+                <div className="dashboard-field"><label htmlFor="category-filter">Category</label><input id="category-filter" placeholder="e.g. SUV" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} /></div>
+                <div className="dashboard-field"><label htmlFor="min-price-filter">Minimum price</label><input id="min-price-filter" min="0" placeholder="$20,000" type="number" value={minPriceFilter} onChange={(event) => setMinPriceFilter(event.target.value)} /></div>
+                <div className="dashboard-field"><label htmlFor="max-price-filter">Maximum price</label><input id="max-price-filter" min="0" placeholder="$45,000" type="number" value={maxPriceFilter} onChange={(event) => setMaxPriceFilter(event.target.value)} /></div>
+              </div>
+            </div>}
           </form>
+          {!isLoadingVehicles && vehicles.length === 0 && <div className="empty-inventory"><strong>No vehicles match your search.</strong><span>Try a different make, model, category, or broaden the price range.</span>{hasFilters && <button className="clear-filters" onClick={() => { setGlobalSearch(''); setMakeFilter(''); setModelFilter(''); setCategoryFilter(''); setMinPriceFilter(''); setMaxPriceFilter('') }} type="button">Clear search and filters</button>}</div>}
           <div className="vehicle-grid mt-8">
             {vehicles.map((vehicle) => (
               <article className="vehicle-card" key={vehicle.id}>
@@ -535,9 +538,6 @@ function App() {
               </article>
             ))}
           </div>
-          {!isLoadingVehicles && vehicles.length === 0 && (
-            <p className="mt-10 rounded-2xl border border-dashed border-slate-700 p-8 text-center text-slate-400">No vehicles found.</p>
-          )}
         </section>
       </main>
     )

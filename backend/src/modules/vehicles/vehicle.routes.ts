@@ -53,6 +53,7 @@ export function createVehicleRouter(
         }
 
         const filters: VehicleSearchFilters = {
+          query: typeof request.query.query === 'string' ? request.query.query : undefined,
           make: typeof request.query.make === 'string' ? request.query.make : undefined,
           model: typeof request.query.model === 'string' ? request.query.model : undefined,
           category:

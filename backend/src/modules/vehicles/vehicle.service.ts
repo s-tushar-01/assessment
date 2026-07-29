@@ -36,6 +36,7 @@ export async function listVehicles(dependencies: {
 }
 
 export type VehicleSearchFilters = {
+  query?: string
   make?: string
   model?: string
   category?: string

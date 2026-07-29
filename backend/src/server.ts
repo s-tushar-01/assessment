@@ -80,6 +80,14 @@ const findVehicles = (
       search: async (searchFilters) => {
         const where: Prisma.VehicleWhereInput = {}
 
+        if (searchFilters.query) {
+          where.OR = [
+            { make: { contains: searchFilters.query, mode: 'insensitive' } },
+            { model: { contains: searchFilters.query, mode: 'insensitive' } },
+            { category: { contains: searchFilters.query, mode: 'insensitive' } },
+          ]
+        }
+
         if (searchFilters.make) {
           where.make = { contains: searchFilters.make, mode: 'insensitive' }
         }

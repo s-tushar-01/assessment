@@ -190,15 +190,35 @@ describe('App', () => {
       )
 
     render(<App />)
+    await user.click(screen.getByRole('button', { name: /filters/i }))
     await user.type(screen.getByLabelText(/make/i), 'Toyota')
     await user.type(screen.getByLabelText(/minimum price/i), '20000')
-    await user.click(screen.getByRole('button', { name: /search/i }))
+    await user.click(screen.getByRole('button', { name: /^search$/i }))
 
     await waitFor(() => expect(screen.getByText('Toyota Corolla')).toBeTruthy())
     expect(fetchMock).toHaveBeenLastCalledWith(
       expect.stringContaining('/api/vehicles/search?'),
       expect.objectContaining({ method: 'GET' }),
     )
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
+
+  it('searches globally and converts plus pricing into a minimum price', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('dealership_token', 'token-1')
+    const fetchMock = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(JSON.stringify([]), { status: 200 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify([]), { status: 200 }))
+
+    render(<App />)
+    await user.type(screen.getByRole('textbox', { name: /search inventory/i }), '45000+')
+    await user.click(screen.getByRole('button', { name: /^search$/i }))
+
+    await waitFor(() => expect(fetchMock).toHaveBeenLastCalledWith(
+      expect.stringContaining('minPrice=45000'),
+      expect.objectContaining({ method: 'GET' }),
+    ))
     vi.restoreAllMocks()
     localStorage.clear()
   })
@@ -332,10 +352,11 @@ describe('App', () => {
 
     render(<App />)
 
+    await userEvent.setup().click(screen.getByRole('button', { name: /filters/i }))
     expect(screen.getByLabelText(/model/i)).toBeTruthy()
     expect(screen.getByLabelText(/category/i)).toBeTruthy()
     expect(screen.getByLabelText(/maximum price/i)).toBeTruthy()
-    await waitFor(() => expect(screen.getByText(/no vehicles found/i)).toBeTruthy())
+    await waitFor(() => expect(screen.getByText(/no vehicles match your search/i)).toBeTruthy())
   })
 
   it('shows admin dashboard context after an admin session is restored', async () => {

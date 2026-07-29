@@ -93,6 +93,7 @@ records retain every prompt and result from the development history.
 | 35 | 92 | Keep zero-stock vehicles visible in inventory |
 | 36 | 93 | Replace delete browser confirmation with an in-app confirmation box |
 | 37 | 94 | Upgrade the delete confirmation dialog with clearer visual hierarchy |
+| 38 | 95 | Add Amazon-style global inventory search and progressive filters |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1725,6 +1726,33 @@ co-author trailer.
 Upgraded the delete dialog with a red delete icon, a selected vehicle summary,
 price/category/stock context, a warning panel, and clearer responsive actions.
 The 15 frontend tests, production build, and lint pass.
+
+
+## Entry 95 - Amazon-style inventory search and filters
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to improve inventory discovery. Replace the
+always-visible filter grid with an Amazon-style global search field and a
+Filters control beside it. Search make, model, and category through one
+query, support price shorthand such as 45000+ and 20000-45000, show result
+counts, active-filter count, clear actions, Enter/button search, responsive
+filter disclosure, and a helpful no-results state. Extend the backend search
+contract safely, add focused frontend and route coverage, run all tests,
+builds, and lint, update documentation and PROMPTS.md, then commit and push
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Added global text search across make, model, and category; price shorthand for
+minimum and range searches; a responsive filter drawer beside Search; result
+counts, clear-all actions, keyboard form submission, and no-results guidance.
+The backend has 37 passing tests/build, and the frontend has 16 passing tests,
+build, and lint.
 
 
 ## Entry 92 - Preserve zero-stock inventory records
