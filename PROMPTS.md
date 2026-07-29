@@ -270,8 +270,9 @@ then commit and push the Red-stage test. Do not implement the route yet.
 
 **Status:**
 
-The update route test is intentionally failing because the vehicle router does
-not yet expose PUT /api/vehicles/:id.
+The update route test was initially failing because the vehicle router did not
+expose PUT /api/vehicles/:id. The protected route was then added and connected
+to Prisma; all 24 backend tests and the build passed.
 
 ## Entry 24 - List vehicles route Red stage
 

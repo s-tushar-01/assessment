@@ -3,6 +3,7 @@ import type {
   VehicleInput,
   VehicleRecord,
   VehicleSearchFilters,
+  VehicleUpdateInput,
 } from './vehicle.service.js'
 
 export type CreateVehicleHandler = (
@@ -12,12 +13,17 @@ export type ListVehiclesHandler = () => Promise<VehicleRecord[]>
 export type SearchVehiclesHandler = (
   filters: VehicleSearchFilters,
 ) => Promise<VehicleRecord[]>
+export type UpdateVehicleHandler = (
+  id: string,
+  input: VehicleUpdateInput,
+) => Promise<VehicleRecord>
 
 export function createVehicleRouter(
   createVehicle: CreateVehicleHandler,
   authMiddleware?: RequestHandler,
   listVehicles?: ListVehiclesHandler,
   searchVehicles?: SearchVehiclesHandler,
+  updateVehicle?: UpdateVehicleHandler,
 ) {
   const router = Router()
 
@@ -59,6 +65,20 @@ export function createVehicleRouter(
       return next(error)
     }
   })
+
+  if (updateVehicle) {
+    router.put('/:id', ...handlers, async (request, response, next) => {
+      try {
+        const vehicle = await updateVehicle(
+          request.params.id as string,
+          request.body as VehicleUpdateInput,
+        )
+        return response.status(200).json(vehicle)
+      } catch (error) {
+        return next(error)
+      }
+    })
+  }
 
   if (listVehicles) {
     router.get('/', ...handlers, async (_request, response, next) => {

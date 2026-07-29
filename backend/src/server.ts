@@ -6,6 +6,7 @@ import {
   createVehicle,
   listVehicles,
   searchVehicles,
+  updateVehicle,
 } from './modules/vehicles/vehicle.service.js'
 import { requireAuth } from './middleware/auth.middleware.js'
 import { Prisma, PrismaClient } from '@prisma/client'
@@ -111,6 +112,32 @@ const findVehicles = (
     },
   })
 
+const editVehicle = (
+  id: string,
+  input: Parameters<typeof updateVehicle>[1],
+) =>
+  updateVehicle(id, input, {
+    repository: {
+      update: async (vehicleId, changes) => {
+        const updated = await prisma.vehicle.update({
+          where: { id: vehicleId },
+          data: {
+            ...changes,
+            price:
+              changes.price === undefined
+                ? undefined
+                : new Prisma.Decimal(changes.price),
+          },
+        })
+
+        return {
+          ...updated,
+          price: updated.price.toNumber(),
+        }
+      },
+    },
+  })
+
 const app = createApp({
   registerUser,
   loginUser: login,
@@ -118,6 +145,7 @@ const app = createApp({
   vehicleAuth: requireAuth,
   listVehicles: getVehicles,
   searchVehicles: findVehicles,
+  updateVehicle: editVehicle,
 })
 
 const port = Number(process.env.PORT ?? 3000)
