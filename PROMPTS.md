@@ -368,6 +368,24 @@ Green-stage implementation with the AI co-author trailer.
 Implemented purchaseVehicle with stock-result validation. All 30 backend tests
 and the TypeScript build pass.
 
+## Entry 35 - Vehicle purchase route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the purchase workflow with TDD. Add a failing route test for
+POST /api/vehicles/:id/purchase. It must require authentication, call the
+purchase handler with the vehicle id, and return the purchased vehicle. Run the
+focused test and commit/push the Red-stage test without implementing the route.
+```
+
+**Status:**
+
+The route test is intentionally failing with HTTP 404 because the purchase
+endpoint has not yet been added.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
