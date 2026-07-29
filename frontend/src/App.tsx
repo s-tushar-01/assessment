@@ -22,6 +22,8 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [isLoadingVehicles, setIsLoadingVehicles] = useState(false)
+  const [makeFilter, setMakeFilter] = useState('')
+  const [minPriceFilter, setMinPriceFilter] = useState('')
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -95,6 +97,29 @@ function App() {
     }
   }
 
+  async function handleSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsLoadingVehicles(true)
+    setError('')
+    const params = new URLSearchParams()
+    if (makeFilter) params.set('make', makeFilter)
+    if (minPriceFilter) params.set('minPrice', minPriceFilter)
+
+    try {
+      const response = await fetch(`${API_URL}/api/vehicles/search?${params}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+        },
+      })
+      if (!response.ok) throw new Error('Unable to search vehicles')
+      setVehicles(await response.json())
+    } catch (searchError) {
+      setError(searchError instanceof Error ? searchError.message : 'Unable to search vehicles')
+    } finally {
+      setIsLoadingVehicles(false)
+    }
+  }
+
   if (isAuthenticated) {
     return (
       <main className="min-h-screen bg-slate-950 px-6 py-12 text-slate-100">
@@ -106,6 +131,29 @@ function App() {
           <p className="mt-3 text-slate-400">Manage and purchase available vehicles.</p>
           {error && <p className="mt-6 text-sm text-rose-300" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400">Loading vehicles…</p>}
+          <form className="mt-8 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-end" onSubmit={handleSearch}>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="make-filter">Make</label>
+              <input
+                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+                id="make-filter"
+                value={makeFilter}
+                onChange={(event) => setMakeFilter(event.target.value)}
+              />
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="min-price-filter">Minimum price</label>
+              <input
+                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+                id="min-price-filter"
+                min="0"
+                type="number"
+                value={minPriceFilter}
+                onChange={(event) => setMinPriceFilter(event.target.value)}
+              />
+            </div>
+            <button className="rounded-xl bg-white px-5 py-3 font-semibold text-slate-950" type="submit">Search</button>
+          </form>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {vehicles.map((vehicle) => (
               <article className="rounded-2xl border border-slate-800 bg-slate-900 p-5" key={vehicle.id}>

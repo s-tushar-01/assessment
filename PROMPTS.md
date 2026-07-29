@@ -68,7 +68,7 @@ records retain every prompt and result from the development history.
 | 12 | 38-41 | Restock service, admin route, and persistent database increment |
 
 This index is the serial implementation order. No later feature was implemented
-before the preceding featureÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s recorded tests and verification.
+before the preceding featureÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s recorded tests and verification.
 
 ## Commit and prompt conventions
 
@@ -1028,8 +1028,6 @@ handling. Frontend build and lint pass.
 
 
 
-## Record maintenance
-
 ## Entry 50 - Frontend inventory search Red stage
 
 **AI tool:** OpenAI Codex
@@ -1047,3 +1045,27 @@ then commit and push the Red-stage test without implementing search controls.
 
 The search test is added as the next Red-stage contract. The inventory dashboard
 does not yet provide search controls.
+
+
+## Entry 51 - Frontend inventory search Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum search controls needed to make the Red-stage test pass.
+Add make and minimum-price fields, call GET /api/vehicles/search with encoded
+query parameters and the bearer token, and display the results. Run the
+frontend build and lint, update PROMPTS.md, then commit and push the Green-stage
+implementation with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented make and minimum-price filters, authenticated search requests, and
+result rendering. Frontend build and lint pass.
+
+
+## Record maintenance
+
