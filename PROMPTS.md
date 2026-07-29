@@ -53,8 +53,36 @@ TDD workflow, Git history, AI co-authorship, and GitHub push requirements.
 
 Repository setup is being prepared. Feature implementation has not started.
 
+## Entry 4 - Initial project skeleton
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Start doing the assessment implementation from scratch. Connect the workspace
+to https://github.com/s-tushar-01/assessment, create the setup documentation and
+project skeleton, follow TDD, and push the setup commit to GitHub. Do not
+implement application features yet.
+```
+
+**How it was used:**
+
+The repository was connected to GitHub. Project rules, documentation, backend
+and frontend folders, PostgreSQL configuration, Prisma schema, and test/build
+configuration were created. No business feature has been implemented.
+
+**Verification:**
+
+- Backend Prisma client generation passed.
+- Backend tests pass with no feature tests yet.
+- Backend TypeScript build passed.
+- Frontend tests pass with no feature tests yet.
+- Frontend production build passed.
+- Frontend lint passed.
+- PostgreSQL Docker Compose configuration was validated.
+
 ## Future entries
 
 For each AI interaction, record the exact prompt, relevant response, decision,
 files changed, tests run, and related commit.
-

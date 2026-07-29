@@ -34,11 +34,55 @@ Git history will document the Red-Green-Refactor process.
 
 ## Setup
 
-Setup instructions will be completed as the backend and frontend are built.
+Prerequisites:
+
+- Node.js 24 or later
+- npm
+- Docker Desktop, for PostgreSQL
+
+Start PostgreSQL from the repository root:
+
+```bash
+docker compose up -d postgres
+```
+
+Set up the backend:
+
+```bash
+cd backend
+copy .env.example .env
+npm install
+npm run db:generate
+npm run db:migrate
+npm run dev
+```
+
+Set up the frontend in a second terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ## Testing
 
-Test commands and the final test report will be added before delivery.
+Backend tests:
+
+```bash
+cd backend
+npm test
+```
+
+Frontend tests and production build:
+
+```bash
+cd frontend
+npm run build
+npm test
+```
+
+The final test report will be added before delivery.
 
 ## My AI Usage
 
@@ -47,4 +91,3 @@ used for planning, test suggestions, implementation support, debugging, code
 review, and documentation. All generated suggestions are reviewed, adapted,
 tested, and explained by the project owner. The complete AI prompt history is
 maintained in `PROMPTS.md`.
-
