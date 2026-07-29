@@ -16,9 +16,10 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => Boolean(localStorage.getItem('dealership_token')),
   )
-  const [isAdmin] = useState(
-    () => localStorage.getItem('dealership_role') === 'ADMIN',
+  const [role, setRole] = useState(
+    () => localStorage.getItem('dealership_role') ?? 'USER',
   )
+  const isAdmin = role === 'ADMIN'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -28,7 +29,10 @@ function App() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [isLoadingVehicles, setIsLoadingVehicles] = useState(false)
   const [makeFilter, setMakeFilter] = useState('')
+  const [modelFilter, setModelFilter] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
   const [minPriceFilter, setMinPriceFilter] = useState('')
+  const [maxPriceFilter, setMaxPriceFilter] = useState('')
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -72,12 +76,21 @@ function App() {
 
       localStorage.setItem('dealership_token', result.token)
       localStorage.setItem('dealership_role', result.user.role)
+      setRole(result.user.role)
       setIsAuthenticated(true)
     } catch (loginError) {
       setError(loginError instanceof Error ? loginError.message : 'Unable to sign in')
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('dealership_token')
+    localStorage.removeItem('dealership_role')
+    setIsAuthenticated(false)
+    setVehicles([])
+    setRole('USER')
   }
 
   async function handleRegister(event: FormEvent<HTMLFormElement>) {
@@ -205,7 +218,10 @@ function App() {
     setError('')
     const params = new URLSearchParams()
     if (makeFilter) params.set('make', makeFilter)
+    if (modelFilter) params.set('model', modelFilter)
+    if (categoryFilter) params.set('category', categoryFilter)
     if (minPriceFilter) params.set('minPrice', minPriceFilter)
+    if (maxPriceFilter) params.set('maxPrice', maxPriceFilter)
 
     try {
       const response = await fetch(`${API_URL}/api/vehicles/search?${params}`, {
@@ -232,6 +248,12 @@ function App() {
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight">Inventory dashboard</h1>
           <p className="mt-3 text-slate-400">Manage and purchase available vehicles.</p>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <span className="rounded-full border border-cyan-400/50 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200">Role: {role}</span>
+            <button className="rounded-xl border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-cyan-400" onClick={handleLogout} type="button">
+              Log out
+            </button>
+          </div>
           {isAdmin && (
             <button className="mt-6 rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-slate-950" onClick={() => void handleAddVehicle()} type="button">
               Add vehicle
@@ -239,7 +261,7 @@ function App() {
           )}
           {error && <p className="mt-6 text-sm text-rose-300" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400">Loading vehicles…</p>}
-          <form className="mt-8 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-end" onSubmit={handleSearch}>
+          <form className="mt-8 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:grid-cols-2 lg:grid-cols-3" onSubmit={handleSearch}>
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="make-filter">Make</label>
               <input
@@ -248,6 +270,14 @@ function App() {
                 value={makeFilter}
                 onChange={(event) => setMakeFilter(event.target.value)}
               />
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="model-filter">Model</label>
+              <input className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400" id="model-filter" value={modelFilter} onChange={(event) => setModelFilter(event.target.value)} />
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="category-filter">Category</label>
+              <input className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400" id="category-filter" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} />
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="min-price-filter">Minimum price</label>
@@ -259,6 +289,10 @@ function App() {
                 value={minPriceFilter}
                 onChange={(event) => setMinPriceFilter(event.target.value)}
               />
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="max-price-filter">Maximum price</label>
+              <input className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400" id="max-price-filter" min="0" type="number" value={maxPriceFilter} onChange={(event) => setMaxPriceFilter(event.target.value)} />
             </div>
             <button className="rounded-xl bg-white px-5 py-3 font-semibold text-slate-950" type="submit">Search</button>
           </form>
@@ -293,6 +327,9 @@ function App() {
               </article>
             ))}
           </div>
+          {!isLoadingVehicles && vehicles.length === 0 && (
+            <p className="mt-10 rounded-2xl border border-dashed border-slate-700 p-8 text-center text-slate-400">No vehicles found.</p>
+          )}
         </section>
       </main>
     )
