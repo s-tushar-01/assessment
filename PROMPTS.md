@@ -187,6 +187,30 @@ the Red-stage test. Do not implement the login screen yet.
 
 The frontend login test is intentionally failing because the application still
 shows only the starter placeholder screen.
+
+The sign-in screen was implemented with accessible email and password fields
+and a styled submit button. The frontend build and lint pass; Vitest currently
+stops after startup without emitting a result and will be investigated during
+frontend test setup.
+
+## Entry 43 - Frontend login Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum accessible React login screen needed to make the
+Red-stage test pass. Use the selected Tailwind styling, run the frontend build
+and lint, update PROMPTS.md, then commit and push the Green-stage implementation
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented the styled sign-in screen with labelled email and password inputs
+and a submit button. Frontend build and lint pass. Vitest runner diagnostics
+remain to be resolved before final frontend verification.
 ## Entry 5 - Registration TDD Red stage
 
 **AI tool:** OpenAI Codex
