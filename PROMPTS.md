@@ -83,6 +83,7 @@ records retain every prompt and result from the development history.
 | 25 | 82 | Replace add-vehicle browser prompts with an accessible form |
 | 26 | 83 | Apply cohesive blue-white UI color theme |
 | 27 | 84 | Rebalance the interface to white surfaces with blue sections |
+| 28 | 85 | Adapt authentication hero text to its blue-white background |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1668,6 +1669,28 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 85 - Authentication hero contrast adjustment
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to fix the authentication screen text contrast
+against the white-and-blue background. Keep the hero copy on the blue surface,
+keep the form on a clean white surface, preserve the responsive layout and
+readable contrast, and avoid relying on text shadows. Run frontend tests,
+build, and lint, update the design-system and prompt history, then commit and
+push with the AI co-author trailer.
+```
+
+**Status:**
+
+Changed the authentication split to a clear blue hero / white form composition
+and constrained the hero copy so white text remains on blue at desktop and
+responsive widths. The 13 frontend tests, production build, and lint pass.
+
 
 ## Entry 84 - White-and-blue composition
 

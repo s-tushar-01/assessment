@@ -362,3 +362,9 @@ body { background: #f4f8fd; color: #163a62; }
 .vehicle-modal-header p:last-child { color: #66819c; }
 .modal-close, .modal-cancel { border-color: #9cb8d2; color: #315a80; }
 .modal-close:hover, .modal-close:focus-visible, .modal-cancel:hover, .modal-cancel:focus-visible { border-color: #1d6bc1; color: #153b66; }
+
+/* Keep the hero copy on the blue surface so its white text never crosses into white. */
+.auth-page { background: linear-gradient(90deg, #0e5aa7 0%, #0e5aa7 48%, #f4f8fd 48%, #f4f8fd 100%); }
+.auth-intro h2 { max-width: 450px; font-size: clamp(2.75rem, 5vw, 4.8rem); }
+.auth-intro > p { max-width: 410px; }
+.auth-proof { max-width: 420px; }
