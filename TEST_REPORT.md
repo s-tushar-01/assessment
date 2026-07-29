@@ -32,7 +32,6 @@ in, opened the inventory dashboard, and captured:
 
 - `artifacts/login.png`
 - `artifacts/inventory-dashboard.png`
-
 - `artifacts/optional-purchase-flow.png`
 
 The broader optional flow is documented in `e2e/README.md` and covers vehicle

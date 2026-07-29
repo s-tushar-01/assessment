@@ -9,7 +9,6 @@
 - Write tests before implementation.
 - Work on one feature at a time.
 - Run relevant tests after every change.
-- Do not modify unrelated files.
 - Explain generated code so the project owner can discuss it in an interview.
 - Do not commit secrets, credentials, or `.env` files.
 - Do not create or push commits without explicit approval.
@@ -20,4 +19,3 @@
 - Run the complete test suite before delivery.
 - Keep Git commits small and descriptive.
 - Include the AI co-author trailer on commits where AI materially contributed.
-
