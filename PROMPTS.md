@@ -466,6 +466,24 @@ push the Green-stage implementation with the AI co-author trailer.
 Implemented positive-integer restock validation and repository delegation. The
 focused tests and TypeScript build pass.
 
+## Entry 40 - Vehicle restock route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing Supertest contract for POST /api/vehicles/:id/restock. The route
+must require an ADMIN token, pass the body quantity to restockVehicle, and
+return the updated vehicle. Run the focused test and commit/push only the
+Red-stage test before implementing the route.
+```
+
+**Status:**
+
+The route test is intentionally failing with HTTP 404 because the admin restock
+endpoint has not yet been added.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
