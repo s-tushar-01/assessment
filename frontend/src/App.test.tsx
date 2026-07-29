@@ -194,4 +194,20 @@ describe('App', () => {
     vi.restoreAllMocks()
     localStorage.clear()
   })
+
+  it('shows add and edit controls for an admin user', async () => {
+    localStorage.setItem('dealership_token', 'admin-token')
+    localStorage.setItem('dealership_role', 'ADMIN')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([]), { status: 200 }),
+    )
+
+    render(<App />)
+
+    await waitFor(() => expect(screen.getByRole('heading', { name: /inventory dashboard/i })).toBeTruthy())
+    expect(screen.getByRole('button', { name: /add vehicle/i })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /edit inventory/i })).toBeTruthy()
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
 })

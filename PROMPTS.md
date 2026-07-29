@@ -1253,3 +1253,20 @@ and captured `artifacts/login.png` and `artifacts/inventory-dashboard.png`.
 
 ## Record maintenance
 
+## Entry 61 - Frontend admin add/edit Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library test for
+an ADMIN user seeing Add vehicle and Edit inventory controls on the dashboard.
+Run the focused test, then commit and push the Red-stage test without
+implementing vehicle creation or editing UI.
+```
+
+**Status:**
+
+The admin add/edit test is added as the next Red-stage contract. The dashboard
+currently supports only admin restock and delete actions.
