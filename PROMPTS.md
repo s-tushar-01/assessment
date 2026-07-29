@@ -256,3 +256,20 @@ implement the login route yet.
 The login route test is intentionally failing because the auth router does not
 yet expose POST /api/auth/login. The login route was then added and the focused
 route tests passed.
+
+## Entry 14 - Login application wiring Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing application-level test proving createApp mounts the login route.
+Use an injected login handler, run the backend tests, then commit and push the
+Red-stage test. Do not wire login into createApp yet.
+```
+
+**Status:**
+
+The application login wiring test is intentionally failing because createApp
+currently mounts only registration.
