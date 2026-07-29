@@ -9,6 +9,7 @@ import {
   updateVehicle,
   deleteVehicle,
   purchaseVehicle,
+  restockVehicle,
 } from './modules/vehicles/vehicle.service.js'
 import { requireAdmin, requireAuth } from './middleware/auth.middleware.js'
 import { Prisma, PrismaClient } from '@prisma/client'
@@ -171,6 +172,20 @@ const buyVehicle = (id: string) =>
     },
   })
 
+const addVehicleStock = (id: string, quantity: number) =>
+  restockVehicle(id, quantity, {
+    repository: {
+      restock: async (vehicleId, amount) => {
+        const updated = await prisma.vehicle.update({
+          where: { id: vehicleId },
+          data: { quantity: { increment: amount } },
+        })
+
+        return { ...updated, price: updated.price.toNumber() }
+      },
+    },
+  })
+
 const app = createApp({
   registerUser,
   loginUser: login,
@@ -182,6 +197,7 @@ const app = createApp({
   deleteVehicle: removeVehicle,
   adminAuth: requireAdmin,
   purchaseVehicle: buyVehicle,
+  restockVehicle: addVehicleStock,
 })
 
 const port = Number(process.env.PORT ?? 3000)

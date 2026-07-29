@@ -19,6 +19,10 @@ export type UpdateVehicleHandler = (
 ) => Promise<VehicleRecord>
 export type DeleteVehicleHandler = (id: string) => Promise<void>
 export type PurchaseVehicleHandler = (id: string) => Promise<VehicleRecord>
+export type RestockVehicleHandler = (
+  id: string,
+  quantity: number,
+) => Promise<VehicleRecord>
 
 export function createVehicleRouter(
   createVehicle: CreateVehicleHandler,
@@ -29,6 +33,7 @@ export function createVehicleRouter(
   deleteVehicle?: DeleteVehicleHandler,
   adminMiddleware?: RequestHandler,
   purchaseVehicle?: PurchaseVehicleHandler,
+  restockVehicle?: RestockVehicleHandler,
 ) {
   const router = Router()
 
@@ -84,6 +89,24 @@ export function createVehicleRouter(
         return next(error)
       }
     })
+  }
+
+  if (restockVehicle) {
+    router.post(
+      '/:id/restock',
+      ...adminHandlers,
+      async (request, response, next) => {
+        try {
+          const vehicle = await restockVehicle(
+            request.params.id as string,
+            Number(request.body.quantity),
+          )
+          return response.status(200).json(vehicle)
+        } catch (error) {
+          return next(error)
+        }
+      },
+    )
   }
 
   if (updateVehicle) {

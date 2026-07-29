@@ -484,6 +484,28 @@ Red-stage test before implementing the route.
 The route test is intentionally failing with HTTP 404 because the admin restock
 endpoint has not yet been added.
 
+The admin-only restock route was added with quantity parsing, app dependency
+wiring, and Prisma quantity increment persistence. The full backend suite now
+passes 34 tests and the TypeScript build succeeds.
+
+## Entry 41 - Vehicle restock route Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the admin-only restock route and wire it through createApp and Prisma
+using a quantity increment. Run the focused route test, the full backend test
+suite, and the TypeScript build. Update PROMPTS.md, then commit and push the
+Green-stage implementation with the AI co-author trailer.
+```
+
+**Status:**
+
+Added the ADMIN-protected restock endpoint, application wiring, and persistent
+Prisma increment. All 34 backend tests and the TypeScript build pass.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
