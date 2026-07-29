@@ -331,9 +331,25 @@ function App() {
           </div>
           {isAdmin && (
             <div className="admin-card mt-6">
-              <p className="admin-card-title">Admin tools</p>
+              <div className="admin-card-copy">
+                <span className="admin-card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M4 16.5 5.4 10a2 2 0 0 1 2-1.6h9.2a2 2 0 0 1 2 1.6l1.4 6.5" />
+                    <path d="M3.5 15.5h17v4h-17zM7 19.5v1M17 19.5v1M7.5 12.5h.01M16.5 12.5h.01" />
+                  </svg>
+                </span>
+                <div>
+                  <p className="admin-card-title">Admin tools</p>
+                  <p className="admin-card-description">Add a new vehicle to the dealership inventory.</p>
+                </div>
+              </div>
               <button className="admin-card-action" onClick={() => void handleAddVehicle()} type="button">
-                + Add vehicle
+                <span className="button-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </span>
+                Add vehicle
               </button>
             </div>
           )}

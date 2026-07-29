@@ -79,6 +79,7 @@ records retain every prompt and result from the development history.
 | 21 | 77 | Registration validation messages and response handling |
 | 22 | 78 | Authentication, dashboard, and admin UI visual refresh |
 | 23 | 79-80 | UI Pro Max system and supplied reference dashboard implementation |
+| 24 | 81 | Admin add-vehicle action polish |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1664,6 +1665,29 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 81 - Admin add-vehicle action polish
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to improve the admin Add vehicle control. Replace
+the plain full-width button with a polished, accessible admin action panel that
+uses a vehicle icon, clear helper text, a prominent Add vehicle action, visible
+focus states, hover feedback, and responsive mobile stacking. Preserve the
+existing add-vehicle behavior and tests, then verify, update PROMPTS.md, and
+commit and push the change with the AI co-author trailer.
+```
+
+**Status:**
+
+Replaced the plain admin control with a responsive action panel containing an
+inline SVG vehicle icon, explanatory copy, a dedicated Add vehicle button, and
+keyboard-visible focus and hover states. The 12 frontend tests, production
+build, and lint pass.
+
 
 ## Entry 80 - Supplied reference dashboard implementation
 

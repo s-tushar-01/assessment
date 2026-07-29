@@ -191,10 +191,16 @@ button { cursor: pointer; }
 .vehicle-stock { margin: 0; color: #83e36d; font-size: 0.85rem; }
 .vehicle-stock.out-of-stock { color: #ef4444; }
 .vehicle-card-footer .purchase-button { width: auto; margin: 0; padding: 0.7rem 1.1rem; }
-.admin-card { margin-top: 1rem; border: 1px solid rgb(248 113 113 / 30%); border-radius: 0.85rem; background: linear-gradient(140deg, #1e293b, #25141b); padding: 1rem; }
-.admin-card-title { margin: 0; color: #fca5a5; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
-.admin-card-action { min-height: 44px; width: 100%; margin-top: 0.7rem; border: 1px solid rgb(248 113 113 / 40%); border-radius: 0.6rem; background: transparent; color: #fecaca; font-weight: 700; transition: 200ms ease; }
-.admin-card-action:hover { background: #dc2626; color: white; }
+.admin-card { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1.5rem 2rem 0; border: 1px solid rgb(148 163 184 / 22%); border-radius: 0.9rem; background: linear-gradient(105deg, rgb(30 41 59 / 88%), rgb(31 23 28 / 92%)); padding: 1rem 1.15rem; box-shadow: 0 14px 36px rgb(0 0 0 / 14%); }
+.admin-card-copy { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+.admin-card-icon { display: grid; flex: 0 0 auto; width: 2.65rem; height: 2.65rem; place-items: center; border: 1px solid rgb(248 113 113 / 35%); border-radius: 0.7rem; background: rgb(127 29 29 / 30%); color: #fda4af; }
+.admin-card-icon svg { width: 1.35rem; height: 1.35rem; }
+.admin-card-title { margin: 0; color: #f8fafc; font-size: 0.9rem; font-weight: 700; }
+.admin-card-description { margin: 0.2rem 0 0; color: #94a3b8; font-size: 0.78rem; }
+.admin-card-action { display: inline-flex; min-height: 44px; flex: 0 0 auto; align-items: center; justify-content: center; gap: 0.45rem; border: 1px solid #ef4444; border-radius: 0.65rem; background: #dc2626; padding: 0.7rem 1rem; color: white; font-size: 0.85rem; font-weight: 700; box-shadow: 0 8px 18px rgb(220 38 38 / 20%); transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease; }
+.admin-card-action:hover { background: #ef4444; box-shadow: 0 10px 24px rgb(239 68 68 / 28%); transform: translateY(-1px); }
+.admin-card-action:active { transform: translateY(0); }
+.admin-card-action:focus-visible { outline: 3px solid rgb(248 113 113 / 45%); outline-offset: 3px; }
 .admin-actions { display: flex; gap: 0.5rem; margin-top: 0.8rem; }
 .admin-actions button { flex: 1; min-height: 44px; border: 1px solid #475569; border-radius: 0.55rem; background: transparent; color: #cbd5e1; font-size: 0.75rem; transition: 200ms ease; }
 .admin-actions button:hover { border-color: #f87171; color: white; background: #1e293b; }
@@ -222,6 +228,8 @@ button { cursor: pointer; }
   .vehicle-card-main { grid-template-columns: 1.1fr 0.9fr; }
   .vehicle-card-footer { grid-template-columns: 1fr 1fr; }
   .vehicle-card-footer .purchase-button { grid-column: 1 / -1; width: 100%; }
+  .admin-card { align-items: stretch; flex-direction: column; margin-inline: 1rem; }
+  .admin-card-action { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
