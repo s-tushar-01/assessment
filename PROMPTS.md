@@ -85,6 +85,7 @@ records retain every prompt and result from the development history.
 | 27 | 84 | Rebalance the interface to white surfaces with blue sections |
 | 28 | 85 | Adapt authentication hero text to its blue-white background |
 | 29 | 86 | Restore the slanted authentication hero panel |
+| 30 | 87 | Make the white-blue interface responsive |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1670,6 +1671,30 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 87 - Responsive white-and-blue interface
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to make the complete white-and-blue webapp
+responsive. Tune the slanted authentication hero, dashboard header, metrics,
+search form, vehicle cards, admin action panel, and add-vehicle modal for
+desktop, tablet, and mobile widths. Use mobile-first single-column layouts,
+touch-friendly controls, stacked actions, and prevent horizontal overflow.
+Preserve accessibility and behavior, then run frontend tests, build, and lint,
+update the design records, and commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Added responsive breakpoints for desktop, tablet, and mobile layouts. Dashboard
+grids collapse from three to two to one column, controls stack at small widths,
+the authentication hero remains slanted, and the modal stays usable on mobile.
+The 13 frontend tests, production build, and lint pass.
+
 
 ## Entry 86 - Slanted authentication hero panel
 

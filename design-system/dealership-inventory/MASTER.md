@@ -32,6 +32,8 @@
 
 **Color Notes:** White-and-blue technical interface with a slanted blue hero surface and white content surfaces
 
+**Responsive Notes:** Use mobile-first single-column content below 600px, two-column dashboard grids through tablet widths, and stacked navigation/actions below 900px. Keep touch targets at least 44px and prevent horizontal overflow.
+
 ### Typography
 
 - **Heading Font:** Inter
