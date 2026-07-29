@@ -5,6 +5,8 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
+    pool: 'threads',
+    maxWorkers: 1,
     include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
   },
 })

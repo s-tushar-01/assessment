@@ -142,6 +142,7 @@ function App() {
 
     try {
       const response = await fetch(`${API_URL}/api/vehicles/search?${params}`, {
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
         },

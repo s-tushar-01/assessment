@@ -1,7 +1,13 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
+
+afterEach(() => {
+  cleanup()
+  localStorage.clear()
+  vi.restoreAllMocks()
+})
 
 describe('App', () => {
   it('shows the dealership login form', () => {
