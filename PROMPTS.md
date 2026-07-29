@@ -211,6 +211,25 @@ with the AI co-author trailer.
 Implemented the styled sign-in screen with labelled email and password inputs
 and a submit button. Frontend build and lint pass. Vitest runner diagnostics
 remain to be resolved before final frontend verification.
+
+## Entry 44 - Frontend login interaction Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library interaction
+test proving that submitting valid login credentials calls POST /api/auth/login,
+saves the returned token, and opens an inventory dashboard heading. Run the
+focused test, then commit and push the Red-stage test without implementing the
+login behavior.
+```
+
+**Status:**
+
+The interaction test is added as the next Red-stage contract. The current App
+does not yet submit credentials or transition to an inventory dashboard.
 ## Entry 5 - Registration TDD Red stage
 
 **AI tool:** OpenAI Codex
