@@ -307,8 +307,9 @@ yet.
 
 **Status:**
 
-The admin authorization tests are intentionally failing because requireAdmin
-has not yet been implemented.
+The admin authorization tests were initially failing because requireAdmin had
+not yet been implemented. The guard was added and the test chain was corrected
+to run requireAuth before requireAdmin; all 27 backend tests passed.
 
 ## Entry 24 - List vehicles route Red stage
 

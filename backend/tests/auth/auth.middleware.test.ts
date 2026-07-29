@@ -40,7 +40,7 @@ describe('requireAuth', () => {
 
   it('rejects regular users from admin-only routes', async () => {
     const app = express()
-    app.get('/admin', requireAdmin, (_request, response) => {
+    app.get('/admin', requireAuth, requireAdmin, (_request, response) => {
       response.json({ ok: true })
     })
     const token = jwt.sign(
@@ -57,7 +57,7 @@ describe('requireAuth', () => {
 
   it('allows admin users through admin-only routes', async () => {
     const app = express()
-    app.get('/admin', requireAdmin, (_request, response) => {
+    app.get('/admin', requireAuth, requireAdmin, (_request, response) => {
       response.json({ ok: true })
     })
     const token = jwt.sign(
