@@ -6,7 +6,7 @@
 |---|---|
 | Backend Vitest | 35 tests passed across 20 test files |
 | Backend TypeScript build | Passed |
-| Frontend Vitest | 7 tests passed |
+| Frontend Vitest | 8 tests passed |
 | Frontend production build | Passed |
 | Frontend lint | Passed |
 | Playwright browser smoke test | Passed |
@@ -21,6 +21,7 @@
 - Authenticated inventory loading and filtering
 - Purchase stock refresh and zero-stock button disabling
 - ADMIN-only restock and delete controls
+- ADMIN-only add and edit controls
 - API CORS preflight for the Vite frontend origin
 
 ## Browser evidence
