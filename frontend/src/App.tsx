@@ -76,6 +76,9 @@ function App() {
   const [isRegistering, setIsRegistering] = useState(false)
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isAddVehicleOpen, setIsAddVehicleOpen] = useState(false)
+  const [isAddingVehicle, setIsAddingVehicle] = useState(false)
+  const [newVehicle, setNewVehicle] = useState({ make: '', model: '', category: '', price: '', quantity: '' })
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [isLoadingVehicles, setIsLoadingVehicles] = useState(false)
   const [makeFilter, setMakeFilter] = useState('')
@@ -240,24 +243,41 @@ function App() {
     }
   }
 
-  async function handleAddVehicle() {
-    const make = window.prompt('Make')
-    const model = window.prompt('Model')
-    const category = window.prompt('Category')
-    const price = Number(window.prompt('Price'))
-    const quantity = Number(window.prompt('Quantity'))
-    if (!make || !model || !category || !Number.isFinite(price) || !Number.isInteger(quantity)) return
-    const response = await fetch(`${API_URL}/api/vehicles`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
-      },
-      body: JSON.stringify({ make, model, category, price, quantity }),
-    })
-    if (response.ok) {
-      const addedVehicle = await response.json()
-      setVehicles((current) => [addedVehicle, ...current])
+  async function handleAddVehicle(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const price = Number(newVehicle.price)
+    const quantity = Number(newVehicle.quantity)
+    if (!newVehicle.make.trim() || !newVehicle.model.trim() || !newVehicle.category.trim() || !Number.isFinite(price) || price < 0 || !Number.isInteger(quantity) || quantity < 0) {
+      setError('Enter a make, model, category, valid price, and whole-number quantity.')
+      return
+    }
+
+    setError('')
+    setIsAddingVehicle(true)
+    try {
+      const response = await fetch(`${API_URL}/api/vehicles`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+        },
+        body: JSON.stringify({
+          make: newVehicle.make.trim(),
+          model: newVehicle.model.trim(),
+          category: newVehicle.category.trim(),
+          price,
+          quantity,
+        }),
+      })
+      const result = await readResponseBody(response)
+      if (!response.ok) throw new Error(typeof result.message === 'string' ? result.message : 'Unable to add vehicle')
+      setVehicles((current) => [result as unknown as Vehicle, ...current])
+      setNewVehicle({ make: '', model: '', category: '', price: '', quantity: '' })
+      setIsAddVehicleOpen(false)
+    } catch (addVehicleError) {
+      setError(addVehicleError instanceof Error ? addVehicleError.message : 'Unable to add vehicle')
+    } finally {
+      setIsAddingVehicle(false)
     }
   }
 
@@ -343,7 +363,7 @@ function App() {
                   <p className="admin-card-description">Add a new vehicle to the dealership inventory.</p>
                 </div>
               </div>
-              <button className="admin-card-action" onClick={() => void handleAddVehicle()} type="button">
+              <button className="admin-card-action" onClick={() => setIsAddVehicleOpen(true)} type="button">
                 <span className="button-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                     <path d="M12 5v14M5 12h14" />
@@ -351,6 +371,30 @@ function App() {
                 </span>
                 Add vehicle
               </button>
+            </div>
+          )}
+          {isAddVehicleOpen && (
+            <div className="modal-backdrop" role="presentation">
+              <section className="vehicle-modal" role="dialog" aria-modal="true" aria-labelledby="add-vehicle-title">
+                <div className="vehicle-modal-header">
+                  <div>
+                    <p className="modal-eyebrow">Admin inventory</p>
+                    <h2 id="add-vehicle-title">Add vehicle</h2>
+                    <p>Enter the vehicle details to add it to stock.</p>
+                  </div>
+                  <button className="modal-close" onClick={() => setIsAddVehicleOpen(false)} type="button" aria-label="Close add vehicle form">×</button>
+                </div>
+                <form className="vehicle-form" onSubmit={(event) => void handleAddVehicle(event)}>
+                  <div className="vehicle-form-grid">
+                    <div className="dashboard-field"><label htmlFor="new-vehicle-make">Make</label><input id="new-vehicle-make" required value={newVehicle.make} onChange={(event) => setNewVehicle((current) => ({ ...current, make: event.target.value }))} /></div>
+                    <div className="dashboard-field"><label htmlFor="new-vehicle-model">Model</label><input id="new-vehicle-model" required value={newVehicle.model} onChange={(event) => setNewVehicle((current) => ({ ...current, model: event.target.value }))} /></div>
+                    <div className="dashboard-field"><label htmlFor="new-vehicle-category">Category</label><input id="new-vehicle-category" required value={newVehicle.category} onChange={(event) => setNewVehicle((current) => ({ ...current, category: event.target.value }))} /></div>
+                    <div className="dashboard-field"><label htmlFor="new-vehicle-price">Price</label><input id="new-vehicle-price" min="0" required type="number" value={newVehicle.price} onChange={(event) => setNewVehicle((current) => ({ ...current, price: event.target.value }))} /></div>
+                    <div className="dashboard-field"><label htmlFor="new-vehicle-quantity">Quantity</label><input id="new-vehicle-quantity" min="0" required step="1" type="number" value={newVehicle.quantity} onChange={(event) => setNewVehicle((current) => ({ ...current, quantity: event.target.value }))} /></div>
+                  </div>
+                  <div className="vehicle-form-actions"><button className="modal-cancel" onClick={() => setIsAddVehicleOpen(false)} type="button">Cancel</button><button className="admin-card-action" disabled={isAddingVehicle} type="submit">{isAddingVehicle ? 'Adding vehicle...' : 'Add vehicle'}</button></div>
+                </form>
+              </section>
             </div>
           )}
           {error && <p className="error-message" role="alert">{error}</p>}

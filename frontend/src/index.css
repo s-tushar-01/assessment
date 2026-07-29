@@ -201,6 +201,21 @@ button { cursor: pointer; }
 .admin-card-action:hover { background: #ef4444; box-shadow: 0 10px 24px rgb(239 68 68 / 28%); transform: translateY(-1px); }
 .admin-card-action:active { transform: translateY(0); }
 .admin-card-action:focus-visible { outline: 3px solid rgb(248 113 113 / 45%); outline-offset: 3px; }
+.modal-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; background: rgb(2 6 23 / 78%); padding: 1rem; }
+.vehicle-modal { width: min(100%, 620px); border: 1px solid rgb(148 163 184 / 28%); border-radius: 1rem; background: #111b27; box-shadow: 0 24px 80px rgb(0 0 0 / 45%); }
+.vehicle-modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #273649; padding: 1.35rem 1.5rem 1.1rem; }
+.modal-eyebrow { margin: 0 0 0.35rem; color: #fda4af; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+.vehicle-modal-header h2 { margin: 0; color: #f8fafc; font-size: 1.3rem; }
+.vehicle-modal-header p:last-child { margin: 0.35rem 0 0; color: #94a3b8; font-size: 0.82rem; }
+.modal-close { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 1px solid #475569; border-radius: 0.6rem; background: transparent; color: #cbd5e1; font-size: 1.5rem; line-height: 1; }
+.modal-close:hover, .modal-close:focus-visible { border-color: #f87171; color: white; }
+.vehicle-form { padding: 1.35rem 1.5rem 1.5rem; }
+.vehicle-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.vehicle-form-grid .dashboard-field:last-child { max-width: calc(50% - 0.5rem); }
+.vehicle-form-actions { display: flex; justify-content: flex-end; gap: 0.7rem; margin-top: 1.35rem; }
+.modal-cancel { min-height: 44px; border: 1px solid #475569; border-radius: 0.65rem; background: transparent; padding: 0.7rem 1rem; color: #cbd5e1; font-weight: 700; }
+.modal-cancel:hover, .modal-cancel:focus-visible { border-color: #94a3b8; color: white; }
+.admin-card-action:disabled { cursor: wait; opacity: 0.7; }
 .admin-actions { display: flex; gap: 0.5rem; margin-top: 0.8rem; }
 .admin-actions button { flex: 1; min-height: 44px; border: 1px solid #475569; border-radius: 0.55rem; background: transparent; color: #cbd5e1; font-size: 0.75rem; transition: 200ms ease; }
 .admin-actions button:hover { border-color: #f87171; color: white; background: #1e293b; }
@@ -230,6 +245,11 @@ button { cursor: pointer; }
   .vehicle-card-footer .purchase-button { grid-column: 1 / -1; width: 100%; }
   .admin-card { align-items: stretch; flex-direction: column; margin-inline: 1rem; }
   .admin-card-action { width: 100%; }
+  .vehicle-modal-header, .vehicle-form { padding-inline: 1rem; }
+  .vehicle-form-grid { grid-template-columns: 1fr; }
+  .vehicle-form-grid .dashboard-field:last-child { max-width: none; }
+  .vehicle-form-actions { flex-direction: column-reverse; }
+  .vehicle-form-actions button { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }

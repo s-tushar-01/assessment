@@ -80,6 +80,7 @@ records retain every prompt and result from the development history.
 | 22 | 78 | Authentication, dashboard, and admin UI visual refresh |
 | 23 | 79-80 | UI Pro Max system and supplied reference dashboard implementation |
 | 24 | 81 | Admin add-vehicle action polish |
+| 25 | 82 | Replace add-vehicle browser prompts with an accessible form |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1665,6 +1666,30 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 82 - Add vehicle form modal
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Replace the browser prompt sequence opened by the admin Add vehicle action
+with an in-dashboard accessible form. Include labeled Make, Model, Category,
+Price, and Quantity fields, inline validation, Cancel and close controls,
+submitting feedback, and responsive styling. Preserve the existing POST API
+behavior and admin authorization, add a focused frontend test, run the full
+frontend verification, update PROMPTS.md, then commit and push with the AI
+co-author trailer.
+```
+
+**Status:**
+
+The browser prompts are replaced with a responsive modal form using labeled
+fields, validation, accessible dialog semantics, close/cancel actions, and an
+“Adding vehicle...” submitting state. The 13 frontend tests, production build,
+and lint pass.
+
 
 ## Entry 81 - Admin add-vehicle action polish
 

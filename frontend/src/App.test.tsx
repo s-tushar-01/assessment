@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from '@testing-library/react'
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
@@ -235,6 +235,27 @@ describe('App', () => {
     expect(screen.getByRole('button', { name: /edit inventory/i })).toBeTruthy()
     vi.restoreAllMocks()
     localStorage.clear()
+  })
+
+  it('opens an accessible add vehicle form for an admin user', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('dealership_token', 'admin-token')
+    localStorage.setItem('dealership_role', 'ADMIN')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([]), { status: 200 }),
+    )
+
+    render(<App />)
+    await user.click(screen.getByRole('button', { name: /add vehicle/i }))
+
+    expect(screen.getByRole('dialog', { name: /add vehicle/i })).toBeTruthy()
+    const dialog = screen.getByRole('dialog', { name: /add vehicle/i })
+    expect(within(dialog).getByLabelText(/make/i)).toBeTruthy()
+    expect(within(dialog).getByLabelText(/model/i)).toBeTruthy()
+    expect(within(dialog).getByLabelText(/category/i)).toBeTruthy()
+    expect(screen.getByRole('button', { name: /cancel/i })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: /cancel/i }))
+    expect(screen.queryByRole('dialog', { name: /add vehicle/i })).toBeNull()
   })
 
   it('shows the current role and logs out an authenticated user', async () => {
