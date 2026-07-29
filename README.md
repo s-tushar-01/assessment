@@ -105,6 +105,20 @@ builds, and frontend lint pass. The remaining browser smoke limitation is
 documented in [TEST_REPORT.md](TEST_REPORT.md) and is caused by unavailable
 local PostgreSQL, not a failing application assertion.
 
+## Interviewer demo credentials
+
+Use these credentials to review the ADMIN dashboard in the deployed demo
+environment:
+
+```text
+Email: admin@gmail.com
+Password: admin123
+Role: ADMIN
+```
+
+These are disposable assessment-demo credentials only. Do not reuse them for
+production or any real account.
+
 ## Admin account setup
 
 New registrations are intentionally created with the `USER` role. The first
