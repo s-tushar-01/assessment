@@ -103,4 +103,5 @@ the registration implementation yet.
 **Status:**
 
 The first failing registration service test was added and run before
-implementation.
+implementation. The minimal registration service was then added; the focused
+test and backend TypeScript build passed.
