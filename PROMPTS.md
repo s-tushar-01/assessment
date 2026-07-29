@@ -212,6 +212,30 @@ Implemented the styled sign-in screen with labelled email and password inputs
 and a submit button. Frontend build and lint pass. Vitest runner diagnostics
 remain to be resolved before final frontend verification.
 
+The login interaction contract was then added as Entry 44. The form now sends
+credentials to the backend, stores the returned token, shows errors, and opens
+the dashboard state after a successful response.
+
+## Entry 45 - Frontend login interaction Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum login behavior needed to make the interaction test pass:
+submit credentials to POST /api/auth/login, persist the returned token, handle
+errors, and show the inventory dashboard after success. Run the frontend build
+and lint, update PROMPTS.md, then commit and push the Green-stage implementation
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented login submission, token persistence, error state, loading state, and
+dashboard transition. Frontend build and lint pass. Vitest still requires runner
+diagnostics before its final result can be confirmed.
+
 ## Entry 44 - Frontend login interaction Red stage
 
 **AI tool:** OpenAI Codex
