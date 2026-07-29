@@ -3,7 +3,7 @@
 This project is a full-stack car dealership inventory system created for the
 TDD Kata assessment.
 
-## Planned technology stack
+## Technology stack
 
 - Backend: Node.js, TypeScript, Express
 - Database: PostgreSQL
@@ -13,7 +13,7 @@ TDD Kata assessment.
 - Styling: Tailwind CSS
 - Testing: Vitest, Supertest, React Testing Library, and Playwright
 
-## Planned functionality
+## Implemented functionality
 
 - User registration and login
 - Token-protected vehicle management
@@ -83,7 +83,10 @@ npm run build
 npm test
 ```
 
-The final test report will be added before delivery.
+See [TEST_REPORT.md](TEST_REPORT.md) for the latest automated verification.
+
+The final verification currently passes 35 backend tests and 7 frontend tests,
+along with both production builds and frontend lint.
 
 ## My AI Usage
 
