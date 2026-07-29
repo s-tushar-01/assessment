@@ -21,6 +21,44 @@ async function readResponseBody(response: Response): Promise<Record<string, unkn
   }
 }
 
+function MetricIcon({ type }: { type: 'vehicle' | 'stock' | 'value' }) {
+  if (type === 'value') {
+    return <span className="metric-icon" aria-hidden="true">$</span>
+  }
+
+  if (type === 'stock') {
+    return (
+      <span className="metric-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
+          <path d="m4.3 7.7 7.7 4.4 7.7-4.4M12 12.1V21" />
+        </svg>
+      </span>
+    )
+  }
+
+  return (
+    <span className="metric-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="m5 16 1.2-5.4A2 2 0 0 1 8.2 9h7.6a2 2 0 0 1 2 1.6L19 16" />
+        <path d="M4 15h16v4H4zM7 19v1M17 19v1M7 13h.01M17 13h.01" />
+      </svg>
+    </span>
+  )
+}
+
+function VehicleGlyph() {
+  return (
+    <svg className="vehicle-glyph" viewBox="0 0 260 120" fill="none" aria-hidden="true">
+      <path d="M36 76 52 45c3-6 8-9 15-9h93c8 0 13 3 18 10l15 30v11H36V76Z" fill="currentColor" opacity=".16" />
+      <path d="M36 76 52 45c3-6 8-9 15-9h93c8 0 13 3 18 10l15 30M36 76v11h157V76M65 87v9m99-9v9" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="m67 44 12 29h69l13-29M46 77h12m144 0h12" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+      <circle cx="68" cy="87" r="12" fill="#0f1720" stroke="currentColor" strokeWidth="4" />
+      <circle cx="177" cy="87" r="12" fill="#0f1720" stroke="currentColor" strokeWidth="4" />
+    </svg>
+  )
+}
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => Boolean(localStorage.getItem('dealership_token')),
@@ -46,8 +84,10 @@ function App() {
   const [minPriceFilter, setMinPriceFilter] = useState('')
   const [maxPriceFilter, setMaxPriceFilter] = useState('')
   const totalStock = vehicles.reduce((total, vehicle) => total + vehicle.quantity, 0)
-  const categoryCount = new Set(vehicles.map((vehicle) => vehicle.category)).size
-  const lowStockCount = vehicles.filter((vehicle) => vehicle.quantity > 0 && vehicle.quantity < 3).length
+  const totalInventoryValue = vehicles.reduce(
+    (total, vehicle) => total + vehicle.price * vehicle.quantity,
+    0,
+  )
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -268,25 +308,26 @@ function App() {
 
   if (isAuthenticated) {
     return (
-      <main className="dashboard-shell px-4 py-8 text-slate-100 sm:px-6 sm:py-12">
+      <main className="dashboard-shell text-slate-100">
         <section className="dashboard-content">
-          <header className="dashboard-header">
-            <div>
-              <p className="brand-eyebrow">Dealership inventory</p>
-              <h1>Inventory dashboard</h1>
-              <p>Manage and purchase available vehicles.</p>
+          <header className="dashboard-topbar">
+            <div className="dashboard-brand">
+              <h1>Dealership Inventory</h1>
+              <h2>Inventory dashboard</h2>
             </div>
             <div className="dashboard-actions">
+              {userEmail && <span className="dashboard-email">{userEmail}</span>}
               <span className="status-pill">Role: {role}</span>
               {isAdmin && <span className="status-pill admin">Admin dashboard</span>}
-              {userEmail && <span className="text-sm text-slate-400">{userEmail}</span>}
-              <button className="dashboard-logout" onClick={handleLogout} type="button">Log out</button>
+              <button className="dashboard-logout" onClick={handleLogout} type="button">
+                <span className="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 17 15 12 10 7M15 12H3M21 19V5a2 2 0 0 0-2-2h-6" /></svg></span> Log out
+              </button>
             </div>
           </header>
           <div className="metrics-grid">
-            <div className="metric-card"><span className="metric-label">Visible vehicles</span><strong className="metric-value">{vehicles.length}</strong></div>
-            <div className="metric-card"><span className="metric-label">Units in stock</span><strong className="metric-value">{totalStock}</strong></div>
-            <div className="metric-card"><span className="metric-label">Categories / low stock</span><strong className="metric-value">{categoryCount} / {lowStockCount}</strong></div>
+            <div className="metric-card"><MetricIcon type="vehicle" /><div><span className="metric-label">Total vehicles</span><strong className="metric-value">{vehicles.length}</strong><small>All vehicles in inventory</small></div></div>
+            <div className="metric-card"><MetricIcon type="stock" /><div><span className="metric-label">Total in stock</span><strong className="metric-value">{totalStock}</strong><small>Vehicles available</small></div></div>
+            <div className="metric-card"><MetricIcon type="value" /><div><span className="metric-label">Total inventory value</span><strong className="metric-value">${totalInventoryValue.toLocaleString()}</strong><small>Retail value</small></div></div>
           </div>
           {isAdmin && (
             <div className="admin-card mt-6">
@@ -298,12 +339,11 @@ function App() {
           )}
           {error && <p className="error-message" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400" aria-live="polite">Loading vehicles...</p>}
-          <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" onSubmit={handleSearch}>
-            <div className="search-panel-header col-span-full"><div><h2>Find your next vehicle</h2><p>Filter by make, model, category, or price.</p></div></div>
+          <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6" onSubmit={handleSearch}>
+            <div className="search-panel-header col-span-full"><h2>Search inventory</h2></div>
             <div className="dashboard-field">
               <label htmlFor="make-filter">Make</label>
               <input
-                className=""
                 id="make-filter"
                 value={makeFilter}
                 onChange={(event) => setMakeFilter(event.target.value)}
@@ -320,7 +360,6 @@ function App() {
             <div className="dashboard-field">
               <label htmlFor="min-price-filter">Minimum price</label>
               <input
-                className=""
                 id="min-price-filter"
                 min="0"
                 type="number"
@@ -332,15 +371,13 @@ function App() {
               <label htmlFor="max-price-filter">Maximum price</label>
               <input id="max-price-filter" min="0" type="number" value={maxPriceFilter} onChange={(event) => setMaxPriceFilter(event.target.value)} />
             </div>
-            <button className="search-button" type="submit">Search inventory</button>
+            <button className="search-button" type="submit"><span className="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></svg></span> Search</button>
           </form>
           <div className="vehicle-grid mt-8">
             {vehicles.map((vehicle) => (
               <article className="vehicle-card" key={vehicle.id}>
-                <p className="vehicle-category">{vehicle.category}</p>
-                <h2>{vehicle.make} {vehicle.model}</h2>
-                <p className="vehicle-price">${vehicle.price.toLocaleString()}</p>
-                <p className="vehicle-stock">{vehicle.quantity} in stock</p>
+                <div className="vehicle-card-main"><div className="vehicle-art"><VehicleGlyph /></div><div className="vehicle-name"><p className="vehicle-category">{vehicle.category}</p><h2>{vehicle.make} {vehicle.model}</h2></div></div>
+                <div className="vehicle-card-footer"><p className="vehicle-price">${vehicle.price.toLocaleString()}</p><p className={`vehicle-stock ${vehicle.quantity === 0 ? 'out-of-stock' : ''}`}>{vehicle.quantity} in stock</p>
                 <button
                   className="purchase-button mt-5 w-full disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={vehicle.quantity === 0}
@@ -349,6 +386,7 @@ function App() {
                 >
                   Purchase
                 </button>
+                </div>
                 {isAdmin && (
                   <div className="admin-actions">
                     <button onClick={() => void handleEditVehicle(vehicle)} type="button">

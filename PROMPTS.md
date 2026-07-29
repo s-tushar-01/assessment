@@ -78,6 +78,7 @@ records retain every prompt and result from the development history.
 | 20 | 74-76 | Login simplification, admin provisioning, and handoff documentation |
 | 21 | 77 | Registration validation messages and response handling |
 | 22 | 78 | Authentication, dashboard, and admin UI visual refresh |
+| 23 | 79-80 | UI Pro Max system and supplied reference dashboard implementation |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1663,3 +1664,29 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 80 - Supplied reference dashboard implementation
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the supplied dealership inventory dashboard reference and the UI/UX Pro
+Max skill to polish and apply the design. Keep the existing login and account
+creation flow, but redesign the authenticated dashboard with the reference
+top bar, email and role context, logout action, three inventory summary cards,
+expanded vehicle filters, responsive vehicle cards, stock states, purchase
+actions, and admin controls. Preserve accessibility and existing behavior.
+Run frontend tests, build, lint, and the browser smoke verification, update
+PROMPTS.md, then commit and push the UI change with the AI co-author trailer.
+```
+
+**Status:**
+
+Applied the reference dashboard hierarchy with inline SVG vehicle and action
+icons, responsive metric/search/card layouts, visible role and logout context,
+and preserved login, registration, purchase, search, and admin workflows. The
+12 frontend tests, production build, and lint pass. The local browser smoke
+test could not complete because the local Prisma database was unavailable at
+`localhost:5433`; deployed database behavior is unchanged.
