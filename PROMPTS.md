@@ -143,3 +143,21 @@ implement the route yet.
 
 The route test is intentionally failing because the auth router does not exist
 yet. The minimal router was then added and the focused route test passed.
+
+## Entry 8 - Registration route error handling Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing Supertest case for POST /api/auth/register when the registration
+service rejects a duplicate email. The API should return HTTP 409 with a clear
+JSON error message. Run the route tests, then commit and push the failing test.
+Do not implement error handling yet.
+```
+
+**Status:**
+
+The duplicate-email route test is failing because the router does not yet map
+the service error to an HTTP 409 response.
