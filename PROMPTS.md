@@ -84,6 +84,7 @@ records retain every prompt and result from the development history.
 | 26 | 83 | Apply cohesive blue-white UI color theme |
 | 27 | 84 | Rebalance the interface to white surfaces with blue sections |
 | 28 | 85 | Adapt authentication hero text to its blue-white background |
+| 29 | 86 | Restore the slanted authentication hero panel |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1669,6 +1670,29 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 86 - Slanted authentication hero panel
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to restore a clearly slanted blue hero panel on
+the authentication screen instead of the current straight split. Keep the
+form on the white side, use a clipped background layer for the diagonal edge,
+and constrain the hero copy so white text remains readable on blue. Preserve
+responsive behavior and accessibility, then run frontend tests, build, and
+lint, update the design records, and commit and push with the AI co-author
+trailer.
+```
+
+**Status:**
+
+Restored the diagonal hero treatment using a clipped blue background layer,
+kept the authentication form on white, and constrained the hero content to
+prevent contrast loss. The 13 frontend tests, production build, and lint pass.
+
 
 ## Entry 85 - Authentication hero contrast adjustment
 

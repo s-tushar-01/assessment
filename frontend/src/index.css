@@ -368,3 +368,13 @@ body { background: #f4f8fd; color: #163a62; }
 .auth-intro h2 { max-width: 450px; font-size: clamp(2.75rem, 5vw, 4.8rem); }
 .auth-intro > p { max-width: 410px; }
 .auth-proof { max-width: 420px; }
+
+/* Slanted hero panel with a controlled copy area for reliable contrast. */
+.auth-page { position: relative; overflow: hidden; background: #f4f8fd; }
+.auth-page::before { content: ""; position: absolute; z-index: 0; inset: 0 auto 0 0; width: 61%; background: #0e5aa7; clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); }
+.auth-layout { position: relative; z-index: 1; }
+.auth-intro { max-width: 450px; }
+.auth-intro h2 { max-width: 410px; }
+@media (max-width: 900px) {
+  .auth-page::before { width: 100%; height: 58%; clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%); }
+}

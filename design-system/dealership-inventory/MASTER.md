@@ -30,7 +30,7 @@
 | Destructive | `#B91C1C` | `--color-destructive` |
 | Ring | `#1D6BC1` | `--color-ring` |
 
-**Color Notes:** White-and-blue technical interface with a solid blue hero surface and white content surfaces
+**Color Notes:** White-and-blue technical interface with a slanted blue hero surface and white content surfaces
 
 ### Typography
 
