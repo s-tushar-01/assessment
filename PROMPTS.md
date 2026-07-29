@@ -292,6 +292,24 @@ The delete-vehicle test was initially failing because deleteVehicle had not yet
 been implemented. The repository-delegating service was then added; all 25
 backend tests and the build passed.
 
+## Entry 31 - Admin authorization Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add failing middleware tests for requireAdmin. Regular authenticated users must
+receive 403, while users with the ADMIN role must be allowed through. Run the
+tests, then commit and push the Red-stage tests. Do not implement requireAdmin
+yet.
+```
+
+**Status:**
+
+The admin authorization tests are intentionally failing because requireAdmin
+has not yet been implemented.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
