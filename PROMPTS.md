@@ -77,6 +77,7 @@ records retain every prompt and result from the development history.
 | 19 | 70-73 | Admin-login experiment and post-login identity UX |
 | 20 | 74-76 | Login simplification, admin provisioning, and handoff documentation |
 | 21 | 77 | Registration validation messages and response handling |
+| 22 | 78 | Authentication, dashboard, and admin UI visual refresh |
 
 This index is the serial implementation order. No later feature was implemented
 before the preceding feature was complete. Each later entry records the
@@ -1615,6 +1616,27 @@ update the documentation, then commit and push the fix.
 Registration now shows a clear password-length message, returns a JSON backend
 validation response, and safely falls back when a deployed server returns a
 non-JSON error page. All 37 backend and 12 frontend tests pass.
+
+
+## Entry 78 - UI visual refresh
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Refresh the UI using the supplied visual references. Style the authentication
+form with labeled outlined inputs and dark card buttons, apply the requested
+repeating-conic dashboard background, and style the admin Add vehicle area as
+a compact dark action card. Preserve accessibility and existing behavior.
+Run frontend tests, build, lint, and a browser smoke test; remove any mojibake
+UI text, update the prompt history, then commit and push the change.
+```
+
+**Status:**
+
+Applied the requested authentication, dashboard, and admin action styling.
+The browser smoke test, 12 frontend tests, build, and lint pass.
 
 
 ## Record maintenance

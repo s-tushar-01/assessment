@@ -265,8 +265,8 @@ function App() {
 
   if (isAuthenticated) {
     return (
-      <main className="min-h-screen bg-slate-950 px-6 py-12 text-slate-100">
-        <section className="mx-auto max-w-6xl">
+      <main className="dashboard-shell px-6 py-12 text-slate-100">
+        <section className="dashboard-panel mx-auto max-w-6xl rounded-3xl border p-6 sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
             Dealership inventory
           </p>
@@ -281,12 +281,15 @@ function App() {
             </button>
           </div>
           {isAdmin && (
-            <button className="mt-6 rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-slate-950" onClick={() => void handleAddVehicle()} type="button">
-              Add vehicle
-            </button>
+            <div className="admin-card mt-6">
+              <p className="admin-card-title">Admin tools</p>
+              <button className="admin-card-action" onClick={() => void handleAddVehicle()} type="button">
+                + Add vehicle
+              </button>
+            </div>
           )}
           {error && <p className="mt-6 text-sm text-rose-300" role="alert">{error}</p>}
-          {isLoadingVehicles && <p className="mt-8 text-slate-400">Loading vehicles…</p>}
+          {isLoadingVehicles && <p className="mt-8 text-slate-400">Loading vehicles...</p>}
           <form className="mt-8 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:grid-cols-2 lg:grid-cols-3" onSubmit={handleSearch}>
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="make-filter">Make</label>
@@ -362,24 +365,24 @@ function App() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6 py-12 text-slate-100">
-      <section className="w-full max-w-md rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl shadow-cyan-950/30">
+    <main className="auth-page flex min-h-screen items-center justify-center px-6 py-12 text-slate-100">
+      <section className="auth-form w-full max-w-md shadow-2xl shadow-black/50">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
           Dealership inventory
         </p>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight">
+        <h1 className="auth-heading font-bold tracking-tight">
           {isRegistering ? 'Create account' : 'Sign in'}
         </h1>
         <p className="mt-2 text-sm text-slate-400">
           Access the vehicle inventory dashboard.
         </p>
-        <form className="mt-8 space-y-5" onSubmit={isRegistering ? handleRegister : handleLogin}>
-          <div>
-            <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="email">
+        <form className="mt-6 space-y-5" onSubmit={isRegistering ? handleRegister : handleLogin}>
+          <div className="cool-field">
+            <label className="cool-label" htmlFor="email">
               Email
             </label>
             <input
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-cyan-400"
+              className="cool-input"
               id="email"
               name="email"
               type="email"
@@ -389,12 +392,12 @@ function App() {
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
-          <div>
-            <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="password">
+          <div className="cool-field">
+            <label className="cool-label" htmlFor="password">
               Password
             </label>
             <input
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-cyan-400"
+              className="cool-input"
               id="password"
               name="password"
               type="password"
@@ -405,12 +408,12 @@ function App() {
             />
           </div>
           {isRegistering && (
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="confirm-password">
+            <div className="cool-field">
+              <label className="cool-label" htmlFor="confirm-password">
                 Confirm password
               </label>
               <input
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-cyan-400"
+                className="cool-input"
                 id="confirm-password"
                 type="password"
                 required
@@ -421,14 +424,14 @@ function App() {
           )}
           {error && <p className="text-sm text-rose-300" role="alert">{error}</p>}
           <button
-            className="w-full rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
+            className="auth-button w-full"
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Working…' : isRegistering ? 'Register' : 'Sign in'}
+            {isSubmitting ? 'Working...' : isRegistering ? 'Register' : 'Sign in'}
           </button>
           <button
-            className="w-full text-sm text-cyan-300 hover:text-cyan-200"
+            className="auth-switch w-full"
             onClick={() => {
               setIsRegistering((current) => !current)
             }}
