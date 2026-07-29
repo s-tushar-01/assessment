@@ -45,6 +45,9 @@ function App() {
   const [categoryFilter, setCategoryFilter] = useState('')
   const [minPriceFilter, setMinPriceFilter] = useState('')
   const [maxPriceFilter, setMaxPriceFilter] = useState('')
+  const totalStock = vehicles.reduce((total, vehicle) => total + vehicle.quantity, 0)
+  const categoryCount = new Set(vehicles.map((vehicle) => vehicle.category)).size
+  const lowStockCount = vehicles.filter((vehicle) => vehicle.quantity > 0 && vehicle.quantity < 3).length
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -265,20 +268,25 @@ function App() {
 
   if (isAuthenticated) {
     return (
-      <main className="dashboard-shell px-6 py-12 text-slate-100">
-        <section className="dashboard-panel mx-auto max-w-6xl rounded-3xl border p-6 sm:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
-            Dealership inventory
-          </p>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight">Inventory dashboard</h1>
-          <p className="mt-3 text-slate-400">Manage and purchase available vehicles.</p>
-          <div className="mt-5 flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-cyan-400/50 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200">Role: {role}</span>
-            {isAdmin && <span className="rounded-full border border-violet-400/50 bg-violet-400/10 px-3 py-1 text-sm text-violet-200">Admin dashboard</span>}
-            {userEmail && <span className="text-sm text-slate-400">{userEmail}</span>}
-            <button className="rounded-xl border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-cyan-400" onClick={handleLogout} type="button">
-              Log out
-            </button>
+      <main className="dashboard-shell px-4 py-8 text-slate-100 sm:px-6 sm:py-12">
+        <section className="dashboard-content">
+          <header className="dashboard-header">
+            <div>
+              <p className="brand-eyebrow">Dealership inventory</p>
+              <h1>Inventory dashboard</h1>
+              <p>Manage and purchase available vehicles.</p>
+            </div>
+            <div className="dashboard-actions">
+              <span className="status-pill">Role: {role}</span>
+              {isAdmin && <span className="status-pill admin">Admin dashboard</span>}
+              {userEmail && <span className="text-sm text-slate-400">{userEmail}</span>}
+              <button className="dashboard-logout" onClick={handleLogout} type="button">Log out</button>
+            </div>
+          </header>
+          <div className="metrics-grid">
+            <div className="metric-card"><span className="metric-label">Visible vehicles</span><strong className="metric-value">{vehicles.length}</strong></div>
+            <div className="metric-card"><span className="metric-label">Units in stock</span><strong className="metric-value">{totalStock}</strong></div>
+            <div className="metric-card"><span className="metric-label">Categories / low stock</span><strong className="metric-value">{categoryCount} / {lowStockCount}</strong></div>
           </div>
           {isAdmin && (
             <div className="admin-card mt-6">
@@ -288,30 +296,31 @@ function App() {
               </button>
             </div>
           )}
-          {error && <p className="mt-6 text-sm text-rose-300" role="alert">{error}</p>}
-          {isLoadingVehicles && <p className="mt-8 text-slate-400">Loading vehicles...</p>}
-          <form className="mt-8 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:grid-cols-2 lg:grid-cols-3" onSubmit={handleSearch}>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="make-filter">Make</label>
+          {error && <p className="error-message" role="alert">{error}</p>}
+          {isLoadingVehicles && <p className="mt-8 text-slate-400" aria-live="polite">Loading vehicles...</p>}
+          <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" onSubmit={handleSearch}>
+            <div className="search-panel-header col-span-full"><div><h2>Find your next vehicle</h2><p>Filter by make, model, category, or price.</p></div></div>
+            <div className="dashboard-field">
+              <label htmlFor="make-filter">Make</label>
               <input
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+                className=""
                 id="make-filter"
                 value={makeFilter}
                 onChange={(event) => setMakeFilter(event.target.value)}
               />
             </div>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="model-filter">Model</label>
-              <input className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400" id="model-filter" value={modelFilter} onChange={(event) => setModelFilter(event.target.value)} />
+            <div className="dashboard-field">
+              <label htmlFor="model-filter">Model</label>
+              <input id="model-filter" value={modelFilter} onChange={(event) => setModelFilter(event.target.value)} />
             </div>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="category-filter">Category</label>
-              <input className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400" id="category-filter" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} />
+            <div className="dashboard-field">
+              <label htmlFor="category-filter">Category</label>
+              <input id="category-filter" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} />
             </div>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="min-price-filter">Minimum price</label>
+            <div className="dashboard-field">
+              <label htmlFor="min-price-filter">Minimum price</label>
               <input
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+                className=""
                 id="min-price-filter"
                 min="0"
                 type="number"
@@ -319,21 +328,21 @@ function App() {
                 onChange={(event) => setMinPriceFilter(event.target.value)}
               />
             </div>
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="max-price-filter">Maximum price</label>
-              <input className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400" id="max-price-filter" min="0" type="number" value={maxPriceFilter} onChange={(event) => setMaxPriceFilter(event.target.value)} />
+            <div className="dashboard-field">
+              <label htmlFor="max-price-filter">Maximum price</label>
+              <input id="max-price-filter" min="0" type="number" value={maxPriceFilter} onChange={(event) => setMaxPriceFilter(event.target.value)} />
             </div>
-            <button className="rounded-xl bg-white px-5 py-3 font-semibold text-slate-950" type="submit">Search</button>
+            <button className="search-button" type="submit">Search inventory</button>
           </form>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="vehicle-grid mt-8">
             {vehicles.map((vehicle) => (
-              <article className="rounded-2xl border border-slate-800 bg-slate-900 p-5" key={vehicle.id}>
-                <p className="text-sm text-cyan-300">{vehicle.category}</p>
-                <h2 className="mt-2 text-xl font-semibold">{vehicle.make} {vehicle.model}</h2>
-                <p className="mt-4 text-lg font-medium">${vehicle.price.toLocaleString()}</p>
-                <p className="mt-1 text-sm text-slate-400">{vehicle.quantity} in stock</p>
+              <article className="vehicle-card" key={vehicle.id}>
+                <p className="vehicle-category">{vehicle.category}</p>
+                <h2>{vehicle.make} {vehicle.model}</h2>
+                <p className="vehicle-price">${vehicle.price.toLocaleString()}</p>
+                <p className="vehicle-stock">{vehicle.quantity} in stock</p>
                 <button
-                  className="mt-5 w-full rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+                  className="purchase-button mt-5 w-full disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={vehicle.quantity === 0}
                   onClick={() => void handlePurchase(vehicle.id)}
                   type="button"
@@ -341,14 +350,14 @@ function App() {
                   Purchase
                 </button>
                 {isAdmin && (
-                  <div className="mt-3 flex gap-2">
-                    <button className="flex-1 rounded-xl border border-white px-3 py-2 text-sm text-white" onClick={() => void handleEditVehicle(vehicle)} type="button">
+                  <div className="admin-actions">
+                    <button onClick={() => void handleEditVehicle(vehicle)} type="button">
                       Edit inventory
                     </button>
-                    <button className="flex-1 rounded-xl border border-cyan-400 px-3 py-2 text-sm text-cyan-300" onClick={() => void handleRestock(vehicle.id)} type="button">
+                    <button onClick={() => void handleRestock(vehicle.id)} type="button">
                       Restock
                     </button>
-                    <button className="flex-1 rounded-xl border border-rose-400 px-3 py-2 text-sm text-rose-300" onClick={() => void handleDelete(vehicle.id)} type="button">
+                    <button onClick={() => void handleDelete(vehicle.id)} type="button">
                       Delete
                     </button>
                   </div>
@@ -365,15 +374,20 @@ function App() {
   }
 
   return (
-    <main className="auth-page flex min-h-screen items-center justify-center px-6 py-12 text-slate-100">
-      <section className="auth-form w-full max-w-md shadow-2xl shadow-black/50">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
-          Dealership inventory
-        </p>
+    <main className="auth-page flex items-center justify-center px-6 py-12 text-slate-100">
+      <div className="auth-layout">
+        <section className="auth-intro hidden md:block">
+          <p className="auth-eyebrow">Dealership inventory</p>
+          <h2>Move inventory<br />with confidence.</h2>
+          <p>A focused workspace for teams managing vehicle stock, purchases, and dealership operations.</p>
+          <div className="auth-proof"><span>Live stock visibility</span><span>Role-aware access</span><span>Fast purchasing</span></div>
+        </section>
+        <section className="auth-form">
+        <p className="brand-eyebrow">Dealership inventory</p>
         <h1 className="auth-heading font-bold tracking-tight">
           {isRegistering ? 'Create account' : 'Sign in'}
         </h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <p className="auth-subtitle">
           Access the vehicle inventory dashboard.
         </p>
         <form className="mt-6 space-y-5" onSubmit={isRegistering ? handleRegister : handleLogin}>
@@ -440,7 +454,8 @@ function App() {
             {isRegistering ? 'Back to sign in' : 'Create account'}
           </button>
         </form>
-      </section>
+        </section>
+      </div>
     </main>
   )
 }
