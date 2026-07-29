@@ -326,4 +326,5 @@ test. Do not implement the vehicle service yet.
 **Status:**
 
 The vehicle creation test is intentionally failing because the vehicle service
-does not exist yet.
+does not exist yet. The minimum vehicle creation service was then added and the
+focused vehicle test passed.
