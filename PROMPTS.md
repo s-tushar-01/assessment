@@ -179,4 +179,5 @@ and push it. Do not implement createApp yet.
 **Status:**
 
 The application wiring test is intentionally failing because createApp has not
-yet been added.
+yet been added. The createApp factory was then added and the application wiring
+test passed.

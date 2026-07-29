@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import type { RegistrationInput } from './auth.service.js'
 
-type RegisterHandler = (input: RegistrationInput) => Promise<unknown>
+export type RegisterHandler = (input: RegistrationInput) => Promise<unknown>
 
 export function createAuthRouter(registerUser: RegisterHandler) {
   const router = Router()
