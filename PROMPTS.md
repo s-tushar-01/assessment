@@ -1069,3 +1069,20 @@ result rendering. Frontend build and lint pass.
 
 ## Record maintenance
 
+## Entry 52 - Frontend admin controls Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add a failing React Testing Library test for
+an ADMIN user seeing Restock and Delete controls on each vehicle card. Run the
+focused test, then commit and push the Red-stage test without implementing
+role-aware admin controls.
+```
+
+**Status:**
+
+The admin-controls test is added as the next Red-stage contract. The login flow
+does not yet persist the user role or render admin actions.
