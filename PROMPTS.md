@@ -309,3 +309,21 @@ login requests to verify the complete authentication flow.
 - Registration persisted a user in PostgreSQL.
 - The registration response excluded passwordHash.
 - Login returned a JWT and safe user details.
+
+## Entry 17 - Vehicle creation Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue with the next assessment feature using TDD: adding a vehicle. Write
+only a failing backend service test for creating a vehicle with make, model,
+category, price, and quantity. Run the test, then commit and push the Red-stage
+test. Do not implement the vehicle service yet.
+```
+
+**Status:**
+
+The vehicle creation test is intentionally failing because the vehicle service
+does not exist yet.
