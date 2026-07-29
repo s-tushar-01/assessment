@@ -23,6 +23,10 @@ export async function registerUser(
   input: RegistrationInput,
   dependencies: RegisterDependencies,
 ) {
+  if (input.password.length < 8) {
+    throw new Error('PASSWORD_TOO_SHORT')
+  }
+
   const existingUser = await dependencies.repository.findByEmail(input.email)
 
   if (existingUser) {

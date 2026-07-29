@@ -123,4 +123,5 @@ implementation yet.
 
 The duplicate-email test passes with the existing implementation. The
 short-password test fails as expected because password-length validation is not
-implemented yet.
+implemented yet. The missing password-length validation was then implemented,
+and all three focused registration tests pass.
