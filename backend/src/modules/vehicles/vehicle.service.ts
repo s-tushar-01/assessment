@@ -34,3 +34,22 @@ export async function listVehicles(dependencies: {
 }) {
   return dependencies.repository.findMany()
 }
+
+export type VehicleSearchFilters = {
+  make?: string
+  model?: string
+  category?: string
+  minPrice?: number
+  maxPrice?: number
+}
+
+export async function searchVehicles(
+  filters: VehicleSearchFilters,
+  dependencies: {
+    repository: {
+      search: (filters: VehicleSearchFilters) => Promise<VehicleRecord[]>
+    }
+  },
+) {
+  return dependencies.repository.search(filters)
+}

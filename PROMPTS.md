@@ -215,8 +215,9 @@ searchVehicles yet.
 
 **Status:**
 
-The vehicle search test is intentionally failing because searchVehicles has not
-yet been implemented.
+The vehicle search test was initially failing because searchVehicles had not
+yet been implemented. The repository-delegating service was then added and the
+complete backend suite passed.
 
 ## Entry 24 - List vehicles route Red stage
 
