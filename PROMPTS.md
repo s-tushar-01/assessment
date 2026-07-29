@@ -1172,3 +1172,20 @@ the TypeScript build pass.
 
 ## Record maintenance
 
+## Entry 57 - Frontend registration Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the frontend TDD cycle. Add failing React Testing Library coverage for
+a Create account control that switches from sign-in to a registration form
+with email, password, confirm-password, and Register controls. Run the focused
+test, then commit and push the Red-stage test without implementing registration.
+```
+
+**Status:**
+
+The registration test is added as the next Red-stage contract. The frontend
+currently has only the sign-in form.

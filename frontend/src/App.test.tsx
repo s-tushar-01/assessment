@@ -17,6 +17,18 @@ describe('App', () => {
     expect(screen.getByLabelText(/email/i)).toBeTruthy()
     expect(screen.getByLabelText(/password/i)).toBeTruthy()
     expect(screen.getByRole('button', { name: /sign in/i })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /create account/i })).toBeTruthy()
+  })
+
+  it('switches to the registration form', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /create account/i }))
+
+    expect(screen.getByRole('heading', { name: /create account/i })).toBeTruthy()
+    expect(screen.getByLabelText(/confirm password/i)).toBeTruthy()
+    expect(screen.getByRole('button', { name: /register/i })).toBeTruthy()
   })
 
   it('logs in and opens the inventory dashboard', async () => {
