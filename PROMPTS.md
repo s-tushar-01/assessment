@@ -401,5 +401,24 @@ not implement the middleware yet.
 
 **Status:**
 
-The JWT middleware tests are intentionally failing because the middleware does
-not exist yet.
+The JWT middleware tests were initially failing because the middleware did not
+exist yet. The middleware was then implemented; after correcting a Supertest
+test invocation typo, all middleware tests passed.
+
+## Entry 22 - Protect vehicle routes Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing vehicle route test proving that POST /api/vehicles rejects a
+request without a bearer token and does not call the vehicle handler. Run the
+focused vehicle route tests, then commit and push the Red-stage test. Do not
+wire requireAuth into the vehicle router yet.
+```
+
+**Status:**
+
+The protected vehicle route test is intentionally failing because the vehicle
+router does not yet apply requireAuth.
