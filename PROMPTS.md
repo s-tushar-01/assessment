@@ -30,7 +30,7 @@ continuous record of the AI-assisted development process.
 - AI evidence: every AI-assisted implementation commit includes the Codex
   co-author trailer.
 - Current backend verification: 37 tests passing and TypeScript build passing.
-- Current frontend verification: 12 tests passing, production build passing,
+- Current frontend verification: 16 tests passing, production build passing,
   and lint passing.
 
 ## Chronological development index
@@ -95,7 +95,6 @@ records retain every prompt and result from the development history.
 | 37 | 94 | Upgrade the delete confirmation dialog with clearer visual hierarchy |
 | 38 | 95 | Add Amazon-style global inventory search and progressive filters |
 | 39 | 96 | Add a clean navigation-free footer |
-| 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
 before the preceding feature was complete. Each later entry records the
@@ -1679,9 +1678,6 @@ reduced-motion support, dashboard metrics, and vehicle-card hierarchy. The
 frontend tests, build, lint, and browser smoke test pass.
 
 
-## Record maintenance
-
-## Entry 93 - In-app delete confirmation
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1705,7 +1701,6 @@ provides Cancel/Delete options with a deleting state. The 15 frontend tests,
 production build, and lint pass.
 
 
-## Entry 94 - Upgrade delete confirmation dialog
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1729,7 +1724,6 @@ price/category/stock context, a warning panel, and clearer responsive actions.
 The 15 frontend tests, production build, and lint pass.
 
 
-## Entry 95 - Amazon-style inventory search and filters
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1756,7 +1750,6 @@ The backend has 37 passing tests/build, and the frontend has 16 passing tests,
 build, and lint.
 
 
-## Entry 96 - Clean application footer
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1780,7 +1773,6 @@ present on both authenticated and authentication screens. Frontend tests,
 build, and lint pass.
 
 
-## Entry 92 - Preserve zero-stock inventory records
 
 **AI tool:** OpenAI Codex
 
@@ -1804,7 +1796,6 @@ and frontend lint. The latest browser smoke rerun was blocked by unavailable
 local PostgreSQL at `localhost:5433`.
 
 
-## Entry 91 - Dashboard navigation bar
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1828,7 +1819,6 @@ keyboard-visible focus states. The 14 frontend tests, production build, and
 lint pass.
 
 
-## Entry 90 - Edit and restock forms
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1852,7 +1842,6 @@ quantity increment. Both include cancel/close controls and saving feedback. The
 14 frontend tests, production build, and lint pass.
 
 
-## Entry 89 - Vehicle price color alignment
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1873,7 +1862,6 @@ their visual weight while preserving green in-stock and red out-of-stock
 states. The 13 frontend tests, production build, and lint pass.
 
 
-## Entry 88 - Search inventory filter toolbar
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1896,7 +1884,6 @@ clearer hierarchy, aligned controls, responsive grid behavior, and a conditional
 Clear filters action. The 13 frontend tests, production build, and lint pass.
 
 
-## Entry 87 - Responsive white-and-blue interface
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1920,7 +1907,6 @@ the authentication hero remains slanted, and the modal stays usable on mobile.
 The 13 frontend tests, production build, and lint pass.
 
 
-## Entry 86 - Slanted authentication hero panel
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1943,7 +1929,6 @@ kept the authentication form on white, and constrained the hero content to
 prevent contrast loss. The 13 frontend tests, production build, and lint pass.
 
 
-## Entry 85 - Authentication hero contrast adjustment
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1965,7 +1950,6 @@ and constrained the hero copy so white text remains on blue at desktop and
 responsive widths. The 13 frontend tests, production build, and lint pass.
 
 
-## Entry 84 - White-and-blue composition
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -1990,7 +1974,6 @@ matches the implementation. The 13 frontend tests, production build, and lint
 pass.
 
 
-## Entry 83 - Cohesive blue-white color theme
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -2015,7 +1998,6 @@ design-system master palette. The 13 frontend tests, production build, and
 lint pass.
 
 
-## Entry 82 - Add vehicle form modal
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -2039,7 +2021,6 @@ fields, validation, accessible dialog semantics, close/cancel actions, and an
 and lint pass.
 
 
-## Entry 81 - Admin add-vehicle action polish
 
 **AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
 
@@ -2087,3 +2068,372 @@ and preserved login, registration, purchase, search, and admin workflows. The
 12 frontend tests, production build, and lint pass. The local browser smoke
 test could not complete because the local Prisma database was unavailable at
 `localhost:5433`; deployed database behavior is unchanged.
+
+## Entry 81 - Admin add-vehicle action polish
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to improve the admin Add vehicle control. Replace
+the plain full-width button with a polished, accessible admin action panel that
+uses a vehicle icon, clear helper text, a prominent Add vehicle action, visible
+focus states, hover feedback, and responsive mobile stacking. Preserve the
+existing add-vehicle behavior and tests, then verify, update PROMPTS.md, and
+commit and push the change with the AI co-author trailer.
+```
+
+**Status:**
+
+Replaced the plain admin control with a responsive action panel containing an
+inline SVG vehicle icon, explanatory copy, a dedicated Add vehicle button, and
+keyboard-visible focus and hover states. The 12 frontend tests, production
+build, and lint pass.
+
+## Entry 82 - Add vehicle form modal
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Replace the browser prompt sequence opened by the admin Add vehicle action
+with an in-dashboard accessible form. Include labeled Make, Model, Category,
+Price, and Quantity fields, inline validation, Cancel and close controls,
+submitting feedback, and responsive styling. Preserve the existing POST API
+behavior and admin authorization, add a focused frontend test, run the full
+frontend verification, update PROMPTS.md, then commit and push with the AI
+co-author trailer.
+```
+
+**Status:**
+
+The browser prompts are replaced with a responsive modal form using labeled
+fields, validation, accessible dialog semantics, close/cancel actions, and an
+“Adding vehicle...” submitting state. The 13 frontend tests, production build,
+and lint pass.
+
+## Entry 83 - Cohesive blue-white color theme
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to change the whole webapp toward a cohesive
+bluish-white visual style. Update the authentication page, dashboard, cards,
+metrics, forms, modal, admin controls, borders, focus states, and primary
+actions so they share a blue-white palette. Preserve readable contrast,
+semantic error feedback, responsive behavior, and existing functionality.
+Update the design-system master file and prompt history, run frontend tests,
+build, and lint, then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Applied a cohesive blue-white palette across authentication and inventory
+screens, including blue ambient backgrounds, slate-blue panels, blue CTA
+buttons, pale-blue typography, and consistent focus/hover states. Updated the
+design-system master palette. The 13 frontend tests, production build, and
+lint pass.
+
+## Entry 84 - White-and-blue composition
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to adjust the palette from blue-tinted dark to a
+true white-and-blue composition. Use white authentication, dashboard, card,
+form, and modal surfaces; blue navigation and primary action areas; pale-blue
+supporting panels; and dark-blue readable text. Preserve semantic error
+feedback, accessible contrast, responsive behavior, and all workflows. Update
+the design-system master file and prompt history, run frontend tests, build,
+and lint, then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Rebalanced the interface into white content surfaces, a strong blue dashboard
+header and authentication panel split, pale-blue search/admin sections, blue
+primary actions, and dark-blue text. The design-system master palette now
+matches the implementation. The 13 frontend tests, production build, and lint
+pass.
+
+## Entry 85 - Authentication hero contrast adjustment
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to fix the authentication screen text contrast
+against the white-and-blue background. Keep the hero copy on the blue surface,
+keep the form on a clean white surface, preserve the responsive layout and
+readable contrast, and avoid relying on text shadows. Run frontend tests,
+build, and lint, update the design-system and prompt history, then commit and
+push with the AI co-author trailer.
+```
+
+**Status:**
+
+Changed the authentication split to a clear blue hero / white form composition
+and constrained the hero copy so white text remains on blue at desktop and
+responsive widths. The 13 frontend tests, production build, and lint pass.
+
+## Entry 86 - Slanted authentication hero panel
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to restore a clearly slanted blue hero panel on
+the authentication screen instead of the current straight split. Keep the
+form on the white side, use a clipped background layer for the diagonal edge,
+and constrain the hero copy so white text remains readable on blue. Preserve
+responsive behavior and accessibility, then run frontend tests, build, and
+lint, update the design records, and commit and push with the AI co-author
+trailer.
+```
+
+**Status:**
+
+Restored the diagonal hero treatment using a clipped blue background layer,
+kept the authentication form on white, and constrained the hero content to
+prevent contrast loss. The 13 frontend tests, production build, and lint pass.
+
+## Entry 87 - Responsive white-and-blue interface
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to make the complete white-and-blue webapp
+responsive. Tune the slanted authentication hero, dashboard header, metrics,
+search form, vehicle cards, admin action panel, and add-vehicle modal for
+desktop, tablet, and mobile widths. Use mobile-first single-column layouts,
+touch-friendly controls, stacked actions, and prevent horizontal overflow.
+Preserve accessibility and behavior, then run frontend tests, build, and lint,
+update the design records, and commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Added responsive breakpoints for desktop, tablet, and mobile layouts. Dashboard
+grids collapse from three to two to one column, controls stack at small widths,
+the authentication hero remains slanted, and the modal stays usable on mobile.
+The 13 frontend tests, production build, and lint pass.
+
+## Entry 88 - Search inventory filter toolbar
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to improve the Search inventory component. Create
+a clearer filter-toolbar hierarchy with an eyebrow, title, helper text,
+aligned labeled fields, a visible Clear filters action when filters are
+active, consistent 44px-plus controls, accessible focus states, and responsive
+desktop/tablet/mobile layouts. Preserve the current search behavior, then run
+frontend tests, build, and lint, update the prompt history, and commit and push
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Polished the Search inventory panel into a structured filter toolbar with
+clearer hierarchy, aligned controls, responsive grid behavior, and a conditional
+Clear filters action. The 13 frontend tests, production build, and lint pass.
+
+## Entry 89 - Vehicle price color alignment
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to correct the vehicle price color so it matches
+the white-and-blue interface. Use the established primary blue for prices,
+keep stock availability colors semantic, preserve readable contrast and
+responsive behavior, then run frontend tests, build, and lint, update the
+prompt history, and commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Aligned vehicle-card prices with the primary blue action color and strengthened
+their visual weight while preserving green in-stock and red out-of-stock
+states. The 13 frontend tests, production build, and lint pass.
+
+## Entry 90 - Edit and restock forms
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to replace the browser prompt dialogs opened by
+Edit inventory and Restock. Create compact in-app accessible forms using the
+existing modal style: Edit inventory should contain Price and Quantity fields,
+while Restock should contain one quantity field. Include close/cancel actions,
+validation, submit feedback, preserve the existing PUT and POST behavior, add
+focused interaction tests, run frontend tests, build, and lint, update the
+prompt history, then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Replaced both browser prompts with compact accessible in-app forms. Edit
+inventory supports price and quantity updates; Restock supports a validated
+quantity increment. Both include cancel/close controls and saving feedback. The
+14 frontend tests, production build, and lint pass.
+
+## Entry 91 - Dashboard navigation bar
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to make the dashboard navigation bar appropriate
+for this single-page dealership inventory app. Add meaningful in-page
+navigation for Inventory and admin-only Admin tools, show a clear active state,
+keep account/role/logout controls separate, use accessible links and focus
+states, and make the bar responsive. Preserve existing behavior, add a focused
+navigation test, run frontend tests, build, and lint, update the prompt history,
+then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Added a semantic primary navigation bar with active Inventory and conditional
+Admin tools anchors, separate account controls, responsive stacking, and
+keyboard-visible focus states. The 14 frontend tests, production build, and
+lint pass.
+
+## Entry 92 - Preserve zero-stock inventory records
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Change the inventory behavior so a vehicle that reaches quantity zero remains
+visible in the inventory instead of disappearing. Remove availability-only
+filters from the backend list and search queries, preserve the disabled
+Purchase state and clear zero-stock messaging in the frontend, add regression
+coverage, run backend and frontend tests/build/lint, update the documentation
+and prompt history, then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Backend list and search queries now return zero-stock vehicles. The frontend
+keeps the vehicle card visible, shows `0 in stock`, and disables Purchase. The
+37 backend tests and 15 frontend tests pass, along with both TypeScript builds
+and frontend lint. The latest browser smoke rerun was blocked by unavailable
+local PostgreSQL at `localhost:5433`.
+
+## Entry 93 - In-app delete confirmation
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to replace the browser confirm prompt opened by
+the admin Delete action. Create an accessible in-app confirmation box showing
+the selected vehicle, a clear destructive-action warning, Cancel and Delete
+vehicle options, and deleting feedback. Preserve the existing DELETE request
+and admin behavior, add an interaction test, run frontend tests, build, and
+lint, update the prompt history, then commit and push with the AI co-author
+trailer.
+```
+
+**Status:**
+
+Replaced the browser confirmation with an in-app destructive-action dialog
+that identifies the vehicle, explains that deletion cannot be undone, and
+provides Cancel/Delete options with a deleting state. The 15 frontend tests,
+production build, and lint pass.
+
+## Entry 94 - Upgrade delete confirmation dialog
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to upgrade the admin delete confirmation dialog.
+Keep it as an accessible in-app dialog, but improve the hierarchy with a
+semantic delete icon, selected vehicle summary, stock and price context,
+explicit irreversible-action warning, clear Cancel/Delete actions, focus
+states, and responsive spacing. Preserve the existing DELETE request and
+loading/error behavior, extend the interaction test, run frontend tests,
+build, and lint, update PROMPTS.md, then commit and push with the AI
+co-author trailer.
+```
+
+**Status:**
+
+Upgraded the delete dialog with a red delete icon, a selected vehicle summary,
+price/category/stock context, a warning panel, and clearer responsive actions.
+The 15 frontend tests, production build, and lint pass.
+
+## Entry 95 - Amazon-style inventory search and filters
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to improve inventory discovery. Replace the
+always-visible filter grid with an Amazon-style global search field and a
+Filters control beside it. Search make, model, and category through one
+query, support price shorthand such as 45000+ and 20000-45000, show result
+counts, active-filter count, clear actions, Enter/button search, responsive
+filter disclosure, and a helpful no-results state. Extend the backend search
+contract safely, add focused frontend and route coverage, run all tests,
+builds, and lint, update documentation and PROMPTS.md, then commit and push
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Added global text search across make, model, and category; price shorthand for
+minimum and range searches; a responsive filter drawer beside Search; result
+counts, clear-all actions, keyboard form submission, and no-results guidance.
+The backend has 37 passing tests/build, and the frontend has 16 passing tests,
+build, and lint.
+
+## Entry 96 - Clean application footer
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to add a clean footer to the dealership inventory
+application. Do not add navigation or extra controls. Use a subtle blue-white
+style with the product name, a short supporting message, and copyright text;
+keep it responsive, accessible, and visually secondary on both the dashboard
+and authentication screens. Add focused coverage, run frontend tests, build,
+and lint, update PROMPTS.md, then commit and push with the AI co-author
+trailer.
+```
+
+**Status:**
+
+Added a centered, responsive footer with only the dealership name, supporting
+message, and copyright text. It is visually secondary, navigation-free, and
+present on both authenticated and authentication screens. Frontend tests,
+build, and lint pass.
+
+## Record maintenance
+
+The detailed prompt records are serialised chronologically from Entry 80 through Entry 96. The complete history now runs continuously from Entry 1 through Entry 96.

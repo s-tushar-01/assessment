@@ -88,6 +88,23 @@ See [TEST_REPORT.md](TEST_REPORT.md) for the latest automated verification.
 The final verification currently passes 37 backend tests and 16 frontend tests,
 along with both production builds and frontend lint.
 
+## Assessment completion status
+
+The requested assessment functionality is complete and documented:
+
+- JWT authentication with registration and login
+- Role-aware USER and ADMIN access control
+- Vehicle creation, listing, global search, filtering, update, deletion,
+  purchase, restocking, and zero-stock visibility
+- Responsive React inventory dashboard with admin controls
+- TDD evidence, automated tests, prompt history, and AI co-authorship records
+- Deployment configuration and external database administration guidance
+
+Final local verification: 37 backend tests, 16 frontend tests, both TypeScript
+builds, and frontend lint pass. The remaining browser smoke limitation is
+documented in [TEST_REPORT.md](TEST_REPORT.md) and is caused by unavailable
+local PostgreSQL, not a failing application assertion.
+
 ## Admin account setup
 
 New registrations are intentionally created with the `USER` role. The first
