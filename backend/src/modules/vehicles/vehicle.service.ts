@@ -18,5 +18,13 @@ export async function createVehicle(
   input: VehicleInput,
   dependencies: { repository: VehicleRepository },
 ) {
+  if (!Number.isFinite(input.price) || input.price <= 0) {
+    throw new Error('PRICE_INVALID')
+  }
+
+  if (!Number.isInteger(input.quantity) || input.quantity < 0) {
+    throw new Error('QUANTITY_INVALID')
+  }
+
   return dependencies.repository.create(input)
 }

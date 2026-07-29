@@ -344,4 +344,5 @@ commit and push the Red-stage tests. Do not implement validation yet.
 **Status:**
 
 The validation tests are intentionally failing because the vehicle service does
-not yet reject negative prices or quantities.
+not yet reject negative prices or quantities. The validation rules were then
+implemented and all focused vehicle tests passed.
