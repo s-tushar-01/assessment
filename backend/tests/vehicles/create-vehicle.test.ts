@@ -41,4 +41,38 @@ describe('createVehicle', () => {
       quantity: 4,
     })
   })
+
+  it('rejects a negative price', async () => {
+    const repository = { create: vi.fn() }
+
+    await expect(
+      createVehicle(
+        {
+          make: 'Toyota',
+          model: 'Corolla',
+          category: 'Sedan',
+          price: -1,
+          quantity: 4,
+        },
+        { repository },
+      ),
+    ).rejects.toThrow('PRICE_INVALID')
+  })
+
+  it('rejects a negative quantity', async () => {
+    const repository = { create: vi.fn() }
+
+    await expect(
+      createVehicle(
+        {
+          make: 'Toyota',
+          model: 'Corolla',
+          category: 'Sedan',
+          price: 24500,
+          quantity: -1,
+        },
+        { repository },
+      ),
+    ).rejects.toThrow('QUANTITY_INVALID')
+  })
 })

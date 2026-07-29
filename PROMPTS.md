@@ -328,3 +328,20 @@ test. Do not implement the vehicle service yet.
 The vehicle creation test is intentionally failing because the vehicle service
 does not exist yet. The minimum vehicle creation service was then added and the
 focused vehicle test passed.
+
+## Entry 18 - Vehicle validation Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue vehicle creation using TDD. Add failing service tests rejecting a
+negative price and a negative quantity. Run the focused vehicle tests, then
+commit and push the Red-stage tests. Do not implement validation yet.
+```
+
+**Status:**
+
+The validation tests are intentionally failing because the vehicle service does
+not yet reject negative prices or quantities.
