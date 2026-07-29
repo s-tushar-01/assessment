@@ -24,6 +24,7 @@ function App() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
+  const [isAdminLogin, setIsAdminLogin] = useState(false)
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
@@ -342,10 +343,10 @@ function App() {
           Dealership inventory
         </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight">
-          {isRegistering ? 'Create account' : 'Sign in'}
+          {isRegistering ? 'Create account' : isAdminLogin ? 'Admin sign in' : 'Sign in'}
         </h1>
         <p className="mt-2 text-sm text-slate-400">
-          Access the vehicle inventory dashboard.
+          {isAdminLogin ? 'Admin access for inventory management.' : 'Access the vehicle inventory dashboard.'}
         </p>
         <form className="mt-8 space-y-5" onSubmit={isRegistering ? handleRegister : handleLogin}>
           <div>
@@ -403,11 +404,23 @@ function App() {
           </button>
           <button
             className="w-full text-sm text-cyan-300 hover:text-cyan-200"
-            onClick={() => setIsRegistering((current) => !current)}
+            onClick={() => {
+              setIsRegistering((current) => !current)
+              setIsAdminLogin(false)
+            }}
             type="button"
           >
             {isRegistering ? 'Back to sign in' : 'Create account'}
           </button>
+          {!isRegistering && (
+            <button
+              className="w-full text-sm text-slate-400 hover:text-slate-200"
+              onClick={() => setIsAdminLogin((current) => !current)}
+              type="button"
+            >
+              {isAdminLogin ? 'User login' : 'Admin login'}
+            </button>
+          )}
         </form>
       </section>
     </main>

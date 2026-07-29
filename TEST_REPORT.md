@@ -6,7 +6,7 @@
 |---|---|
 | Backend Vitest | 36 tests passed across 20 test files |
 | Backend TypeScript build | Passed |
-| Frontend Vitest | 10 tests passed |
+| Frontend Vitest | 11 tests passed |
 | Frontend production build | Passed |
 | Frontend lint | Passed |
 | Playwright browser smoke test | Passed |
