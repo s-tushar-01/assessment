@@ -1312,3 +1312,22 @@ builds and frontend lint passing.
 
 ## Record maintenance
 
+## Entry 64 - Optional broader Playwright flows
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the optional broader browser test requested for the assessment.
+Cover account creation, login, authenticated vehicle creation, search, vehicle
+purchase, stock reduction, and a screenshot. Keep admin browser coverage marked
+optional because the public registration flow creates USER accounts. Document
+how to run the optional flow and update the test report.
+```
+
+**Status:**
+
+Added `e2e/optional_flows.py` and `e2e/README.md`. The optional regular-user
+browser journey passed for account creation, login, vehicle creation, search,
+purchase, and stock reduction. Admin browser credentials remain optional.

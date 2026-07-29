@@ -10,6 +10,7 @@
 | Frontend production build | Passed |
 | Frontend lint | Passed |
 | Playwright browser smoke test | Passed |
+| Optional Playwright user-flow test | Passed |
 
 ## Coverage included
 
@@ -31,6 +32,11 @@ in, opened the inventory dashboard, and captured:
 
 - `artifacts/login.png`
 - `artifacts/inventory-dashboard.png`
+
+- `artifacts/optional-purchase-flow.png`
+
+The broader optional flow is documented in `e2e/README.md` and covers vehicle
+creation, search, purchase, stock reduction, and a purchase screenshot.
 
 ## Notes
 
