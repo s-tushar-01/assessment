@@ -198,7 +198,9 @@ into createApp yet.
 **Status:**
 
 The vehicle application wiring test is intentionally failing because createApp
-currently mounts only the authentication routes.
+currently mounts only the authentication routes. The vehicle route was then
+mounted in createApp and connected to Prisma in the server; the app tests
+passed.
 
 ## Entry 10 - Registration handler composition Red stage
 

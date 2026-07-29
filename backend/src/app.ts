@@ -4,10 +4,15 @@ import {
   type LoginHandler,
   type RegisterHandler,
 } from './modules/auth/auth.routes.js'
+import {
+  createVehicleRouter,
+  type CreateVehicleHandler,
+} from './modules/vehicles/vehicle.routes.js'
 
 export function createApp(dependencies: {
   registerUser: RegisterHandler
   loginUser?: LoginHandler
+  createVehicle?: CreateVehicleHandler
 }) {
   const app = express()
 
@@ -16,6 +21,10 @@ export function createApp(dependencies: {
     '/api/auth',
     createAuthRouter(dependencies.registerUser, dependencies.loginUser),
   )
+
+  if (dependencies.createVehicle) {
+    app.use('/api/vehicles', createVehicleRouter(dependencies.createVehicle))
+  }
 
   return app
 }
