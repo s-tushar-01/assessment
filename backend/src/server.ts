@@ -3,6 +3,7 @@ import { createApp } from './app.js'
 import { createRegisterHandler } from './modules/auth/auth.handler.js'
 import { loginUser } from './modules/auth/auth.service.js'
 import { createVehicle } from './modules/vehicles/vehicle.service.js'
+import { requireAuth } from './middleware/auth.middleware.js'
 import { Prisma, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -51,6 +52,7 @@ const app = createApp({
   registerUser,
   loginUser: login,
   createVehicle: addVehicle,
+  vehicleAuth: requireAuth,
 })
 
 const port = Number(process.env.PORT ?? 3000)

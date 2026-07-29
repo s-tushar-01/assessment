@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, type RequestHandler } from 'express'
 import type {
   VehicleInput,
   VehicleRecord,
@@ -8,10 +8,15 @@ export type CreateVehicleHandler = (
   input: VehicleInput,
 ) => Promise<VehicleRecord>
 
-export function createVehicleRouter(createVehicle: CreateVehicleHandler) {
+export function createVehicleRouter(
+  createVehicle: CreateVehicleHandler,
+  authMiddleware?: RequestHandler,
+) {
   const router = Router()
 
-  router.post('/', async (request, response, next) => {
+  const handlers = authMiddleware ? [authMiddleware] : []
+
+  router.post('/', ...handlers, async (request, response, next) => {
     try {
       const vehicle = await createVehicle(request.body as VehicleInput)
       return response.status(201).json(vehicle)

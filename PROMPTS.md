@@ -421,4 +421,5 @@ wire requireAuth into the vehicle router yet.
 **Status:**
 
 The protected vehicle route test is intentionally failing because the vehicle
-router does not yet apply requireAuth.
+router does not yet apply requireAuth. The router and production app were then
+updated to apply requireAuth to vehicle creation, and the focused tests passed.

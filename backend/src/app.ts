@@ -8,11 +8,13 @@ import {
   createVehicleRouter,
   type CreateVehicleHandler,
 } from './modules/vehicles/vehicle.routes.js'
+import type { RequestHandler } from 'express'
 
 export function createApp(dependencies: {
   registerUser: RegisterHandler
   loginUser?: LoginHandler
   createVehicle?: CreateVehicleHandler
+  vehicleAuth?: RequestHandler
 }) {
   const app = express()
 
@@ -23,7 +25,10 @@ export function createApp(dependencies: {
   )
 
   if (dependencies.createVehicle) {
-    app.use('/api/vehicles', createVehicleRouter(dependencies.createVehicle))
+    app.use(
+      '/api/vehicles',
+      createVehicleRouter(dependencies.createVehicle, dependencies.vehicleAuth),
+    )
   }
 
   return app
