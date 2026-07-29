@@ -30,4 +30,37 @@ describe('registerUser', () => {
       role: 'USER',
     })
   })
+
+  it('rejects an email that is already registered', async () => {
+    const repository = {
+      findByEmail: vi.fn().mockResolvedValue({ id: 'existing-user' }),
+      create: vi.fn(),
+    }
+    const hashPassword = vi.fn()
+
+    await expect(
+      registerUser(
+        { email: 'driver@example.com', password: 'password123' },
+        { repository, hashPassword },
+      ),
+    ).rejects.toThrow('EMAIL_ALREADY_EXISTS')
+
+    expect(hashPassword).not.toHaveBeenCalled()
+    expect(repository.create).not.toHaveBeenCalled()
+  })
+
+  it('rejects passwords shorter than eight characters', async () => {
+    const repository = {
+      findByEmail: vi.fn().mockResolvedValue(null),
+      create: vi.fn(),
+    }
+    const hashPassword = vi.fn()
+
+    await expect(
+      registerUser(
+        { email: 'driver@example.com', password: 'short' },
+        { repository, hashPassword },
+      ),
+    ).rejects.toThrow('PASSWORD_TOO_SHORT')
+  })
 })

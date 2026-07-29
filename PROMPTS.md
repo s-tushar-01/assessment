@@ -105,3 +105,22 @@ the registration implementation yet.
 The first failing registration service test was added and run before
 implementation. The minimal registration service was then added; the focused
 test and backend TypeScript build passed.
+
+## Entry 6 - Registration validation Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue the registration TDD cycle. Add edge-case tests for duplicate emails
+and passwords shorter than eight characters. Run the focused test, confirm the
+Red result, then commit and push the tests. Do not add the missing validation
+implementation yet.
+```
+
+**Status:**
+
+The duplicate-email test passes with the existing implementation. The
+short-password test fails as expected because password-length validation is not
+implemented yet.
