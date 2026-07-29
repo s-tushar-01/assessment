@@ -9,6 +9,7 @@
 | Frontend Vitest | 7 tests passed |
 | Frontend production build | Passed |
 | Frontend lint | Passed |
+| Playwright browser smoke test | Passed |
 
 ## Coverage included
 
@@ -21,6 +22,14 @@
 - Purchase stock refresh and zero-stock button disabling
 - ADMIN-only restock and delete controls
 - API CORS preflight for the Vite frontend origin
+
+## Browser evidence
+
+The Playwright smoke test in `e2e/smoke.py` created a unique account, signed
+in, opened the inventory dashboard, and captured:
+
+- `artifacts/login.png`
+- `artifacts/inventory-dashboard.png`
 
 ## Notes
 

@@ -1232,3 +1232,21 @@ TEST_REPORT.md now document the implemented functionality and verification.
 
 ## Record maintenance
 
+## Entry 60 - Browser smoke test and screenshots
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Run the real local application in a headless browser. Verify account creation,
+login, dashboard navigation, and capture login and inventory screenshots for
+assessment evidence. Keep the Playwright smoke test in the repository and
+record the result in PROMPTS.md.
+```
+
+**Status:**
+
+Browser verification passed against the live backend and frontend servers. The
+smoke test created a unique account, signed in, reached the inventory dashboard,
+and captured `artifacts/login.png` and `artifacts/inventory-dashboard.png`.
