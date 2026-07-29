@@ -311,6 +311,23 @@ The admin authorization tests were initially failing because requireAdmin had
 not yet been implemented. The guard was added and the test chain was corrected
 to run requireAuth before requireAdmin; all 27 backend tests passed.
 
+## Entry 32 - Admin vehicle deletion route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue admin vehicle management using TDD. Write only a failing Supertest
+test for admin DELETE /api/vehicles/:id. Run the test, then commit and push the
+Red-stage test. Do not implement the delete route yet.
+```
+
+**Status:**
+
+The admin deletion route test is intentionally failing because the vehicle
+router does not yet expose the admin-only DELETE endpoint.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
