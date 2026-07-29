@@ -88,6 +88,8 @@ function App() {
   const [inventoryPrice, setInventoryPrice] = useState('')
   const [inventoryQuantity, setInventoryQuantity] = useState('')
   const [isSavingInventory, setIsSavingInventory] = useState(false)
+  const [deleteVehicleTarget, setDeleteVehicleTarget] = useState<Vehicle | null>(null)
+  const [isDeletingVehicle, setIsDeletingVehicle] = useState(false)
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [isLoadingVehicles, setIsLoadingVehicles] = useState(false)
   const [makeFilter, setMakeFilter] = useState('')
@@ -222,14 +224,27 @@ function App() {
     }
   }
 
-  async function handleDelete(vehicleId: string) {
-    if (!window.confirm('Delete this vehicle from inventory?')) return
-    const response = await fetch(`${API_URL}/api/vehicles/${vehicleId}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}` },
-    })
-    if (response.ok) {
-      setVehicles((current) => current.filter((vehicle) => vehicle.id !== vehicleId))
+  function requestDeleteVehicle(vehicle: Vehicle) {
+    setError('')
+    setDeleteVehicleTarget(vehicle)
+  }
+
+  async function confirmDeleteVehicle() {
+    if (!deleteVehicleTarget) return
+    setIsDeletingVehicle(true)
+    try {
+      const response = await fetch(`${API_URL}/api/vehicles/${deleteVehicleTarget.id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}` },
+      })
+      const result = await readResponseBody(response)
+      if (!response.ok) throw new Error(typeof result.message === 'string' ? result.message : 'Unable to delete vehicle')
+      setVehicles((current) => current.filter((vehicle) => vehicle.id !== deleteVehicleTarget.id))
+      setDeleteVehicleTarget(null)
+    } catch (deleteError) {
+      setError(deleteError instanceof Error ? deleteError.message : 'Unable to delete vehicle')
+    } finally {
+      setIsDeletingVehicle(false)
     }
   }
 
@@ -437,6 +452,18 @@ function App() {
               </section>
             </div>
           )}
+          {deleteVehicleTarget && (
+            <div className="modal-backdrop" role="presentation">
+              <section className="vehicle-modal inventory-modal danger-modal" role="dialog" aria-modal="true" aria-labelledby="delete-vehicle-title">
+                <div className="vehicle-modal-header">
+                  <div><p className="modal-eyebrow">Destructive action</p><h2 id="delete-vehicle-title">Delete vehicle?</h2><p>This will permanently remove {deleteVehicleTarget.make} {deleteVehicleTarget.model} from the inventory.</p></div>
+                  <button className="modal-close" onClick={() => setDeleteVehicleTarget(null)} type="button" aria-label="Close delete confirmation">×</button>
+                </div>
+                <div className="delete-warning">This action cannot be undone. Choose Delete vehicle to continue.</div>
+                <div className="vehicle-form-actions delete-actions"><button className="modal-cancel" onClick={() => setDeleteVehicleTarget(null)} type="button">Cancel</button><button className="danger-action" disabled={isDeletingVehicle} onClick={() => void confirmDeleteVehicle()} type="button">{isDeletingVehicle ? 'Deleting...' : 'Delete vehicle'}</button></div>
+              </section>
+            </div>
+          )}
           {error && <p className="error-message" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400" aria-live="polite">Loading vehicles...</p>}
           <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6" id="inventory" onSubmit={handleSearch}>
@@ -498,7 +525,7 @@ function App() {
                     <button onClick={() => openInventoryAction('restock', vehicle)} type="button">
                       Restock
                     </button>
-                    <button onClick={() => void handleDelete(vehicle.id)} type="button">
+                    <button onClick={() => requestDeleteVehicle(vehicle)} type="button">
                       Delete
                     </button>
                   </div>

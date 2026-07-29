@@ -295,6 +295,11 @@ describe('App', () => {
     expect(screen.getByRole('dialog', { name: /restock vehicle/i })).toBeTruthy()
     expect(screen.getByLabelText(/quantity to add/i)).toBeTruthy()
     await user.click(screen.getByRole('button', { name: /cancel/i }))
+
+    await user.click(screen.getByRole('button', { name: /delete$/i }))
+    expect(screen.getByRole('dialog', { name: /delete vehicle/i })).toBeTruthy()
+    expect(screen.getByText(/cannot be undone/i)).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: /cancel/i }))
   })
 
   it('shows the current role and logs out an authenticated user', async () => {

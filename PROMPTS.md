@@ -91,6 +91,7 @@ records retain every prompt and result from the development history.
 | 33 | 90 | Replace edit and restock browser prompts with compact forms |
 | 34 | 91 | Improve dashboard navigation bar |
 | 35 | 92 | Keep zero-stock vehicles visible in inventory |
+| 36 | 93 | Replace delete browser confirmation with an in-app confirmation box |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1676,6 +1677,30 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 93 - In-app delete confirmation
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to replace the browser confirm prompt opened by
+the admin Delete action. Create an accessible in-app confirmation box showing
+the selected vehicle, a clear destructive-action warning, Cancel and Delete
+vehicle options, and deleting feedback. Preserve the existing DELETE request
+and admin behavior, add an interaction test, run frontend tests, build, and
+lint, update the prompt history, then commit and push with the AI co-author
+trailer.
+```
+
+**Status:**
+
+Replaced the browser confirmation with an in-app destructive-action dialog
+that identifies the vehicle, explains that deletion cannot be undone, and
+provides Cancel/Delete options with a deleting state. The 15 frontend tests,
+production build, and lint pass.
+
 
 ## Entry 92 - Preserve zero-stock inventory records
 
