@@ -1438,3 +1438,21 @@ dashboard role badge, logout, complete filters, and empty state implemented.
 
 ## Record maintenance
 
+## Entry 70 - Separate admin login Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add a failing React Testing Library test for a separate Admin login option on
+the login panel. Clicking Admin login must show an Admin sign-in heading and a
+User login option. Keep role authorization backend-controlled; do not allow the
+frontend to choose or forge the ADMIN role. Run the focused test, then commit
+and push the Red-stage test.
+```
+
+**Status:**
+
+The admin-login test is added as the next Red-stage contract. The login panel
+currently provides only the regular user sign-in mode.
