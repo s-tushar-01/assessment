@@ -182,6 +182,23 @@ The application wiring test is intentionally failing because createApp has not
 yet been added. The createApp factory was then added and the application wiring
 test passed.
 
+## Entry 24 - List vehicles route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue GET /api/vehicles using TDD. Write only a failing Supertest test for
+an authenticated user receiving available vehicles. Run the focused route
+test, then commit and push the Red-stage test. Do not implement the route yet.
+```
+
+**Status:**
+
+The list-vehicles route test is intentionally failing because the vehicle
+router does not yet expose GET /api/vehicles.
+
 ## Entry 20 - Vehicle application wiring Red stage
 
 **AI tool:** OpenAI Codex
