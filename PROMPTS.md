@@ -238,6 +238,23 @@ The search route test was initially failing because the vehicle router did not
 expose GET /api/vehicles/search. The route was then added with query parsing,
 Prisma filtering, and authentication; the complete backend suite passed.
 
+## Entry 28 - Vehicle update Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue vehicle management using TDD. Write only a failing service test for
+updating a vehicle by ID with partial fields. Run the test, then commit and
+push the Red-stage test. Do not implement updateVehicle yet.
+```
+
+**Status:**
+
+The update-vehicle test is intentionally failing because updateVehicle has not
+yet been implemented.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
