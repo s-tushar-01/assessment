@@ -237,3 +237,21 @@ suite before continuing.
 The machine already had PostgreSQL using host port 5432, so the Docker database
 was mapped to host port 5433 and the environment examples were updated. Prisma
 then created and applied the initial migration successfully.
+
+## Entry 13 - Login route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue login using TDD. Add only a failing Supertest test for
+POST /api/auth/login with valid credentials and an expected token response.
+Run the focused auth tests, then commit and push the Red-stage test. Do not
+implement the login route yet.
+```
+
+**Status:**
+
+The login route test is intentionally failing because the auth router does not
+yet expose POST /api/auth/login.

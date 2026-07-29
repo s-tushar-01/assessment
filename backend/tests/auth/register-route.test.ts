@@ -48,3 +48,39 @@ describe('POST /api/auth/register', () => {
     expect(response.body).toEqual({ message: 'Email is already registered' })
   })
 })
+
+describe('POST /api/auth/login', () => {
+  it('returns a token for valid credentials', async () => {
+    const registerUser = vi.fn()
+    const loginUser = vi.fn().mockResolvedValue({
+      token: 'jwt-token',
+      user: {
+        id: 'user-1',
+        email: 'driver@example.com',
+        role: 'USER',
+      },
+    })
+    const app = express()
+
+    app.use(express.json())
+    app.use('/api/auth', createAuthRouter(registerUser, loginUser))
+
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'driver@example.com', password: 'password123' })
+
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      token: 'jwt-token',
+      user: {
+        id: 'user-1',
+        email: 'driver@example.com',
+        role: 'USER',
+      },
+    })
+    expect(loginUser).toHaveBeenCalledWith({
+      email: 'driver@example.com',
+      password: 'password123',
+    })
+  })
+})
