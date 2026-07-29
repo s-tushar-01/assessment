@@ -202,3 +202,21 @@ does not exist yet. The handler composition function was added, the server was
 wired to Prisma and bcrypt, and the focused auth tests passed. The backend
 build also passed. Live Prisma migration validation is pending because the
 Docker Desktop Linux engine is not currently running.
+
+## Entry 11 - Login service Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue with the next TDD feature: login. Write only a failing unit test for
+valid login credentials. It should verify password comparison, JWT payload
+creation, and safe user details in the result. Run the test, then commit and
+push it. Do not implement login yet.
+```
+
+**Status:**
+
+The login service test is intentionally failing because loginUser has not yet
+been implemented.
