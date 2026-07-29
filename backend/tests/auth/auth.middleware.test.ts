@@ -27,7 +27,7 @@ describe('requireAuth', () => {
       'development-secret',
     )
 
-    const response = await request
+    const response = await request(app)
       .get('/protected')
       .set('Authorization', `Bearer ${token}`)
 
