@@ -272,4 +272,5 @@ Red-stage test. Do not wire login into createApp yet.
 **Status:**
 
 The application login wiring test is intentionally failing because createApp
-currently mounts only registration.
+currently mounts only registration. Login was then wired into createApp and the
+server's Prisma, bcrypt, and JWT dependencies; the application tests passed.

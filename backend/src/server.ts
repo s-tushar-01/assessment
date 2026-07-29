@@ -1,8 +1,10 @@
 import 'dotenv/config'
 import { createApp } from './app.js'
 import { createRegisterHandler } from './modules/auth/auth.handler.js'
+import { loginUser } from './modules/auth/auth.service.js'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const prisma = new PrismaClient()
 
@@ -14,7 +16,18 @@ const registerUser = createRegisterHandler({
   hashPassword: (password) => bcrypt.hash(password, 12),
 })
 
-const app = createApp({ registerUser })
+const login = (input: Parameters<typeof loginUser>[0]) =>
+  loginUser(input, {
+    repository: {
+      findByEmail: (email) => prisma.user.findUnique({ where: { email } }),
+    },
+    comparePassword: (password, passwordHash) =>
+      bcrypt.compare(password, passwordHash),
+    signToken: (payload) =>
+      jwt.sign(payload, process.env.JWT_SECRET ?? 'development-secret'),
+  })
+
+const app = createApp({ registerUser, loginUser: login })
 
 const port = Number(process.env.PORT ?? 3000)
 
