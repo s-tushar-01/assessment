@@ -8,6 +8,7 @@ describe('registerUser', () => {
       create: vi.fn().mockResolvedValue({
         id: 'user-1',
         email: 'driver@example.com',
+        passwordHash: 'hashed-password',
         role: 'USER',
       }),
     }

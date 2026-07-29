@@ -220,6 +220,23 @@ push it. Do not implement login yet.
 
 The login service test is intentionally failing because loginUser has not yet
 been implemented.
+
+## Entry 15 - Registration response security Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+The local registration smoke test exposed passwordHash in the API response.
+Update the registration unit test so the repository returns a passwordHash but
+the service result does not expose it. Run the test, confirm the Red result,
+then commit and push the failing security test. Do not implement the fix yet.
+```
+
+**Status:**
+
+The test now protects against returning password hashes from registration.
 ## Entry 12 - Local PostgreSQL setup
 
 **AI tool:** OpenAI Codex
