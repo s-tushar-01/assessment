@@ -1548,4 +1548,26 @@ ADMIN users still receive admin permissions from the backend role. All 11
 frontend tests, the TypeScript build, and lint pass.
 
 
+## Entry 76 - Document external admin provisioning
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Add the necessary README documentation for the assessment handoff. Explain
+that registrations default to USER, an authorized admin may promote the first
+account through the externally hosted PostgreSQL database using a safe SQL
+statement, and credentials must never be committed. Also document deployed
+environment variables and Prisma migration deployment. Check the full
+assessment implementation and update the verification documentation.
+```
+
+**Status:**
+
+The README now documents external production-database admin provisioning,
+backend role enforcement, deployment environment variables, and Prisma
+migrations without exposing credentials.
+
+
 ## Record maintenance

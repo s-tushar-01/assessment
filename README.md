@@ -88,6 +88,44 @@ See [TEST_REPORT.md](TEST_REPORT.md) for the latest automated verification.
 The final verification currently passes 36 backend tests and 11 frontend tests,
 along with both production builds and frontend lint.
 
+## Admin account setup
+
+New registrations are intentionally created with the `USER` role. The first
+authorized administrator must be promoted in the deployed PostgreSQL database
+through the database provider's SQL console or an approved client such as
+pgAdmin. The production database is accessed externally for this one-time role
+change; database credentials must never be committed or shared.
+
+After registering the account, run the following statement against the
+deployed database, replacing the email with the authorized account:
+
+```sql
+UPDATE public."User"
+SET "role" = 'ADMIN'
+WHERE "email" = 'admin@example.com';
+```
+
+Verify the role before signing in again:
+
+```sql
+SELECT "email", "role"
+FROM public."User"
+WHERE "email" = 'admin@example.com';
+```
+
+The backend includes the database role in the JWT and enforces admin access on
+delete and restock routes. The frontend only displays admin controls when the
+authenticated backend response identifies the user as `ADMIN`.
+
+## Deployment configuration
+
+For a deployed backend, configure `DATABASE_URL`, `JWT_SECRET`, `PORT`, and
+`FRONTEND_URL` in the hosting provider's environment settings. `FRONTEND_URL`
+must contain the deployed frontend origin. Apply Prisma migrations during the
+backend build or release step with `npx prisma migrate deploy` before starting
+the server. Never put production secrets in `.env.example`, source code, or
+the frontend bundle.
+
 ## My AI Usage
 
 This project is being developed with assistance from OpenAI Codex. AI is being
