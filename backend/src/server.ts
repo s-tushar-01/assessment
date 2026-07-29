@@ -61,7 +61,6 @@ const getVehicles = () =>
     repository: {
       findMany: async () => {
         const vehicles = await prisma.vehicle.findMany({
-          where: { quantity: { gt: 0 } },
           orderBy: { createdAt: 'desc' },
         })
 
@@ -79,7 +78,7 @@ const findVehicles = (
   searchVehicles(filters, {
     repository: {
       search: async (searchFilters) => {
-        const where: Prisma.VehicleWhereInput = { quantity: { gt: 0 } }
+        const where: Prisma.VehicleWhereInput = {}
 
         if (searchFilters.make) {
           where.make = { contains: searchFilters.make, mode: 'insensitive' }

@@ -90,6 +90,7 @@ records retain every prompt and result from the development history.
 | 32 | 89 | Align vehicle price color with the white-blue theme |
 | 33 | 90 | Replace edit and restock browser prompts with compact forms |
 | 34 | 91 | Improve dashboard navigation bar |
+| 35 | 92 | Keep zero-stock vehicles visible in inventory |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1675,6 +1676,30 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 92 - Preserve zero-stock inventory records
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Change the inventory behavior so a vehicle that reaches quantity zero remains
+visible in the inventory instead of disappearing. Remove availability-only
+filters from the backend list and search queries, preserve the disabled
+Purchase state and clear zero-stock messaging in the frontend, add regression
+coverage, run backend and frontend tests/build/lint, update the documentation
+and prompt history, then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Backend list and search queries now return zero-stock vehicles. The frontend
+keeps the vehicle card visible, shows `0 in stock`, and disables Purchase. The
+37 backend tests and 15 frontend tests pass, along with both TypeScript builds
+and frontend lint. The latest browser smoke rerun was blocked by unavailable
+local PostgreSQL at `localhost:5433`.
+
 
 ## Entry 91 - Dashboard navigation bar
 

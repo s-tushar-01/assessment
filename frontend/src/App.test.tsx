@@ -151,6 +151,21 @@ describe('App', () => {
     localStorage.clear()
   })
 
+  it('keeps zero-stock vehicles visible with purchase disabled', async () => {
+    localStorage.setItem('dealership_token', 'token-1')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([
+        { id: 'vehicle-empty', make: 'Nissan', model: 'Rogue', category: 'SUV', price: 25800, quantity: 0 },
+      ]), { status: 200, headers: { 'Content-Type': 'application/json' } }),
+    )
+
+    render(<App />)
+
+    await waitFor(() => expect(screen.getByText('Nissan Rogue')).toBeTruthy())
+    expect(screen.getByText('0 in stock')).toBeTruthy()
+    expect((screen.getByRole('button', { name: /purchase/i }) as HTMLButtonElement).disabled).toBe(true)
+  })
+
   it('searches inventory using make and price filters', async () => {
     const user = userEvent.setup()
     localStorage.setItem('dealership_token', 'token-1')

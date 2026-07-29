@@ -6,11 +6,11 @@
 |---|---|
 | Backend Vitest | 37 tests passed across 20 test files |
 | Backend TypeScript build | Passed |
-| Frontend Vitest | 12 tests passed |
+| Frontend Vitest | 15 tests passed |
 | Frontend production build | Passed |
 | Frontend lint | Passed |
-| Playwright browser smoke test | Passed |
-| Optional Playwright user-flow test | Passed |
+| Playwright browser smoke test | Previously passed; latest local rerun blocked by unavailable PostgreSQL |
+| Optional Playwright user-flow test | Previously passed |
 
 ## Coverage included
 
@@ -21,6 +21,7 @@
 - React login and registration screens
 - Authenticated inventory loading and filtering
 - Purchase stock refresh and zero-stock button disabling
+- Zero-stock vehicles remain visible in inventory results
 - ADMIN-only restock and delete controls
 - ADMIN-only add and edit controls
 - API CORS preflight for the Vite frontend origin
