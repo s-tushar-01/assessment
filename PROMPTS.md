@@ -427,6 +427,25 @@ Connected the purchase service to Prisma using a conditional atomic decrement,
 returned the updated vehicle, and wired it into the production app. All 31
 backend tests and the TypeScript build pass.
 
+## Entry 38 - Vehicle restock Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue inventory operations using TDD. Add failing service tests for an
+admin restockVehicle operation: it must add a positive integer quantity through
+the repository and reject zero or negative quantities with QUANTITY_INVALID.
+Run the focused test, then commit and push the Red-stage test without adding the
+implementation.
+```
+
+**Status:**
+
+The restock tests are intentionally failing because restockVehicle has not yet
+been implemented.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
