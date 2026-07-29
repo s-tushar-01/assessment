@@ -18,6 +18,7 @@ export type UpdateVehicleHandler = (
   input: VehicleUpdateInput,
 ) => Promise<VehicleRecord>
 export type DeleteVehicleHandler = (id: string) => Promise<void>
+export type PurchaseVehicleHandler = (id: string) => Promise<VehicleRecord>
 
 export function createVehicleRouter(
   createVehicle: CreateVehicleHandler,
@@ -27,6 +28,7 @@ export function createVehicleRouter(
   updateVehicle?: UpdateVehicleHandler,
   deleteVehicle?: DeleteVehicleHandler,
   adminMiddleware?: RequestHandler,
+  purchaseVehicle?: PurchaseVehicleHandler,
 ) {
   const router = Router()
 
@@ -72,6 +74,17 @@ export function createVehicleRouter(
       return next(error)
     }
   })
+
+  if (purchaseVehicle) {
+    router.post('/:id/purchase', ...handlers, async (request, response, next) => {
+      try {
+        const vehicle = await purchaseVehicle(request.params.id as string)
+        return response.status(200).json(vehicle)
+      } catch (error) {
+        return next(error)
+      }
+    })
+  }
 
   if (updateVehicle) {
     router.put('/:id', ...handlers, async (request, response, next) => {

@@ -386,6 +386,27 @@ focused test and commit/push the Red-stage test without implementing the route.
 The route test is intentionally failing with HTTP 404 because the purchase
 endpoint has not yet been added.
 
+The authenticated POST /api/vehicles/:id/purchase route was then added to the
+router and app dependency wiring. The focused route test and TypeScript build
+pass.
+
+## Entry 36 - Vehicle purchase route Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum route and app wiring needed to make the purchase route
+test pass. Run the focused test and TypeScript build, update PROMPTS.md, then
+commit and push the Green-stage implementation with the AI co-author trailer.
+```
+
+**Status:**
+
+Added the authenticated purchase route and dependency wiring. The focused route
+test and TypeScript build pass.
+
 ## Entry 24 - List vehicles route Red stage
 
 **AI tool:** OpenAI Codex
