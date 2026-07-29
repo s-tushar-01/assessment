@@ -346,3 +346,21 @@ commit and push the Red-stage tests. Do not implement validation yet.
 The validation tests are intentionally failing because the vehicle service does
 not yet reject negative prices or quantities. The validation rules were then
 implemented and all focused vehicle tests passed.
+
+## Entry 19 - Vehicle creation route Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Continue vehicle creation using TDD. Write only a failing Supertest test for
+POST /api/vehicles with valid vehicle data and an expected 201 response. Run
+the test, then commit and push the Red-stage test. Do not implement the route
+yet.
+```
+
+**Status:**
+
+The vehicle route test is intentionally failing because the vehicle router does
+not exist yet.
