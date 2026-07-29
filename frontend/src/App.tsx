@@ -72,6 +72,29 @@ function App() {
     }
   }
 
+  async function handlePurchase(vehicleId: string) {
+    setError('')
+    try {
+      const response = await fetch(`${API_URL}/api/vehicles/${vehicleId}/purchase`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+        },
+      })
+      const updatedVehicle = await response.json()
+      if (!response.ok) throw new Error(updatedVehicle.error ?? 'Unable to purchase vehicle')
+      setVehicles((currentVehicles) =>
+        currentVehicles.map((vehicle) =>
+          vehicle.id === updatedVehicle.id ? updatedVehicle : vehicle,
+        ),
+      )
+    } catch (purchaseError) {
+      setError(
+        purchaseError instanceof Error ? purchaseError.message : 'Unable to purchase vehicle',
+      )
+    }
+  }
+
   if (isAuthenticated) {
     return (
       <main className="min-h-screen bg-slate-950 px-6 py-12 text-slate-100">
@@ -93,6 +116,7 @@ function App() {
                 <button
                   className="mt-5 w-full rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
                   disabled={vehicle.quantity === 0}
+                  onClick={() => void handlePurchase(vehicle.id)}
                   type="button"
                 >
                   Purchase

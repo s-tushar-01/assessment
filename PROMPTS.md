@@ -68,7 +68,7 @@ records retain every prompt and result from the development history.
 | 12 | 38-41 | Restock service, admin route, and persistent database increment |
 
 This index is the serial implementation order. No later feature was implemented
-before the preceding featureÃ¢â‚¬â„¢s recorded tests and verification.
+before the preceding featureÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s recorded tests and verification.
 
 ## Commit and prompt conventions
 
@@ -1007,4 +1007,26 @@ the purchase interaction.
 The purchase interaction test is added as the next Red-stage contract. Vehicle
 cards currently display a Purchase button without behavior.
 
+## Entry 49 - Frontend purchase interaction Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum purchase interaction needed to make the Red-stage test
+pass. POST to /api/vehicles/:id/purchase with the bearer token, replace the
+updated vehicle in local state, and show errors. Run the frontend build and
+lint, update PROMPTS.md, then commit and push the Green-stage implementation
+with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented authenticated vehicle purchasing, local stock refresh, and error
+handling. Frontend build and lint pass.
+
+
+
 ## Record maintenance
+
