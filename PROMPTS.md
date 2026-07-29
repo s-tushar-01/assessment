@@ -34,8 +34,8 @@ continuous record of the AI-assisted development process.
 ## Chronological development index
 
 The entries below are listed by the order in which the work was carried out.
-Some sections appear later in this file because they were recorded after the
-initial development session; use this index as the authoritative sequence.
+The serial execution log below is the authoritative sequence. The detailed
+records retain every prompt and result from the development history.
 
 1. Assessment analysis and requirements.
 2. Technology-stack decision.
@@ -49,6 +49,26 @@ initial development session; use this index as the authoritative sequence.
 30-32. Vehicle deletion and admin authorization.
 33-37. Vehicle purchase service, authenticated route, and persistent atomic stock decrement.
 38-41. Admin restock service, protected route, and persistent stock increment.
+
+### Serial execution log
+
+| Order | Entries | Work completed |
+|---:|:---:|---|
+| 1 | 1-4 | Assessment review, technology selection, repository setup, and skeleton |
+| 2 | 5-9 | Registration service, validation, routes, errors, and app wiring |
+| 3 | 10 | Registration handler composition and production dependency wiring |
+| 4 | 11-16 | Login service/routes, PostgreSQL setup, security fix, and smoke test |
+| 5 | 17-20 | Vehicle creation, validation, route, and application wiring |
+| 6 | 21-22 | JWT authentication and protected vehicle routes |
+| 7 | 23-25 | Vehicle listing service, route, and PostgreSQL smoke test |
+| 8 | 26-27 | Vehicle search service and authenticated search route |
+| 9 | 28-29 | Vehicle update service and authenticated update route |
+| 10 | 30-32 | Vehicle deletion service, admin authorization, and admin route |
+| 11 | 33-37 | Purchase service, authenticated route, and atomic database decrement |
+| 12 | 38-41 | Restock service, admin route, and persistent database increment |
+
+This index is the serial implementation order. No later feature was implemented
+before the preceding feature’s recorded tests and verification.
 
 ## Commit and prompt conventions
 
