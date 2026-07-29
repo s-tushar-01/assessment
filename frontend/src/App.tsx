@@ -16,6 +16,9 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => Boolean(localStorage.getItem('dealership_token')),
   )
+  const [isAdmin] = useState(
+    () => localStorage.getItem('dealership_role') === 'ADMIN',
+  )
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -66,6 +69,7 @@ function App() {
       }
 
       localStorage.setItem('dealership_token', result.token)
+      localStorage.setItem('dealership_role', result.user.role)
       setIsAuthenticated(true)
     } catch (loginError) {
       setError(loginError instanceof Error ? loginError.message : 'Unable to sign in')
@@ -94,6 +98,37 @@ function App() {
       setError(
         purchaseError instanceof Error ? purchaseError.message : 'Unable to purchase vehicle',
       )
+    }
+  }
+
+  async function handleDelete(vehicleId: string) {
+    if (!window.confirm('Delete this vehicle from inventory?')) return
+    const response = await fetch(`${API_URL}/api/vehicles/${vehicleId}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}` },
+    })
+    if (response.ok) {
+      setVehicles((current) => current.filter((vehicle) => vehicle.id !== vehicleId))
+    }
+  }
+
+  async function handleRestock(vehicleId: string) {
+    const requestedQuantity = window.prompt('How many vehicles should be added?', '1')
+    const quantity = Number(requestedQuantity)
+    if (!Number.isInteger(quantity) || quantity <= 0) return
+    const response = await fetch(`${API_URL}/api/vehicles/${vehicleId}/restock`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+      },
+      body: JSON.stringify({ quantity }),
+    })
+    if (response.ok) {
+      const updatedVehicle = await response.json()
+      setVehicles((current) => current.map((vehicle) =>
+        vehicle.id === updatedVehicle.id ? updatedVehicle : vehicle,
+      ))
     }
   }
 
@@ -169,6 +204,16 @@ function App() {
                 >
                   Purchase
                 </button>
+                {isAdmin && (
+                  <div className="mt-3 flex gap-2">
+                    <button className="flex-1 rounded-xl border border-cyan-400 px-3 py-2 text-sm text-cyan-300" onClick={() => void handleRestock(vehicle.id)} type="button">
+                      Restock
+                    </button>
+                    <button className="flex-1 rounded-xl border border-rose-400 px-3 py-2 text-sm text-rose-300" onClick={() => void handleDelete(vehicle.id)} type="button">
+                      Delete
+                    </button>
+                  </div>
+                )}
               </article>
             ))}
           </div>

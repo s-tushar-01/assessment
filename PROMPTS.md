@@ -68,7 +68,7 @@ records retain every prompt and result from the development history.
 | 12 | 38-41 | Restock service, admin route, and persistent database increment |
 
 This index is the serial implementation order. No later feature was implemented
-before the preceding featureÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s recorded tests and verification.
+before the preceding featureÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢s recorded tests and verification.
 
 ## Commit and prompt conventions
 
@@ -1067,8 +1067,6 @@ Implemented make and minimum-price filters, authenticated search requests, and
 result rendering. Frontend build and lint pass.
 
 
-## Record maintenance
-
 ## Entry 52 - Frontend admin controls Red stage
 
 **AI tool:** OpenAI Codex
@@ -1086,3 +1084,27 @@ role-aware admin controls.
 
 The admin-controls test is added as the next Red-stage contract. The login flow
 does not yet persist the user role or render admin actions.
+
+
+## Entry 53 - Frontend admin controls Green stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Implement the minimum role-aware admin controls needed to make the Red-stage
+test pass. Persist the login role, show Restock and Delete only for ADMIN users,
+and connect those controls to the existing protected backend endpoints. Run the
+frontend build and lint, update PROMPTS.md, then commit and push the Green-stage
+implementation with the AI co-author trailer.
+```
+
+**Status:**
+
+Implemented role persistence, ADMIN-only Restock and Delete controls, protected
+endpoint calls, and local inventory updates. Frontend build and lint pass.
+
+
+## Record maintenance
+
