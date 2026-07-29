@@ -215,4 +215,36 @@ describe('App', () => {
     vi.restoreAllMocks()
     localStorage.clear()
   })
+
+  it('shows the current role and logs out an authenticated user', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('dealership_token', 'user-token')
+    localStorage.setItem('dealership_role', 'USER')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([]), { status: 200 }),
+    )
+
+    render(<App />)
+
+    expect(screen.getByText(/role: user/i)).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: /log out/i }))
+
+    expect(screen.getByRole('heading', { name: /sign in/i })).toBeTruthy()
+    expect(localStorage.getItem('dealership_token')).toBeNull()
+  })
+
+  it('shows the complete vehicle filter set and an empty-state message', async () => {
+    localStorage.setItem('dealership_token', 'user-token')
+    localStorage.setItem('dealership_role', 'USER')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([]), { status: 200 }),
+    )
+
+    render(<App />)
+
+    expect(screen.getByLabelText(/model/i)).toBeTruthy()
+    expect(screen.getByLabelText(/category/i)).toBeTruthy()
+    expect(screen.getByLabelText(/maximum price/i)).toBeTruthy()
+    await waitFor(() => expect(screen.getByText(/no vehicles found/i)).toBeTruthy())
+  })
 })

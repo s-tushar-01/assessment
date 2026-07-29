@@ -1375,3 +1375,22 @@ backend tests and the TypeScript build pass.
 
 ## Record maintenance
 
+## Entry 67 - Frontend dashboard UX Red stage
+
+**AI tool:** OpenAI Codex
+
+**Prompt:**
+
+```text
+Improve the frontend dashboard using TDD. Add failing React Testing Library
+tests for displaying the current USER or ADMIN role, logging out and clearing
+the token, showing model/category/maximum-price filters, and displaying an
+empty-state message when no vehicles are available. Run the focused tests,
+then commit and push the Red-stage tests without implementing the UX changes.
+```
+
+**Status:**
+
+The dashboard UX tests are added as the next Red-stage contract. The current UI
+does not show a role, logout action, complete filter set, or empty inventory
+message.
