@@ -216,6 +216,9 @@ button { cursor: pointer; }
 .modal-cancel { min-height: 44px; border: 1px solid #475569; border-radius: 0.65rem; background: transparent; padding: 0.7rem 1rem; color: #cbd5e1; font-weight: 700; }
 .modal-cancel:hover, .modal-cancel:focus-visible { border-color: #94a3b8; color: white; }
 .admin-card-action:disabled { cursor: wait; opacity: 0.7; }
+.inventory-modal { width: min(100%, 440px); }
+.inventory-modal .vehicle-form-grid { grid-template-columns: 1fr; }
+.inventory-modal .vehicle-form-grid .dashboard-field:last-child { max-width: none; }
 .admin-actions { display: flex; gap: 0.5rem; margin-top: 0.8rem; }
 .admin-actions button { flex: 1; min-height: 44px; border: 1px solid #475569; border-radius: 0.55rem; background: transparent; color: #cbd5e1; font-size: 0.75rem; transition: 200ms ease; }
 .admin-actions button:hover { border-color: #f87171; color: white; background: #1e293b; }

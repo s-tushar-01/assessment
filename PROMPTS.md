@@ -88,6 +88,7 @@ records retain every prompt and result from the development history.
 | 30 | 87 | Make the white-blue interface responsive |
 | 31 | 88 | Polish the Search inventory filter toolbar |
 | 32 | 89 | Align vehicle price color with the white-blue theme |
+| 33 | 90 | Replace edit and restock browser prompts with compact forms |
 | 23 | 79 | UI Pro Max design-system implementation |
 
 This index is the serial implementation order. No later feature was implemented
@@ -1673,6 +1674,30 @@ frontend tests, build, lint, and browser smoke test pass.
 
 
 ## Record maintenance
+
+## Entry 90 - Edit and restock forms
+
+**AI tool:** OpenAI Codex with the `ui-ux-pro-max` skill
+
+**Prompt:**
+
+```text
+Use the UI/UX Pro Max skill to replace the browser prompt dialogs opened by
+Edit inventory and Restock. Create compact in-app accessible forms using the
+existing modal style: Edit inventory should contain Price and Quantity fields,
+while Restock should contain one quantity field. Include close/cancel actions,
+validation, submit feedback, preserve the existing PUT and POST behavior, add
+focused interaction tests, run frontend tests, build, and lint, update the
+prompt history, then commit and push with the AI co-author trailer.
+```
+
+**Status:**
+
+Replaced both browser prompts with compact accessible in-app forms. Edit
+inventory supports price and quantity updates; Restock supports a validated
+quantity increment. Both include cancel/close controls and saving feedback. The
+14 frontend tests, production build, and lint pass.
+
 
 ## Entry 89 - Vehicle price color alignment
 

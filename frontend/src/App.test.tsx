@@ -258,6 +258,30 @@ describe('App', () => {
     expect(screen.queryByRole('dialog', { name: /add vehicle/i })).toBeNull()
   })
 
+  it('uses in-app forms for edit and restock actions', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('dealership_token', 'admin-token')
+    localStorage.setItem('dealership_role', 'ADMIN')
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([
+        { id: 'vehicle-1', make: 'Honda', model: 'Civic', category: 'Sedan', price: 28900, quantity: 3 },
+      ]), { status: 200, headers: { 'Content-Type': 'application/json' } }),
+    )
+
+    render(<App />)
+    await waitFor(() => expect(screen.getByText('Honda Civic')).toBeTruthy())
+    await user.click(screen.getByRole('button', { name: /edit inventory/i }))
+    expect(screen.getByRole('dialog', { name: /edit inventory/i })).toBeTruthy()
+    expect(screen.getByLabelText(/^price$/i)).toBeTruthy()
+    expect(screen.getByLabelText(/^quantity$/i)).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: /cancel/i }))
+
+    await user.click(screen.getByRole('button', { name: /restock/i }))
+    expect(screen.getByRole('dialog', { name: /restock vehicle/i })).toBeTruthy()
+    expect(screen.getByLabelText(/quantity to add/i)).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: /cancel/i }))
+  })
+
   it('shows the current role and logs out an authenticated user', async () => {
     const user = userEvent.setup()
     localStorage.setItem('dealership_token', 'user-token')

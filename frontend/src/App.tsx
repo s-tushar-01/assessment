@@ -12,6 +12,11 @@ type Vehicle = {
   quantity: number
 }
 
+type InventoryAction = {
+  mode: 'edit' | 'restock'
+  vehicle: Vehicle
+} | null
+
 async function readResponseBody(response: Response): Promise<Record<string, unknown>> {
   try {
     const body: unknown = await response.json()
@@ -79,6 +84,10 @@ function App() {
   const [isAddVehicleOpen, setIsAddVehicleOpen] = useState(false)
   const [isAddingVehicle, setIsAddingVehicle] = useState(false)
   const [newVehicle, setNewVehicle] = useState({ make: '', model: '', category: '', price: '', quantity: '' })
+  const [inventoryAction, setInventoryAction] = useState<InventoryAction>(null)
+  const [inventoryPrice, setInventoryPrice] = useState('')
+  const [inventoryQuantity, setInventoryQuantity] = useState('')
+  const [isSavingInventory, setIsSavingInventory] = useState(false)
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [isLoadingVehicles, setIsLoadingVehicles] = useState(false)
   const [makeFilter, setMakeFilter] = useState('')
@@ -224,24 +233,11 @@ function App() {
     }
   }
 
-  async function handleRestock(vehicleId: string) {
-    const requestedQuantity = window.prompt('How many vehicles should be added?', '1')
-    const quantity = Number(requestedQuantity)
-    if (!Number.isInteger(quantity) || quantity <= 0) return
-    const response = await fetch(`${API_URL}/api/vehicles/${vehicleId}/restock`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
-      },
-      body: JSON.stringify({ quantity }),
-    })
-    if (response.ok) {
-      const updatedVehicle = await response.json()
-      setVehicles((current) => current.map((vehicle) =>
-        vehicle.id === updatedVehicle.id ? updatedVehicle : vehicle,
-      ))
-    }
+  function openInventoryAction(mode: 'edit' | 'restock', vehicle: Vehicle) {
+    setError('')
+    setInventoryAction({ mode, vehicle })
+    setInventoryPrice(String(vehicle.price))
+    setInventoryQuantity(mode === 'edit' ? String(vehicle.quantity) : '1')
   }
 
   async function handleAddVehicle(event: FormEvent<HTMLFormElement>) {
@@ -282,21 +278,43 @@ function App() {
     }
   }
 
-  async function handleEditVehicle(vehicle: Vehicle) {
-    const price = Number(window.prompt('Price', String(vehicle.price)))
-    const quantity = Number(window.prompt('Quantity', String(vehicle.quantity)))
-    if (!Number.isFinite(price) || !Number.isInteger(quantity)) return
-    const response = await fetch(`${API_URL}/api/vehicles/${vehicle.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
-      },
-      body: JSON.stringify({ price, quantity }),
-    })
-    if (response.ok) {
-      const updatedVehicle = await response.json()
+  async function handleInventoryAction(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!inventoryAction) return
+
+    const price = Number(inventoryPrice)
+    const quantity = Number(inventoryQuantity)
+    const isEdit = inventoryAction.mode === 'edit'
+    if ((isEdit && (!Number.isFinite(price) || price < 0)) || !Number.isInteger(quantity) || quantity < (isEdit ? 0 : 1)) {
+      setError(isEdit ? 'Enter a valid price and whole-number quantity.' : 'Enter a whole-number restock quantity greater than zero.')
+      return
+    }
+
+    setError('')
+    setIsSavingInventory(true)
+    try {
+      const response = await fetch(
+        isEdit
+          ? `${API_URL}/api/vehicles/${inventoryAction.vehicle.id}`
+          : `${API_URL}/api/vehicles/${inventoryAction.vehicle.id}/restock`,
+        {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('dealership_token') ?? ''}`,
+          },
+          body: JSON.stringify(isEdit ? { price, quantity } : { quantity }),
+        },
+      )
+      const result = await readResponseBody(response)
+      if (!response.ok) throw new Error(typeof result.message === 'string' ? result.message : 'Unable to update inventory')
+      const updatedVehicle = result as unknown as Vehicle
       setVehicles((current) => current.map((item) => item.id === updatedVehicle.id ? updatedVehicle : item))
+      setInventoryAction(null)
+    } catch (inventoryError) {
+      setError(inventoryError instanceof Error ? inventoryError.message : 'Unable to update inventory')
+    } finally {
+      setIsSavingInventory(false)
     }
   }
 
@@ -398,6 +416,23 @@ function App() {
               </section>
             </div>
           )}
+          {inventoryAction && (
+            <div className="modal-backdrop" role="presentation">
+              <section className="vehicle-modal inventory-modal" role="dialog" aria-modal="true" aria-labelledby="inventory-action-title">
+                <div className="vehicle-modal-header">
+                  <div><p className="modal-eyebrow">Admin inventory</p><h2 id="inventory-action-title">{inventoryAction.mode === 'edit' ? 'Edit inventory' : 'Restock vehicle'}</h2><p>{inventoryAction.vehicle.make} {inventoryAction.vehicle.model}</p></div>
+                  <button className="modal-close" onClick={() => setInventoryAction(null)} type="button" aria-label="Close inventory form">×</button>
+                </div>
+                <form className="vehicle-form" onSubmit={(event) => void handleInventoryAction(event)}>
+                  <div className="vehicle-form-grid">
+                    {inventoryAction.mode === 'edit' && <div className="dashboard-field"><label htmlFor="inventory-price">Price</label><input id="inventory-price" min="0" required type="number" value={inventoryPrice} onChange={(event) => setInventoryPrice(event.target.value)} /></div>}
+                    <div className="dashboard-field"><label htmlFor="inventory-quantity">{inventoryAction.mode === 'edit' ? 'Quantity' : 'Quantity to add'}</label><input id="inventory-quantity" min={inventoryAction.mode === 'edit' ? '0' : '1'} required step="1" type="number" value={inventoryQuantity} onChange={(event) => setInventoryQuantity(event.target.value)} /></div>
+                  </div>
+                  <div className="vehicle-form-actions"><button className="modal-cancel" onClick={() => setInventoryAction(null)} type="button">Cancel</button><button className="admin-card-action" disabled={isSavingInventory} type="submit">{isSavingInventory ? 'Saving...' : inventoryAction.mode === 'edit' ? 'Save changes' : 'Restock vehicle'}</button></div>
+                </form>
+              </section>
+            </div>
+          )}
           {error && <p className="error-message" role="alert">{error}</p>}
           {isLoadingVehicles && <p className="mt-8 text-slate-400" aria-live="polite">Loading vehicles...</p>}
           <form className="search-panel mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6" onSubmit={handleSearch}>
@@ -453,10 +488,10 @@ function App() {
                 </div>
                 {isAdmin && (
                   <div className="admin-actions">
-                    <button onClick={() => void handleEditVehicle(vehicle)} type="button">
+                    <button onClick={() => openInventoryAction('edit', vehicle)} type="button">
                       Edit inventory
                     </button>
-                    <button onClick={() => void handleRestock(vehicle.id)} type="button">
+                    <button onClick={() => openInventoryAction('restock', vehicle)} type="button">
                       Restock
                     </button>
                     <button onClick={() => void handleDelete(vehicle.id)} type="button">
